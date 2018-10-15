@@ -14,7 +14,7 @@ def speak():
 	return "Speak!"
 
 @app.route("/game")
-def speak():
+def game():
 	return "Game!"
 
 if __name__ == '__main__':
