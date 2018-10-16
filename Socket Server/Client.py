@@ -3,8 +3,8 @@ import time
 import json
 
 #serverName = 'localhost'
-serverName = "127.0.0.5"
-serverPort = 50007
+serverName = "10.0.0.3"
+serverPort = 9100
 clientSocket = socket(AF_INET, SOCK_DGRAM)
 
 integer = 15

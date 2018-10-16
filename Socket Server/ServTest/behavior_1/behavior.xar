@@ -17,26 +17,34 @@ class MyClass(GeneratedClass):
 
     def onInput_onStart(self):
         #self.onStopped() #activate the output of the box
-        server_host = "127.0.0.5"
-        server_port = 50007
 
-        server_socket = socket(AF_INET, SOCK_DGRAM)
+        #set host and IP address
+        server_host = "10.0.0.3"
+        server_port = 9100
+
+        #create UDP object
+        server_socket = socket(AF_INET, SOCK_DGRAM) #SOCK_STREAM for TCP
+
+        #bind IP:port to socket
         server_socket.bind((server_host, server_port))
         self.logger.debug( 'The server is ready to receive ' )
 
         while True:
-            #accept packet
+            #Wait for packet to be sent
             packet, client_address = server_socket.recvfrom(1024)
-            decoded_packet = packet.decode()
-            parsed_json = json.loads(decoded_packet)
 
-            #response
-            parsed_json['integer'] = 225
+            #once file is received:
+            decoded_packet = packet.decode() #decode packet
+            parsed_json = json.loads(decoded_packet) #parse json
+
+            #response to client
+            parsed_json['integer'] = 225 #change integer value to 225
             decoded_packet = json.dumps(parsed_json) #serializes data
             server_socket.sendto(decoded_packet.encode(),client_address) #encode data and send packet to client
 
         pass
 
     def onInput_onStop(self):
+#         server_socket.close()
         self.onUnload() #it is recommended to reuse the clean-up as the box is stopped
         self.onStopped() #activate the output of the box]]></content></script><Input name="onLoad" type="1" type_size="1" nature="0" inner="1" tooltip="Signal sent when diagram is loaded." id="1" /><Input name="onStart" type="1" type_size="1" nature="2" inner="0" tooltip="Box behavior starts when a signal is received on this input." id="2" /><Input name="onStop" type="1" type_size="1" nature="3" inner="0" tooltip="Box behavior stops when a signal is received on this input." id="3" /><Output name="onStopped" type="1" type_size="1" nature="1" inner="0" tooltip="Signal sent when box behavior is finished." id="4" /></Box><Link inputowner="1" indexofinput="2" outputowner="0" indexofoutput="2" /><Link inputowner="0" indexofinput="4" outputowner="1" indexofoutput="4" /></Diagram></BehaviorKeyframe></BehaviorLayer></Timeline></Box></ChoregrapheProject>
