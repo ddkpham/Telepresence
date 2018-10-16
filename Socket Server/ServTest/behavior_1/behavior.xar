@@ -5,6 +5,7 @@ from socket import *
 class MyClass(GeneratedClass):
     def __init__(self):
         GeneratedClass.__init__(self)
+        self.tts = ALProxy('ALTextToSpeech')
 
     def onLoad(self):
         #put initialization code here
@@ -20,7 +21,7 @@ class MyClass(GeneratedClass):
 
         #set host and IP address
         server_host = "10.0.0.3"
-        server_port = 9100
+        server_port = 9108
 
         #create UDP object
         server_socket = socket(AF_INET, SOCK_DGRAM) #SOCK_STREAM for TCP
@@ -37,8 +38,13 @@ class MyClass(GeneratedClass):
             decoded_packet = packet.decode() #decode packet
             parsed_json = json.loads(decoded_packet) #parse json
 
+            #do something with json
+            #if((parse_json['test'])=='15'){
+            self.tts.say("Hello, I am pepper!")
+            #}
+            parsed_json['test'] = 225 #change integer value to 225
+
             #response to client
-            parsed_json['integer'] = 225 #change integer value to 225
             decoded_packet = json.dumps(parsed_json) #serializes data
             server_socket.sendto(decoded_packet.encode(),client_address) #encode data and send packet to client
 
