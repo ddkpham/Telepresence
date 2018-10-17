@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package version="0.0.0" uuid="servtest-afdae3">
+<package uuid="servtest-afdae3" version="0.0.0">
  <names>
   <name lang="en_US">Untitled</name>
  </names>
@@ -15,5 +15,11 @@
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
+  <dialogContent typeVersion="1.0" topicName="Hello">
+   <topic language="en_US" path="Hello/Hello_enu.top"/>
+  </dialogContent>
+  <dialogContent typeVersion="1.0" topicName="Sport">
+   <topic language="en_US" path="Sport/Sport_enu.top"/>
+  </dialogContent>
  </contents>
 </package>

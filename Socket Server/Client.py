@@ -3,8 +3,9 @@ import time
 import json
 
 #set server IP and Port
-serverName = "10.0.0.3"
-serverPort = 9108
+serverName = "localhost"
+#serverName = "10.0.0.3"
+serverPort = 9015
 #create socket
 clientSocket = socket(AF_INET, SOCK_DGRAM)
 

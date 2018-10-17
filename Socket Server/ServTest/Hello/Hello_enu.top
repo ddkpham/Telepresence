@@ -1,0 +1,14 @@
+topic: ~Hello()
+language: enu
+
+u:(Hello) Hello, young Padawan
+
+u:(Good morning) Let's start a wonderful day
+
+u:([hi hello wassuppp]) beep blorp
+
+u:([updog]) What's updog?
+
+u:(Not much [what how] about you?) HAHAHA
+
+u:(15) FIFTEEN DETECTED!!
