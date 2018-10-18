@@ -15,10 +15,10 @@
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
-  <dialogContent typeVersion="1.0" topicName="Hello">
+  <dialogContent topicName="Hello" typeVersion="1.0">
    <topic language="en_US" path="Hello/Hello_enu.top"/>
   </dialogContent>
-  <dialogContent typeVersion="1.0" topicName="Sport">
+  <dialogContent topicName="Sport" typeVersion="1.0">
    <topic language="en_US" path="Sport/Sport_enu.top"/>
   </dialogContent>
  </contents>

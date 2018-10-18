@@ -8,9 +8,7 @@
         <Dialog name="Hello" src="Hello/Hello.dlg" />
         <Dialog name="Sport" src="Sport/Sport.dlg" />
     </Dialogs>
-    <Resources>
-        <File name="proto" src="proto.csv" />
-    </Resources>
+    <Resources />
     <Topics>
         <Topic name="Hello_enu" src="Hello/Hello_enu.top" topicName="Hello" language="en_US" />
         <Topic name="Sport_enu" src="Sport/Sport_enu.top" topicName="Sport" language="en_US" />
