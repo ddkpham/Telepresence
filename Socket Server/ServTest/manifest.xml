@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<package uuid="servtest-afdae3" version="0.0.0">
+ <names>
+  <name lang="en_US">Untitled</name>
+ </names>
+ <supportedLanguages>
+  <language>en_US</language>
+ </supportedLanguages>
+ <descriptionLanguages>
+  <language>en_US</language>
+ </descriptionLanguages>
+ <contents>
+  <behaviorContent path="behavior_1">
+   <userRequestable/>
+   <nature>interactive</nature>
+   <permissions/>
+  </behaviorContent>
+  <dialogContent topicName="Hello" typeVersion="1.0">
+   <topic language="en_US" path="Hello/Hello_enu.top"/>
+  </dialogContent>
+  <dialogContent topicName="Sport" typeVersion="1.0">
+   <topic language="en_US" path="Sport/Sport_enu.top"/>
+  </dialogContent>
+ </contents>
+</package>
