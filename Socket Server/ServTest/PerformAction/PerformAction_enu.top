@@ -1,0 +1,26 @@
+topic: ~PerformAction()
+language: enu
+
+# Defining extra concepts out of words or group of words
+#concept:(hello) [hello hi hey "good morning" greetings]
+#concept: (action) [move jump run fight walk ]
+concept: (no) [no nope "don't want" "no way" never "not at all"]
+concept:(yes) [yes "all right" sure "why not" ok certainly "very well" yep yea definitely amen]
+
+u: (can you dance) "watch me disco ^run(asnimation/Entertainment/Dances/Pepper/Disco) I know I'm good"
+u: (what can you do) I can do lots of things ^nextProposal
+
+
+proposal:I can show you some killer dance moves if you'd like
+    u1:(~yes) watch me disco ^run(animation/Entertainment/Dances/Pepper/Disco) I know I'm good ^nextProposal
+    u1:(~no) You are kind of a buzz kill 
+    
+proposal:I can play guitar. Want to see? 
+    u1:(~yes) watch me play guitar ^run(animation/Entertainment/Music/Pepper/Guitar) #jealous? ^gotoRandom(dance)
+    u1:(~no) you are lame 
+
+# Catching inputs and triggering outputs
+#u:(e:onStart) $onStopped=1
+
+# Replying to speech
+#u:(~hello) ~hello

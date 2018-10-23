@@ -2,6 +2,7 @@ topic: ~Sport()
 language: enu
 
 u:(let's talk about sport) OK, guess what sport I like
+u:(what is your fave sport) football!
 
 u:^private(do you like tennis) no, I can't play tennis
 u:^private(do you like yoga) yes, would you like to do yoga with me?

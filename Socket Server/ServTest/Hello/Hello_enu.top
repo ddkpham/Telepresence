@@ -4,11 +4,28 @@ language: enu
 #u:(Hello) Hello, young Padawan
 
 u:(Good morning) Let's start a wonderful day
+u:(my name is _*) nice to meet you $1 $name=$1
+
 
 u:([hi hello wassuppp]) beep blorp
 
-u:([updog]) What's updog?
+u:([updog]) ^run(animations/Stand/Gestures/Enthusiastic_4) What's updog you cool?
 
+u: (["what is" "give me" "tell me" ] your name) of course. My name is Pepper. Nice to meet you.
 u:(Not much [what how] about you?) HAHAHA
+u:("sit down") ok i sit down $sit=1
+u:(["can you" please] stand up {now}) ok i stand up $standup=1
 
 u:(15) FIFTEEN DETECTED!!
+
+proposal: take a cup and fill it with milk
+proposal: add 3 strawberries
+proposal: add some vanilla ice cream
+proposal: close the cup with the lid and shake it
+proposal: you did it! you can enjoy your milkshake
+
+u:(I want a milkshake)
+    ok, let's do it.
+    follow my instruction and say next when you are ready for the next step.
+
+u:(next) ^nextProposal
