@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e6cd3080-0219-40b4-a35f-2fb157f34457" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/Socket Server/Client.py" afterPath="$PROJECT_DIR$/Socket Server/Client.py" />
-      <change beforePath="$PROJECT_DIR$/Socket Server/ServTest/Hello/Hello_enu.top" afterPath="$PROJECT_DIR$/Socket Server/ServTest/Hello/Hello_enu.top" />
-      <change beforePath="$PROJECT_DIR$/Socket Server/ServTest/ServTest.pml" afterPath="$PROJECT_DIR$/Socket Server/ServTest/ServTest.pml" />
-      <change beforePath="$PROJECT_DIR$/Socket Server/ServTest/Sport/Sport_enu.top" afterPath="$PROJECT_DIR$/Socket Server/ServTest/Sport/Sport_enu.top" />
-      <change beforePath="$PROJECT_DIR$/Socket Server/ServTest/behavior_1/behavior.xar" afterPath="$PROJECT_DIR$/Socket Server/ServTest/behavior_1/behavior.xar" />
-      <change beforePath="$PROJECT_DIR$/Socket Server/ServTest/manifest.xml" afterPath="$PROJECT_DIR$/Socket Server/ServTest/manifest.xml" />
-    </list>
+    <list default="true" id="e6cd3080-0219-40b4-a35f-2fb157f34457" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
