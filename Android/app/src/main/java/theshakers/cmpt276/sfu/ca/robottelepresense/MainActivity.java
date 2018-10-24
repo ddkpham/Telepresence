@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import theshakers.cmpt276.sfu.ca.robottelepresense.Server.ServerConnection;
-
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     Button connectBtn = null;
 
@@ -21,6 +19,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        new ServerConnection().execute();
+        //new ServerConnection().execute();
     }
 }

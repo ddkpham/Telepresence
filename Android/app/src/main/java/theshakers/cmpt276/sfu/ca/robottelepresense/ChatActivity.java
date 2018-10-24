@@ -1,4 +1,4 @@
-package theshakers.cmpt276.sfu.ca.robottelepresense.Server;
+package theshakers.cmpt276.sfu.ca.robottelepresense;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
