@@ -18,11 +18,11 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.R;
  */
 
 public class ChatActivity extends AppCompatActivity {
-    MessageInput inputView = null;
-    MessagesList messagesList = null;
-    MessagesListAdapter<Message> adapter = null;
-    String senderId = "User";
-    //Boolean isSender = false;
+    private final String TAG = "ChatActivity";
+    private MessageInput inputView = null;
+    private MessagesList messagesList = null;
+    private MessagesListAdapter<Message> adapter = null;
+    private String senderId = "User";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
