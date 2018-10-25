@@ -9,7 +9,7 @@ u:(my name is _*) nice to meet you $1 $name=$1
 
 
 
-u:([updog]) ^run(animations/Stand/Gestures/Enthusiastic_4) What's updog you cool?
+u:([updog]) ^runBehavior(animations/Stand/Gestures/Enthusiastic_4) What's updog you cool?
 
 u:(Not much [what how] about you?) HAHAHA
 u:("sit down") ok i sit down $sit=1

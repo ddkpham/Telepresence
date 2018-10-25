@@ -21,11 +21,11 @@
     </Topics>
     <IgnoredPaths>
         <Path src="Sport/Sport.dlg" />
-        <Path src="Sport/Sport_enu.top" />
         <Path src="Hello/Hello.dlg" />
-        <Path src="translations/translation_en_US.ts" />
         <Path src="behavior_1/behavior.xar" />
         <Path src="Hello/Hello_enu.top" />
+        <Path src="translations/translation_en_US.ts" />
+        <Path src="Sport/Sport_enu.top" />
     </IgnoredPaths>
     <Translations auto-fill="en_US">
         <Translation name="translation_en_US" src="translations/translation_en_US.ts" language="en_US" />
