@@ -11,6 +11,7 @@
         <Dialog name="Introduction" src="Introduction/Introduction.dlg" />
         <Dialog name="Pepper_Status" src="Pepper_Status/Pepper_Status.dlg" />
         <Dialog name="Connection" src="Connection/Connection.dlg" />
+        <Dialog name="Pepper_Sensor" src="Pepper_Sensor/Pepper_Sensor.dlg" />
     </Dialogs>
     <Resources>
         <File name="johnmayer" src="johnmayer.wav" />
@@ -24,6 +25,7 @@
         <Topic name="Introduction_enu" src="Introduction/Introduction_enu.top" topicName="Introduction" language="en_US" />
         <Topic name="Pepper_Status_enu" src="Pepper_Status/Pepper_Status_enu.top" topicName="Pepper_Status" language="en_US" />
         <Topic name="Connection_enu" src="Connection/Connection_enu.top" topicName="Connection" language="en_US" />
+        <Topic name="Pepper_Sensor_enu" src="Pepper_Sensor/Pepper_Sensor_enu.top" topicName="Pepper_Sensor" language="en_US" />
     </Topics>
     <IgnoredPaths>
         <Path src=".DS_Store" />

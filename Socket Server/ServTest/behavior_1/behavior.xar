@@ -11,6 +11,28 @@ class MyClass(GeneratedClass):
         self.server_host = "10.0.0.3"
         self.server_port = 9051
 
+
+        self.pckman = ALProxy('PackageManager')
+
+        #get packageinfolist and get name for each package
+#        packagelist = self.pckman.packages2()
+#        self.logger.debug(self.pckman.packages())
+#        self.packagenames = []
+#        for package in packagelist:
+#            for item in package:
+#                if item[0] == 'elems':
+#                    for elems in item:
+#                        for elemitem in elems:
+#                            if elemitem[0] == 'services':
+#                                inneritem = elemitem[1]
+#                                for innerelem in inneritem:
+#                                    for nameitem in innerelem:
+#                                        if nameitem[0] == 'name':
+#                                            self.packagenames.append(nameitem[1])
+
+#        #self.logger.debug(self.packagenames)
+#        self.memory.insertData('InstalledPackages',self.packagenames)
+
     def onLoad(self):
 
         pass
@@ -53,9 +75,12 @@ class MyClass(GeneratedClass):
             #do something with json
             self.logger.debug("Received message = "+ str(parsed_json['msg']))
 
+            self.memory.insertData('ActualLastMessage',self.memory.getData("Dialog/LastInput"))
+
             self.dialog.forceInput(str(parsed_json['msg']))
 
             response = self.memory.getData("Dialog/Answered")
+
 
             #Check if invalid input to dialog system then output default message
             if(last_output == response or response==""):

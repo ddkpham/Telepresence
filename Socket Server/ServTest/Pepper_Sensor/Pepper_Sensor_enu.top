@@ -1,0 +1,9 @@
+topic: ~Pepper_Sensor()
+language: enu
+
+u:(Are you watching anyone?) ^first["No, I am not watching anyone. $ALBasicAwareness/HumanTracked==-1" "Yes, I am watching someone."]
+
+u: (How far are they from you?) ^first["Sorry, I am not watching anyone right now $Launchpad/DistanceOfTrackedHuman==-1" "They are $Launchpad/DistanceOfTrackedHuman meters away from me"]
+
+u:(What was the last thing someone said to you?) They said $ActualLastMessage
+
