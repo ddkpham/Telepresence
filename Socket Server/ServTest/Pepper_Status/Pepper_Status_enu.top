@@ -9,4 +9,4 @@ u: (Are you cold?) ^first["A little bit, my head is $Device/SubDeviceList/Head/T
 
 u: (Are you plugged in?) ^first["Yes, I am plugged in. $BatteryPowerPluggedChanged==true" "No, I am not plugged in."]
 
-#u: (What is installed?) $InstalledPackages
+u: (What is installed?) $testTuple

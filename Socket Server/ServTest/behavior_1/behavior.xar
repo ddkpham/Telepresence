@@ -15,23 +15,24 @@ class MyClass(GeneratedClass):
         self.pckman = ALProxy('PackageManager')
 
         #get packageinfolist and get name for each package
-#        packagelist = self.pckman.packages2()
-#        self.logger.debug(self.pckman.packages())
-#        self.packagenames = []
-#        for package in packagelist:
-#            for item in package:
-#                if item[0] == 'elems':
-#                    for elems in item:
-#                        for elemitem in elems:
-#                            if elemitem[0] == 'services':
-#                                inneritem = elemitem[1]
-#                                for innerelem in inneritem:
-#                                    for nameitem in innerelem:
-#                                        if nameitem[0] == 'name':
-#                                            self.packagenames.append(nameitem[1])
-
-#        #self.logger.debug(self.packagenames)
-#        self.memory.insertData('InstalledPackages',self.packagenames)
+        packagelist = self.pckman.packages2()
+        self.packagenames = []
+        for package in packagelist:
+            for item in package:
+                if item[0] == 'elems':
+                    for elems in item:
+                        for elemitem in elems:
+                            if elemitem[0] == 'names':
+                                inneritem = elemitem[1]
+                                for nameselem in inneritem:
+                                    if nameselem[0] == 'en_US':
+                                        self.packagenames.append(nameselem[1])
+        self.logger.debug(self.packagenames)
+        packageNamesString = "";
+        for x in self.packagenames:
+            packageNamesString += x
+        self.memory.insertData('InstalledPackages',self.packagenames)
+        self.memory.insertData('testTuple',packageNamesString)
 
     def onLoad(self):
 
