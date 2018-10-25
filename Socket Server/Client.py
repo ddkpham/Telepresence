@@ -11,7 +11,7 @@ serverPort = 9051
 clientSocket = socket(AF_INET, SOCK_DGRAM)
 
 #create JSON Packet
-packet = '{"msg": "no u"}'
+packet = '{"msg": "good morning"}'
 print("Packet to send contains:" + packet)
 
 #send packet to server
