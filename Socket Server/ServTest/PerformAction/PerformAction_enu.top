@@ -1,0 +1,44 @@
+topic: ~PerformAction()
+language: enu
+
+# Defining extra concepts out of words or group of words
+#concept:(hello) [hello hi hey "good morning" greetings]
+#concept: (action) [move jump run fight walk ]
+concept: (no) [no nope "don't want" "no way" never "not at all"]
+concept:(yes) [yes "all right" sure "why not" ok certainly "very well" yep yea definitely amen]
+
+u: (can you dance) I can disco like there is no tomorrow $discoAction = 1 $danceForMe = 1
+u: (sing a song) Only the best song in the world $guitarAction = 1 $loveSong = 1 
+
+
+proposal:%random You might not think this. But Im a pretty good dancer. Do you want to see me do a little disco. 
+    u1:(~yes) watch me disco  $discoAction = 1 $danceForMe = 1  I know I'm good ^gotoRandom(random)
+    u1:(~no) You are kind of a buzz kill $name
+    u1:(can you repeat) Of course! ^previousProposal
+    
+proposal: %random When I was little, I learned how to play the guitar. Want to see? 
+    u1:(~yes) watch me play guitar ^run(animation/Entertainment/Music/Pepper/Guitar) $guitarAction = 1 $playSong = 1 ^gotoRandom(random)
+    u1:(~no) you are lame $name 
+    u1:(can you repeat) Of course! ^previousProposal
+    
+proposal:%random Growing up, mother had the most beautiful voice. I can't sing at all. But I like to try anyways. Want to hear? 
+    u1:(~yes) This is one of my favourite songs. It makes me wonder what being human is all about $loveSong = 1 ^gotoRandom(random)
+    u1:(~no) what. But why wouldnt you want to hear my lovely voice? ^gotoRandom(random)
+    u1:(can you repeat) Of course! ^previousProposal
+
+proposal: %random Would you like to have a conversation about food? I can't eat so it is one of my favourite things to talk about.
+    u1: (~yes) that is awesome! ^goto(food)
+    u1: (~no) I guess my imagination will starve too ^gotoRandom(random)
+
+proposal: %food Did you know that a third of people under the age of thirty in british columbia are vegetarians?
+    u1:(~yes) you are such a smarty pants! have you ever thought about going onto a plant-based diet? 
+        u2:(~yes) I'm sure our animal friends would love that... and your arteries too! ^gotoRandom(random)
+        u2:(~no) I don't blame you. I hear that cheeseburgers are pretty good. ^gotoRandom(random)
+    u1:(~no) Me neither, until I met my fine programmers! ^gotoRandom(random)
+    
+
+# Catching inputs and triggering outputs
+#u:(e:onStart) $onStopped=1
+
+# Replying to speech
+#u:(~hello) ~hello

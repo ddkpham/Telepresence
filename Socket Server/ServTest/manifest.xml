@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <package uuid="servtest-afdae3" version="0.0.0">
  <names>
-  <name lang="en_US">Untitled</name>
+  <name lang="en_US">PepChat</name>
  </names>
  <supportedLanguages>
   <language>en_US</language>
@@ -15,8 +15,14 @@
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
-  <dialogContent topicName="Sport" typeVersion="1.0">
-   <topic path="Sport/Sport_enu.top" language="en_US"/>
+  <dialogContent topicName="PerformAction" typeVersion="1.0">
+   <topic path="PerformAction/PerformAction_enu.top" language="en_US"/>
+  </dialogContent>
+  <dialogContent topicName="ExampleDialog" typeVersion="1.0">
+   <topic path="behavior_1/ExampleDialog/ExampleDialog_enu.top" language="en_US"/>
+  </dialogContent>
+  <dialogContent topicName="Introduction" typeVersion="1.0">
+   <topic path="Introduction/Introduction_enu.top" language="en_US"/>
   </dialogContent>
   <dialogContent topicName="Pepper_Status" typeVersion="1.0">
    <topic path="Pepper_Status/Pepper_Status_enu.top" language="en_US"/>
