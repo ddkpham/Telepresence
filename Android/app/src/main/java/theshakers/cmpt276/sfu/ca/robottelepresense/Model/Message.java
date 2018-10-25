@@ -9,15 +9,14 @@ import java.util.Date;
  */
 
 public class Message implements IMessage {
-
    private String id;
    private String text;
    private Author author;
    private Date createdAt;
 
    public Message() {
-       id = "id";
-       text = "text";
+       id = "message_id";
+       text = "message_text";
        author = new Author();
        createdAt = new Date();
    }
