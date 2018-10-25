@@ -3,15 +3,15 @@ import time
 import json
 
 #set server IP and Port
-#serverName = "localhost"
+#serverName = "169.254.235.125"
 serverName = "10.0.0.3"
 
-serverPort = 9050
+serverPort = 9051
 #create socket
 clientSocket = socket(AF_INET, SOCK_DGRAM)
 
 #create JSON Packet
-packet = '{"msg": "good morning"}'
+packet = '{"msg": "what was the last thing someone said to you?"}'
 print("Packet to send contains:" + packet)
 
 #send packet to server

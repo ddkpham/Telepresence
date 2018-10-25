@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package version="0.0.0" uuid="servtest-afdae3">
+<package uuid="servtest-afdae3" version="0.0.0">
  <names>
   <name lang="en_US">Untitled</name>
  </names>
@@ -15,14 +15,17 @@
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
-  <dialogContent typeVersion="1.0" topicName="Sport">
+  <dialogContent topicName="Sport" typeVersion="1.0">
    <topic path="Sport/Sport_enu.top" language="en_US"/>
   </dialogContent>
-  <dialogContent typeVersion="1.0" topicName="Pepper_Status">
+  <dialogContent topicName="Pepper_Status" typeVersion="1.0">
    <topic path="Pepper_Status/Pepper_Status_enu.top" language="en_US"/>
   </dialogContent>
-  <dialogContent typeVersion="1.0" topicName="Connection">
+  <dialogContent topicName="Connection" typeVersion="1.0">
    <topic path="Connection/Connection_enu.top" language="en_US"/>
+  </dialogContent>
+  <dialogContent topicName="Pepper_Sensor" typeVersion="1.0">
+   <topic path="Pepper_Sensor/Pepper_Sensor_enu.top" language="en_US"/>
   </dialogContent>
  </contents>
 </package>
