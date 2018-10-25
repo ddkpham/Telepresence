@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Robot Telepresence</string>
     <string name="title_activity_help_page">HelpPageActivity</string>
-    <string name="helpPageText">To connect press Connection button.
+    <string name="helpPageText">Press Connection button to connect.
         Hello I am Pepper. I can do many things.
         I can tell what is my battery percentage, talk about sports and many more things.
     </string>
@@ -15,6 +15,8 @@
         Can you wave to the people?\n\u2022
         Can you tell them “Luke, I am your father”?\n
     </string>
-    <string name="clientResult1">This is wrong attempt, can you try again?</string>
-    <string name="connectionError">There is connection error with server, can you try again?</string>
+    <string name="error_wrong_attempt">This is wrong attempt, can you try again?</string>
+    <string name="error_connection">There is connection error with server, can you try again?</string>
+    <string name="connect_btn">Connection</string>
+    <string name="help_page_btn">Help Page</string>
 </resources>
