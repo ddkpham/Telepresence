@@ -1,0 +1,19 @@
+topic: ~Connection()
+language: enu
+
+# Defining extra concepts out of words or group of words
+#concept:(hello) [hello hi hey "good morning" greetings]
+
+# Catching inputs and triggering outputs
+#u:(e:onStart) $onStopped=1
+
+# Replying to speech
+#u:(~hello) ~hello
+
+u:(connect) Hello! You're connected!
+
+u:({Pepper} Repeat after me _[*]) $1
+
+u:(Good morning) Let's start a wonderful day
+
+u:([hi hello greetings]) [Hello Hi Yes?]

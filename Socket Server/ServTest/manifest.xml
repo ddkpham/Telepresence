@@ -15,11 +15,14 @@
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
-  <dialogContent topicName="Hello" typeVersion="1.0">
-   <topic language="en_US" path="Hello/Hello_enu.top"/>
-  </dialogContent>
   <dialogContent topicName="Sport" typeVersion="1.0">
-   <topic language="en_US" path="Sport/Sport_enu.top"/>
+   <topic path="Sport/Sport_enu.top" language="en_US"/>
+  </dialogContent>
+  <dialogContent topicName="Pepper_Status" typeVersion="1.0">
+   <topic path="Pepper_Status/Pepper_Status_enu.top" language="en_US"/>
+  </dialogContent>
+  <dialogContent topicName="Connection" typeVersion="1.0">
+   <topic path="Connection/Connection_enu.top" language="en_US"/>
   </dialogContent>
  </contents>
 </package>
