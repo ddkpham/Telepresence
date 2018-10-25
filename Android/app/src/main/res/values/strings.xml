@@ -1,3 +1,20 @@
 <resources>
-    <string name="app_name">RobotTelepresense</string>
+    <string name="app_name">Robot Telepresence</string>
+    <string name="title_activity_help_page">HelpPageActivity</string>
+
+    <string name="helpPageText">To connect press Connection button.
+        Hello I am Pepper. I can do many things.
+        I can tell what is my battery percentage, talk about sports and many more things.
+    </string>
+
+    <string name="mid">Examples of what you can type:</string>
+    <string name="list">
+        \u2022How are you?\n\u2022
+        What applications do you have installed?\n\u2022
+        Are you plugged in?\n\u2022
+        What can you see?\n\u2022
+        What was the last thing someone said to you?\n\u2022
+        Can you wave to the people?\n\u2022
+        Can you tell them “Luke, I am your father”?\n
+    </string>
 </resources>
