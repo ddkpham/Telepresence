@@ -8,6 +8,7 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.Model.Author;
 
 import static org.junit.Assert.assertEquals;
 
+//unit testing for Author class
 public class AuthorUnitTest {
     @Test
     public void creation_isCorrect() throws Exception {

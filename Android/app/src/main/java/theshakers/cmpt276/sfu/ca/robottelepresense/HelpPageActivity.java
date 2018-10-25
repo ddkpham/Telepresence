@@ -10,6 +10,7 @@ import android.widget.Button;
  * Created by baesubin on 2018-10-24.
  */
 
+//Help page activity givess information how to connect to Pepper and how to use it
 public class HelpPageActivity extends Activity {
     private final String TAG = "HelpPageActivity";
     private Button goBackBtn;

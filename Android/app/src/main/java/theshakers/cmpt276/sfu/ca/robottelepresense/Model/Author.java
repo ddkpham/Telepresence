@@ -6,6 +6,7 @@ import com.stfalcon.chatkit.commons.models.IUser;
  * Created by baesubin on 2018-10-21.
  */
 
+//Author class allows to create instance of Author of message with id, name, avatar
 public class Author implements IUser {
     private String id;
     private String name;

@@ -7,6 +7,7 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.Model.Message;
 
 import static org.junit.Assert.assertEquals;
 
+//unit testing for Message class
 public class MessageUnitTest {
     @Test
     public void creation_isCorrect() throws Exception {
