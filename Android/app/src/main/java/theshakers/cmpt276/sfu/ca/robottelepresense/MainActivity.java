@@ -6,8 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+//Main activity contains two buttons: Connect button and Help Page button
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private final String TAG = "MainActivity";
     Button connectBtn = null;
+    Button helpPageBtn = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,15 +19,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         connectBtn = (Button)findViewById(R.id.connectBtn);
         connectBtn.setOnClickListener(this);
+
+        helpPageBtn = (Button)findViewById(R.id.helpPageBtn);
+        helpPageBtn.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View v) {
+        Intent intent = null;
         switch (v.getId()) {
             case R.id.connectBtn:
-                Intent intent = new Intent(this, ChatActivity.class);
+                intent = new Intent(this, ChatActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.helpPageBtn:
+                intent = new  Intent (this, HelpPageActivity.class);
+                startActivity(intent);
         }
     }
 }

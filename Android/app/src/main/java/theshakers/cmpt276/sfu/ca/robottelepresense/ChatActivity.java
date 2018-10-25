@@ -19,6 +19,7 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.Server.ServerResponseCallback
  * Created by baesubin on 2018-10-22.
  */
 
+//chat activity creates chat window allows to send commands to Pepper
 public class ChatActivity extends AppCompatActivity {
     private final String TAG = "ChatActivity";
     private MessageInput inputView = null;

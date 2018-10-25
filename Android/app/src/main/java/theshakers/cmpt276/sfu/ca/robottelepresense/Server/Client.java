@@ -13,11 +13,13 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketException;
 
+import theshakers.cmpt276.sfu.ca.robottelepresense.R;
+
 /**
  * Created by baesubin on 2018-10-14.
  */
 
-// This class is for connecting the server
+// client class connect to Pepper
 public class Client extends AsyncTask <String, Void, String>{
     private final String TAG = "Client";
     private InetAddress inetAddress = null;
@@ -31,6 +33,8 @@ public class Client extends AsyncTask <String, Void, String>{
         this.serverResponseCallback = serverResponseCallback;
     }
 
+
+    // Android socket client
     @Override
     protected String doInBackground(String... params) {
         try {
@@ -60,7 +64,7 @@ public class Client extends AsyncTask <String, Void, String>{
 
         } catch (SocketException e) {
             Log.e(TAG, "SocketException, " + e);
-            returnMsg = "There is connection error with server, can you try again?";
+            returnMsg = Integer.toString(R.string.connectionError);
         } catch (IOException e) {
             Log.e(TAG, "IOException, " + e);
         } catch (Exception e) {
@@ -74,7 +78,7 @@ public class Client extends AsyncTask <String, Void, String>{
     @Override
     protected void onPostExecute(String result) {
         if(result.equals("")) {
-            result = "This is wrong attempt, can you try again?";
+            result = Integer.toString(R.string.clientResult1);
         }
         serverResponseCallback.onResponseReceived(result);
     }
