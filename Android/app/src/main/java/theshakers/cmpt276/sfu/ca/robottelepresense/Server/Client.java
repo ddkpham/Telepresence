@@ -73,6 +73,9 @@ public class Client extends AsyncTask <String, Void, String>{
 
     @Override
     protected void onPostExecute(String result) {
+        if(result.equals("")) {
+            result = "This is wrong attempt, can you try again?";
+        }
         serverResponseCallback.onResponseReceived(result);
     }
 
