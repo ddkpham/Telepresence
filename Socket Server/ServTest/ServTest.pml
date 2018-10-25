@@ -11,7 +11,11 @@
         <Dialog name="PerformAction" src="PerformAction/PerformAction.dlg" />
         <Dialog name="Introduction" src="Introduction/Introduction.dlg" />
     </Dialogs>
-    <Resources />
+    <Resources>
+        <File name="johnmayer" src="johnmayer.wav" />
+        <File name="brickhouse" src="brickhouse.wav" />
+        <File name="lovesong" src="lovesong.wav" />
+    </Resources>
     <Topics>
         <Topic name="Hello_enu" src="Hello/Hello_enu.top" topicName="Hello" language="en_US" />
         <Topic name="Sport_enu" src="Sport/Sport_enu.top" topicName="Sport" language="en_US" />
@@ -22,9 +26,9 @@
     <IgnoredPaths>
         <Path src="Sport/Sport.dlg" />
         <Path src="Hello/Hello.dlg" />
-        <Path src="behavior_1/behavior.xar" />
         <Path src="Hello/Hello_enu.top" />
         <Path src="translations/translation_en_US.ts" />
+        <Path src="behavior_1/behavior.xar" />
         <Path src="Sport/Sport_enu.top" />
     </IgnoredPaths>
     <Translations auto-fill="en_US">

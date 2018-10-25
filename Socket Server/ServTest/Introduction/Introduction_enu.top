@@ -15,7 +15,7 @@ concept:(yes) [yes "all right" sure "why not" ok certainly "very well" yep yea d
 # Replying to speech
 #u:(~hello) ~hello
 
-u:(~hello) ^rand[hello hi hey "whats up" "you gucci" sup]
+u:(~hello) ^rand[hello hi hey "whats up" "what is going on" sup]
 u: (["what is" "give me" "tell me" ] your name) of course. My name is Pepper. Nice to meet you. What is your name? 
 u:(my name is _*) nice to meet you $1 $name=$1 ^nextProposal
 
