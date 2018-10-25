@@ -24,12 +24,13 @@
         <Topic name="Introduction_enu" src="Introduction/Introduction_enu.top" topicName="Introduction" language="en_US" />
     </Topics>
     <IgnoredPaths>
+        <Path src=".DS_Store" />
         <Path src="Sport/Sport.dlg" />
-        <Path src="Hello/Hello.dlg" />
-        <Path src="Hello/Hello_enu.top" />
-        <Path src="translations/translation_en_US.ts" />
-        <Path src="behavior_1/behavior.xar" />
         <Path src="Sport/Sport_enu.top" />
+        <Path src="Hello/Hello_enu.top" />
+        <Path src="Hello/Hello.dlg" />
+        <Path src="behavior_1/behavior.xar" />
+        <Path src="translations/translation_en_US.ts" />
     </IgnoredPaths>
     <Translations auto-fill="en_US">
         <Translation name="translation_en_US" src="translations/translation_en_US.ts" language="en_US" />
