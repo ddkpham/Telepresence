@@ -19,6 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ChatActivity"></activity>
+        <activity android:name=".HelpPageActivity"></activity>
     </application>
 
 </manifest>
