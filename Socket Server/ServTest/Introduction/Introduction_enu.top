@@ -2,7 +2,9 @@ topic: ~Introduction()
 language: enu
 
 # Defining extra concepts out of words or group of words
-#concept:(hello) [hello hi hey "good morning" greetings]
+concept:(hello) [hello hi hey "good morning" greetings]
+concept:(bad) ["not good" terrible awful gross poopy "not fun"]
+concept:(good) [great awesome grand ]
 
 # Catching inputs and triggering outputs
 #u:(e:onStart) $onStopped=1
@@ -10,21 +12,9 @@ language: enu
 # Replying to speech
 #u:(~hello) ~hello
 
-u:(talk about animals) do you have a cat or a dog?
-   u1:(dog) is it a big dog?
-     u2:(yes) make sure he has enough space to run
-     u2:(no) it is so cute
-   u1:(cat) do you live in the countryside?
-     u2:(yes) does your cat goes outside?
-        u3:(yes) does he hunt mouses?
-     u2:(no) i hope your flat is big enough
-   u1:(none) neither do I
+u:(~hello) ^rand[hello hi hey "whats up" "you gucci" sup]
+u: (["what is" "give me" "tell me" ] your name) of course. My name is Pepper. Nice to meet you. What is your name? 
+u:(my name is _*) nice to meet you $1 $name=$1 ^nextProposal
 
-u:(talk about sport) what a good idea ^nextProposal
+ 
 
-proposal: %random Do you want to talk about sport?
-   u1:(yes) Cool ^nextProposal
-   u1:(no) OK 
-proposal: Do you know who Connor Mcgregor is? 
-   u1:(yes) He sucks doesnt he?
-   u1:(no) good
