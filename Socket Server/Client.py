@@ -6,7 +6,7 @@ import json
 #serverName = "localhost"
 serverName = "10.0.0.3"
 
-serverPort = 9051
+serverPort = 9050
 #create socket
 clientSocket = socket(AF_INET, SOCK_DGRAM)
 

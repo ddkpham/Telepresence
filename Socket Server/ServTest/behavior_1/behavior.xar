@@ -9,6 +9,7 @@ class MyClass(GeneratedClass):
         self.memory = ALProxy('ALMemory')
 
         self.server_host = "10.0.0.3"
+        #self.server_host = "localhost"
         self.server_port = 9051
 
     def onLoad(self):
@@ -40,7 +41,6 @@ class MyClass(GeneratedClass):
 
         while True:
             #Wait for packet to be sent
-            self.logger.debug("iteration")
             try:
                 packet, client_address = self.server_socket.recvfrom(1024)
             except:
@@ -58,17 +58,19 @@ class MyClass(GeneratedClass):
 
             response = self.memory.getData("Dialog/Answered")
 
-            #Default message for invalid input
-            #Issue: if 2 different valid inputs result in the same response happen consecutively this code will fail
-            if(last_output == response):
+            #Check if invalid input to dialog system then output default message
+            if(last_output == response or response==""):
                 if(last_valid_input != str(parsed_json['msg'])):
+                    last_output = response
                     response = "Sorry, I did not understand you."
                     self.tts.say(response)
+
             else:
+                self.logger.debug("Point AAA")
                 last_output = response
                 last_valid_input = str(parsed_json['msg'])
 
-            self.logger.debug(response)
+            self.logger.debug("Message to send back: " + str(response))
             parsed_json['msg'] = response #change value to response
 
             #response to client
