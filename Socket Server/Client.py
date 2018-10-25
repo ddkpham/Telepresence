@@ -5,7 +5,7 @@ import json
 #set server IP and Port
 #serverName = "localhost"
 serverName = "10.0.0.3"
-serverPort = 9051
+serverPort = 9050
 #create socket
 clientSocket = socket(AF_INET, SOCK_DGRAM)
 
@@ -23,7 +23,7 @@ receiverResponse, serverAddress = clientSocket.recvfrom(2048)
 decoded_packet = receiverResponse.decode()
 parsed_json = json.loads(receiverResponse)
 
-print(receiverResponse)
+print("JSON received: " + str(receiverResponse))
 
 #close socket
 clientSocket.close()
