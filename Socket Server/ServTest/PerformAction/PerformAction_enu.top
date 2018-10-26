@@ -2,43 +2,82 @@ topic: ~PerformAction()
 language: enu
 
 # Defining extra concepts out of words or group of words
-#concept:(hello) [hello hi hey "good morning" greetings]
+concept:(hello) [hello hi hey "good morning" greetings]
 #concept: (action) [move jump run fight walk ]
 concept: (no) [no nope "don't want" "no way" never "not at all"]
 concept:(yes) [yes "all right" sure "why not" ok certainly "very well" yep yea definitely amen]
+concept:(can_you_repeat) [what "can you repeat" "say that again" "I didnt catch that" sorry "can you please repeat" "say again"]
+
 
 u: (can you dance) I can disco like there is no tomorrow $discoAction = 1 $danceForMe = 1
 u: (sing a song) Only the best song in the world $guitarAction = 1 $loveSong = 1 
+u:(what can you do) ^gotoRandom(random)
+u:(dance for me) ^goto(dance)
+u:(play guitar) ^goto(guitar)
+u:(sing) ^goto(song)
+u:(app test) testing application ^run(musicboxes/.)
+u:(close app) ^stop(mood-mirror/.)
+u:(lets talk food) ^goto(food)
 
+#Proactive detection of someone waving
+u:(e:WavingDetection/PersonWaving) ~hello
+u:(e:WavingDetection/PersonWavingCenter) ~hello
+u:(e:WavingDetection/PersonWavingLeft) ~hello
+u:(e:WavingDetection/PersonWavingRight) ~hello
 
-proposal:%random You might not think this. But Im a pretty good dancer. Do you want to see me do a little disco. 
-    u1:(~yes) watch me disco  $discoAction = 1 $danceForMe = 1  I know I'm good ^gotoRandom(random)
+#Proactive detection 
+u:($Dialog/NotSpeaking5==1) ^activate(silent)
+proposal: %silent Its kind of quiet. Anyone want to play anything?
+    u1:(~yes) Awesome. ^gotoRandom(random)
+    u1:(~no) Fine. 
+u:(e:FrontTactilTouched) Hey dont do that. You'll ruin my hair. 
+
+#scripting to send message to android
+
+%script
+
+%script 
+
+proposal:%dance %random You might not think this. But Im a pretty good dancer. Do you want to see me do a little disco. 
+    u1:(~yes) watch me disco  $discoAction = 1 $danceForMe = 1  I know I'm good 
     u1:(~no) You are kind of a buzz kill $name
-    u1:(can you repeat) Of course! ^previousProposal
+    u1:(~can_you_repeat) Of course! ^previousProposal
     
-proposal: %random When I was little, I learned how to play the guitar. Want to see? 
-    u1:(~yes) watch me play guitar ^run(animation/Entertainment/Music/Pepper/Guitar) $guitarAction = 1 $playSong = 1 ^gotoRandom(random)
+proposal: %guitar %random When I was little, I learned how to play the guitar. Want to see? 
+    u1:(~yes) watch me play guitar ^run(animation/Entertainment/Music/Pepper/Guitar) $guitarAction = 1 $playSong = 1 
     u1:(~no) you are lame $name 
-    u1:(can you repeat) Of course! ^previousProposal
+    u1:(~can_you_repeat) Of course! ^previousProposal
     
-proposal:%random Growing up, mother had the most beautiful voice. I can't sing at all. But I like to try anyways. Want to hear? 
-    u1:(~yes) This is one of my favourite songs. It makes me wonder what being human is all about $loveSong = 1 ^gotoRandom(random)
+proposal:%song %random Growing up, mother had the most beautiful voice. I can't sing at all. But I like to try anyways. Want to hear? 
+    u1:(~yes) This is one of my favourite songs. It makes me wonder what being human is all about $loveSong = 1 $loveSongDance = 1
     u1:(~no) what. But why wouldnt you want to hear my lovely voice? ^gotoRandom(random)
-    u1:(can you repeat) Of course! ^previousProposal
+    u1:(~can_you_repeat) Of course! ^previousProposal
 
-proposal: %random Would you like to have a conversation about food? I can't eat so it is one of my favourite things to talk about.
-    u1: (~yes) that is awesome! ^goto(food)
-    u1: (~no) I guess my imagination will starve too ^gotoRandom(random)
-
-proposal: %food Did you know that a third of people under the age of thirty in british columbia are vegetarians?
-    u1:(~yes) you are such a smarty pants! have you ever thought about going onto a plant-based diet? 
-        u2:(~yes) I'm sure our animal friends would love that... and your arteries too! ^gotoRandom(random)
-        u2:(~no) I don't blame you. I hear that cheeseburgers are pretty good. ^gotoRandom(random)
-    u1:(~no) Me neither, until I met my fine programmers! ^gotoRandom(random)
     
+#Conversation
+proposal:%food  %random Would you like to have a conversation about food? I can't eat so it is one of my favourite things to talk about. Especially clean humane eating.
+    u1: (~yes) that is awesome! ^goto(food2)
+    u1: (~no) I guess my imagination will starve too 
 
-# Catching inputs and triggering outputs
-#u:(e:onStart) $onStopped=1
+proposal: %food2 %random what is your favourite kind of food? 
+    u1:(my favourite food is _*) that sounds delicious! I think. The only thing I've ever eaten is electricity. Its not as flavourful as you think. What is your favourite restaurant in vanoucver?$faveFood = $1
+        u2:(my favourite restaurant is _*) $faveRestaurant = $1 OH! Do they make good $faveFood at $1 ? 
+            u3:(~yes) We should go sometime! It will be my treat! Wait. Do they take bitcoin at $faveRestaurant
+                u4:(~yes) Good. I like forward thinking people. They will fair well when the robot overlords take over. 
+                u4:(~no) Well they should. It's going to be worth much more when we take over. Oops. I wasn't supposed to say that.
+            u3:(~no) That's a bummer. They should. Oh well. Do you want to go sometime anyways?
+                u4:(~yes) Its a date! It will be my treat! Wait. Do they take bitcoin at $faveRestaurant
+                    u5:(~yes) Good. I like forward thinking people. They will fair well when the robot overlords take over. 
+                    u5:(~no) Well they should. It's going to be worth much more when we take over. Oops. I wasn't supposed to say that.
+                u4:(~no) Good things I dont have feelings because they wouldve been hurt otherwise.  
+        u2:(~can_you_repeat) Absolutely! 
+    u1:(~can_you_repeat) Absolutely!
+
+
+
+
+        
+    
 
 # Replying to speech
 #u:(~hello) ~hello
