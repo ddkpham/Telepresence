@@ -1,5 +1,6 @@
 package theshakers.cmpt276.sfu.ca.robottelepresense.Server;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -11,7 +12,6 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 
-import theshakers.cmpt276.sfu.ca.robottelepresense.BaseApplication;
 import theshakers.cmpt276.sfu.ca.robottelepresense.R;
 
 /**
@@ -25,13 +25,14 @@ public class Client extends AsyncTask <String, Void, String>{
     private int serverPort = 9051;
     private DatagramSocket udpSocket = null;
     private String returnMsg = "";
+    private Context context;
 
     private ServerResponseCallback serverResponseCallback = null;
 
-    public Client(ServerResponseCallback serverResponseCallback) {
+    public Client(Context context, ServerResponseCallback serverResponseCallback) {
         this.serverResponseCallback = serverResponseCallback;
+        this.context = context;
     }
-
 
     // Android socket client
     @Override
@@ -47,7 +48,6 @@ public class Client extends AsyncTask <String, Void, String>{
             DatagramPacket udpPacket = new DatagramPacket(buf, buf.length, inetAddress, serverPort);
             udpSocket.send(udpPacket);
 
-
             byte[] receivedBuf = new byte[2048];
 
             DatagramPacket receivedPacket = new DatagramPacket(receivedBuf, receivedBuf.length);
@@ -59,28 +59,28 @@ public class Client extends AsyncTask <String, Void, String>{
                 returnMsg = jsonObject.getString("msg");
                 Log.i(TAG, "Parsed to JSON: " + jsonObject.getString("msg"));
             } catch (Throwable tx) {
-                returnMsg = BaseApplication.getInstance().getResources().getString(R.string.error_wrong_attempt);
                 Log.i(TAG, "Could not parse malformed JSON: " + datafromPacket );
             }
 
         } catch (SocketException e) {
+            returnMsg = context.getResources().getString(R.string.error_connection);
             Log.e(TAG, "SocketException, " + e);
-            returnMsg = BaseApplication.getInstance().getResources().getString(R.string.error_connection);
         } catch (IOException e) {
             Log.e(TAG, "IOException, " + e);
         } catch (Exception e) {
             Log.e(TAG, "Exception, " + e);
-            returnMsg = BaseApplication.getInstance().getResources().getString(R.string.error_connection);
         } finally {
             udpSocket.close();
         }
+
         return returnMsg;
     }
 
     @Override
     protected void onPostExecute(String result) {
+        Log.i(TAG, "result:  " + result);
         if(result.equals("")) {
-            result = BaseApplication.getInstance().getResources().getString(R.string.error_wrong_attempt);
+            result = context.getResources().getString(R.string.error_wrong_attempt);
         }
         serverResponseCallback.onResponseReceived(result);
     }

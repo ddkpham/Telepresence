@@ -19,4 +19,5 @@
     <string name="error_connection">There is connection error with server, can you try again?</string>
     <string name="connect_btn">Connection</string>
     <string name="help_page_btn">Help Page</string>
+    <string name="hint_enter_a_message">Enter a message here</string>
 </resources>
