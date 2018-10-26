@@ -3,6 +3,7 @@ package theshakers.cmpt276.sfu.ca.robottelepresense;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
@@ -11,9 +12,10 @@ import android.widget.Button;
  */
 
 //Help page activity givess information how to connect to Pepper and how to use it
-public class HelpPageActivity extends Activity {
+public class HelpPageActivity extends AppCompatActivity {
     private final String TAG = "HelpPageActivity";
-    private Button goBackBtn;
+    private Button goBackBtn = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

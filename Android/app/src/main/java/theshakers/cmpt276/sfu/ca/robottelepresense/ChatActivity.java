@@ -11,7 +11,6 @@ import java.util.Date;
 
 import theshakers.cmpt276.sfu.ca.robottelepresense.Model.Author;
 import theshakers.cmpt276.sfu.ca.robottelepresense.Model.Message;
-import theshakers.cmpt276.sfu.ca.robottelepresense.R;
 import theshakers.cmpt276.sfu.ca.robottelepresense.Server.Client;
 import theshakers.cmpt276.sfu.ca.robottelepresense.Server.ServerResponseCallback;
 
@@ -58,7 +57,7 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void sendAndReceiveMsgFromServer(String inputText) {
-        Client client =new Client(new ServerResponseCallback() {
+        Client client =new Client(this, new ServerResponseCallback() {
             @Override
             public void onResponseReceived(String str) {
                 addMsgToAdapter("Pepper", str);

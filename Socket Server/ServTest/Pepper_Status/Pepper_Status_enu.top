@@ -6,7 +6,17 @@ u: (How are you?) ^first["Amazing! My battery level is at 100 percent! $Device/S
 
 #Check cpu temperature
 u: (Are you cold?) ^first["A little bit, my head is $Device/SubDeviceList/Head/Temperature/Sensor/Value degrees celsius$Device/SubDeviceList/Head/Temperature/Sensor/Value<40" "Not at all, my head is $Device/SubDeviceList/Head/Temperature/Sensor/Value degrees celsius"]
-
+u:(test) ^goto(test)
 u: (Are you plugged in?) ^first["Yes, I am plugged in. $BatteryPowerPluggedChanged==true" "No, I am not plugged in."]
 
-#u: (What is installed?) $InstalledPackages
+#u: (What is installed?) Arcadia Dance, Berlin Orientation, and See and Listen are installed, do you want to run Arcadia Dance?
+#    u1: (yes) ^run(arcadia/full_launcher)
+#    u1: (no)  ^nextProposal
+
+#proposal: %test Would you like to run the Berlin Orientation?
+#    u1: (yes) ^run(berlin-orientation/anims/Vivaldi)
+#    u1: (no)  ^nextProposal
+    
+#proposal: Would you like to run See And Listen?
+#    u1: (yes) ^run(seeandlisten/animations/01_hello)
+#    u1: (no)  Okay
