@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.helpPageBtn:
                 intent = new  Intent (this, HelpPageActivity.class);
                 startActivity(intent);
+                break;
         }
     }
 }

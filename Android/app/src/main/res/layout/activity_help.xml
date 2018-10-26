@@ -4,24 +4,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="20dp">
+
     <TextView
+        android:text="@string/help_intro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="@string/helpPageText"
-        android:textSize="22sp"/>
-    <TextView
+        android:textSize="20dp"
+        android:layout_marginBottom="20dp"/>
+    <ExpandableListView
+        android:id="@+id/expandableListView"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/mid"
-        android:textColor="#7e57c2"
-        android:textSize="20sp" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/list"
-        android:textColor="#7e57c2"
-        android:textSize="18sp" />
+        android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="0.5dp" />
     <Button
         android:id="@+id/mainMenu"
         android:layout_width="match_parent"

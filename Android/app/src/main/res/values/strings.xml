@@ -1,6 +1,7 @@
 <resources>
+
+    <!-- App -->
     <string name="app_name">Robot Telepresence</string>
-    <string name="title_activity_help_page">HelpPageActivity</string>
     <string name="helpPageText">Press Connection button to connect.
         Hello I am Pepper. I can do many things.
         I can tell what is my battery percentage, talk about sports and many more things.
@@ -15,9 +16,35 @@
         Can you wave to the people?\n\u2022
         Can you tell them “Luke, I am your father”?\n
     </string>
+    <string name="connect_btn">Connection</string>
+
+    <!-- Chat Activity -->
+    <string name="hint_enter_a_message">Enter a message here</string>
     <string name="error_wrong_attempt">This is wrong attempt, can you try again?</string>
     <string name="error_connection">There is connection error with server, can you try again?</string>
-    <string name="connect_btn">Connection</string>
+
+    <!-- Help Page Activity-->
+    <string name="title_activity_help_page">HelpPageActivity</string>
     <string name="help_page_btn">Help Page</string>
-    <string name="hint_enter_a_message">Enter a message here</string>
+    <string name="help_intro">You can have a conversation with pepper</string>
+
+    <string-array name="simple_conversation">
+        <item>Hello</item> 
+        <item>wassuppp</item> 
+        <item>Good morning</item> 
+        <item>How are you?</item> 
+        <item>I want some {food name}</item>
+        <item>connect</item> 
+        <item>repeat after me {whatever}</item>
+    </string-array>
+
+    <string-array name="status">
+        <item>Battery lvl is</item> 
+        <item>What is your IP?</item> 
+    </string-array>
+
+    <string-array name="action">
+        <item>Can you dance?</item> 
+    </string-array>
+
 </resources>

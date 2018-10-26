@@ -18,7 +18,7 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.R;
  * Created by baesubin on 2018-10-14.
  */
 
-// client class connect to Pepper
+// The class for connecting to python server in Pepper
 public class Client extends AsyncTask <String, Void, String>{
     private final String TAG = "Client";
     private InetAddress inetAddress = null;
