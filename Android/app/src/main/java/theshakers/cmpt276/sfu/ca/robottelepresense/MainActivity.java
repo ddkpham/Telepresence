@@ -9,8 +9,8 @@ import android.widget.Button;
 //Main activity contains two buttons: Connect button and Help Page button
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private final String TAG = "MainActivity";
-    Button connectBtn = null;
-    Button helpPageBtn = null;
+    private Button connectBtn = null;
+    private Button helpPageBtn = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         helpPageBtn = (Button)findViewById(R.id.helpPageBtn);
         helpPageBtn.setOnClickListener(this);
-
     }
 
     @Override

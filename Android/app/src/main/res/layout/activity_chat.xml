@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <com.stfalcon.chatkit.messages.MessagesList
@@ -13,6 +14,11 @@
         android:id="@+id/input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        app:inputHint="@string/hint_enter_a_message"
+        app:inputButtonHeight="30dp"
+        app:attachmentButtonMargin="16dp"
+        app:attachmentButtonWidth="30dp"
+        app:inputTextSize="18dp" />
 
 </RelativeLayout>
