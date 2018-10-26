@@ -1,7 +1,6 @@
 package theshakers.cmpt276.sfu.ca.robottelepresense.Model;
 
 import com.stfalcon.chatkit.commons.models.IMessage;
-
 import java.util.Date;
 
 /**
