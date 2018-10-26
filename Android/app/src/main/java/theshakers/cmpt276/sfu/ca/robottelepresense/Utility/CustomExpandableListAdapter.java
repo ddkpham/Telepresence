@@ -1,4 +1,4 @@
-package theshakers.cmpt276.sfu.ca.robottelepresense.UI;
+package theshakers.cmpt276.sfu.ca.robottelepresense.Utility;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -19,7 +19,6 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.R;
 
 //The class is custom adapter for ExpandableList in Help page
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
-
     private Context context;
     private List<String> expandableListTitle;
     private HashMap<String, List<String>> expandableListDetail;

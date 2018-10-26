@@ -2,21 +2,10 @@
 
     <!-- App -->
     <string name="app_name">Robot Telepresence</string>
-    <string name="helpPageText">Press Connection button to connect.
-        Hello I am Pepper. I can do many things.
-        I can tell what is my battery percentage, talk about sports and many more things.
-    </string>
-    <string name="mid">Examples of what you can type:</string>
-    <string name="list">
-        \u2022How are you?\n\u2022
-        What applications do you have installed?\n\u2022
-        Are you plugged in?\n\u2022
-        What can you see?\n\u2022
-        What was the last thing someone said to you?\n\u2022
-        Can you wave to the people?\n\u2022
-        Can you tell them “Luke, I am your father”?\n
-    </string>
+
+    <!-- Main Activity -->
     <string name="connect_btn">Connection</string>
+    <string name="help_page_btn">Help Page</string>
 
     <!-- Chat Activity -->
     <string name="hint_enter_a_message">Enter a message here</string>
@@ -25,8 +14,7 @@
 
     <!-- Help Page Activity-->
     <string name="title_activity_help_page">HelpPageActivity</string>
-    <string name="help_page_btn">Help Page</string>
-    <string name="help_intro">You can have a conversation with pepper</string>
+    <string name="help_intro">You can have a conversation with Pepper. Here are some messages you can send to Pepper. </string>
 
     <string-array name="simple_conversation">
         <item>Hello</item> 
@@ -39,12 +27,21 @@
     </string-array>
 
     <string-array name="status">
-        <item>Battery lvl is</item> 
+        <item>Battery level is</item> 
         <item>What is your IP?</item> 
+        <item>Are you plugged in?</item>
     </string-array>
 
     <string-array name="action">
         <item>Can you dance?</item> 
+        <item>Can you guitar?</item> 
+        <item>Sing</item>
+    </string-array>
+
+    <string-array name="sensor">
+        <item>Are you watching anyone?</item> 
+        <item>How far are they from you</item>
+        <item>What was the last thing someone said to you?</item>
     </string-array>
 
 </resources>
