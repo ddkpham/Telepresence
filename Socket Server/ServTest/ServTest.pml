@@ -32,13 +32,16 @@
         <Path src="PerformAction/PerformAction.dlg" />
         <Path src="johnmayer.wav" />
         <Path src="Sport/Sport.dlg" />
+        <Path src="Installed_Applications" />
         <Path src="Hello/Hello_enu.top" />
         <Path src="Sport/Sport_enu.top" />
         <Path src="behavior_1/ExampleDialog/ExampleDialog.dlg" />
         <Path src="translations/translation_en_US.ts" />
         <Path src="Hello/Hello.dlg" />
         <Path src="brickhouse.wav" />
+        <Path src="Installed_Applications/Installed_Applications_enu.top" />
         <Path src="Introduction/Introduction.dlg" />
+        <Path src="Installed_Applications/Installed_Applications.dlg" />
         <Path src="PerformAction" />
         <Path src="Introduction" />
         <Path src="Introduction/Introduction_enu.top" />

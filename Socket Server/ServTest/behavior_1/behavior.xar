@@ -46,6 +46,7 @@ class MyClass(GeneratedClass):
         self.server_socket = socket(AF_INET, SOCK_DGRAM)
         self.server_socket.setsockopt(SOL_SOCKET,SO_REUSEADDR, 1)
 
+        self.memory.insertData("Server_Socket",self.server_socket)
         last_output = "";
         last_valid_input = "";
 
