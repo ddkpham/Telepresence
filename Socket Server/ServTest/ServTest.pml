@@ -26,20 +26,20 @@
         <Topic name="Pepper_Sensor_enu" src="Pepper_Sensor/Pepper_Sensor_enu.top" topicName="Pepper_Sensor" language="en_US" />
     </Topics>
     <IgnoredPaths>
-        <Path src="PerformAction/PerformAction_enu.top" />
-        <Path src="behavior_1/behavior.xar" />
-        <Path src="brickhouse.wav" />
-        <Path src="Introduction/Introduction.dlg" />
-        <Path src="translations/translation_en_US.ts" />
-        <Path src="Introduction/Introduction_enu.top" />
-        <Path src="johnmayer.wav" />
-        <Path src="PerformAction/PerformAction.dlg" />
-        <Path src="lovesong.wav" />
         <Path src="behavior_1/ExampleDialog" />
-        <Path src="Introduction" />
-        <Path src="PerformAction" />
+        <Path src="PerformAction/PerformAction_enu.top" />
+        <Path src="lovesong.wav" />
+        <Path src="brickhouse.wav" />
         <Path src="behavior_1/ExampleDialog/ExampleDialog.dlg" />
+        <Path src="PerformAction/PerformAction.dlg" />
+        <Path src="Introduction" />
+        <Path src="johnmayer.wav" />
+        <Path src="translations/translation_en_US.ts" />
         <Path src="behavior_1/ExampleDialog/ExampleDialog_enu.top" />
+        <Path src="behavior_1/behavior.xar" />
+        <Path src="Introduction/Introduction.dlg" />
+        <Path src="Introduction/Introduction_enu.top" />
+        <Path src="PerformAction" />
     </IgnoredPaths>
     <Translations auto-fill="en_US">
         <Translation name="translation_en_US" src="translations/translation_en_US.ts" language="en_US" />
