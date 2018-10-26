@@ -15,23 +15,26 @@
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
-  <dialogContent topicName="PerformAction" typeVersion="1.0">
+  <dialogContent typeVersion="1.0" topicName="PerformAction">
    <topic path="PerformAction/PerformAction_enu.top" language="en_US"/>
   </dialogContent>
-  <dialogContent topicName="ExampleDialog" typeVersion="1.0">
+  <dialogContent typeVersion="1.0" topicName="ExampleDialog">
    <topic path="behavior_1/ExampleDialog/ExampleDialog_enu.top" language="en_US"/>
   </dialogContent>
-  <dialogContent topicName="Introduction" typeVersion="1.0">
+  <dialogContent typeVersion="1.0" topicName="Introduction">
    <topic path="Introduction/Introduction_enu.top" language="en_US"/>
   </dialogContent>
-  <dialogContent topicName="Pepper_Status" typeVersion="1.0">
+  <dialogContent typeVersion="1.0" topicName="Pepper_Status">
    <topic path="Pepper_Status/Pepper_Status_enu.top" language="en_US"/>
   </dialogContent>
-  <dialogContent topicName="Connection" typeVersion="1.0">
+  <dialogContent typeVersion="1.0" topicName="Connection">
    <topic path="Connection/Connection_enu.top" language="en_US"/>
   </dialogContent>
-  <dialogContent topicName="Pepper_Sensor" typeVersion="1.0">
+  <dialogContent typeVersion="1.0" topicName="Pepper_Sensor">
    <topic path="Pepper_Sensor/Pepper_Sensor_enu.top" language="en_US"/>
+  </dialogContent>
+  <dialogContent typeVersion="1.0" topicName="Installed_Applications">
+   <topic path="Installed_Applications/Installed_Applications_enu.top" language="en_US"/>
   </dialogContent>
  </contents>
 </package>
