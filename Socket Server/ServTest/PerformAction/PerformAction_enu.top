@@ -20,23 +20,29 @@ u:(close app) ^stop(mood-mirror/.)
 u:(lets talk food) ^goto(food)
 
 #Proactive detection of someone waving
-u:(e:WavingDetection/PersonWaving) ~hello
-u:(e:WavingDetection/PersonWavingCenter) ~hello
-u:(e:WavingDetection/PersonWavingLeft) ~hello
-u:(e:WavingDetection/PersonWavingRight) ~hello
+#u:(e:WavingDetection/PersonWaving) ~hello
+#u:(e:WavingDetection/PersonWavingCenter) ~hello
+#u:(e:WavingDetection/PersonWavingLeft) ~hello
+#u:(e:WavingDetection/PersonWavingRight) ~hello
 
 #Proactive detection 
 u:($Dialog/NotSpeaking5==1) ^activate(silent)
 proposal: %silent Its kind of quiet. Anyone want to play anything?
     u1:(~yes) Awesome. ^gotoRandom(random)
     u1:(~no) Fine. 
-u:(e:FrontTactilTouched) Hey dont do that. You'll ruin my hair. 
-
+u:(e:FrontTactilTouched) Hey don't do that. You'll ruin my hair. 
+#%script
+#from socket import *
+#memory = ALProxy('ALMemory')
+#server_socket = socket(AF_INET, SOCK_DGRAM)
+##server_socket.setsockopt(SOL_SOCKET,SO_REUSEADDR, 1)
+#server_socket.bind(("10.0.0.3",9049))
+##memorySocket = memory.getData('Server_Socket')
+#client = memory.getData("Client_Address")
+#packet = "{'msg':'Hey don't do that. You'll ruin my hair.'}"
+#server_socket.sendto(packet.encode(), client)
+#%script 
 #scripting to send message to android
-
-%script
-
-%script 
 
 proposal:%dance %random You might not think this. But Im a pretty good dancer. Do you want to see me do a little disco. 
     u1:(~yes) watch me disco  $discoAction = 1 $danceForMe = 1  I know I'm good 
