@@ -1,4 +1,4 @@
-package theshakers.cmpt276.sfu.ca.robottelepresense.UI;
+package theshakers.cmpt276.sfu.ca.robottelepresense.Utility;
 
 import android.content.Context;
 import java.util.ArrayList;
@@ -37,9 +37,15 @@ public class ExpandableListDataPump {
         for(String i: action_str)
             action.add(i);
 
+        List<String> sensor = new ArrayList<String>();
+        String sensor_str[] = context.getResources().getStringArray(R.array.sensor);
+        for(String i: sensor_str)
+            sensor.add(i);
+
         expandableListDetail.put("Simple Conversation", simpleConversation);
         expandableListDetail.put("Status", status);
         expandableListDetail.put("Action", action);
+        expandableListDetail.put("Sensor", sensor);
 
         return expandableListDetail;
     }

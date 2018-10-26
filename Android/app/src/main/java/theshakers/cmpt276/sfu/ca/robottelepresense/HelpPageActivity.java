@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import theshakers.cmpt276.sfu.ca.robottelepresense.UI.CustomExpandableListAdapter;
-import theshakers.cmpt276.sfu.ca.robottelepresense.UI.ExpandableListDataPump;
+import theshakers.cmpt276.sfu.ca.robottelepresense.Utility.CustomExpandableListAdapter;
+import theshakers.cmpt276.sfu.ca.robottelepresense.Utility.ExpandableListDataPump;
 
 /**
  * Created by baesubin on 2018-10-24.

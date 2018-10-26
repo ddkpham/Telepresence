@@ -72,7 +72,6 @@ public class Client extends AsyncTask <String, Void, String>{
         } finally {
             udpSocket.close();
         }
-
         return returnMsg;
     }
 
