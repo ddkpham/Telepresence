@@ -15,11 +15,17 @@
         android:text="@string/connect_btn"
         android:layout_marginBottom="30dp" />
 
-
     <Button
         android:id="@+id/helpPageBtn"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="@string/help_page_btn" />
+        android:text="@string/help_page_btn"
+        android:layout_marginBottom="30dp" />
+
+    <Button
+        android:id="@+id/photoBtn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="@string/photo_btn" />
 
 </LinearLayout>

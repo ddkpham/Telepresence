@@ -2,8 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="theshakers.cmpt276.sfu.ca.robottelepresense">
 
-    <uses-permission android:name="android.permission.INTERNET"> </uses-permission>
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
+    <uses-permission android:name="android.permission.CAMERA"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -21,6 +24,7 @@
         </activity>
         <activity android:name=".ChatActivity"></activity>
         <activity android:name=".HelpPageActivity"></activity>
+        <activity android:name=".PhotoActivity"></activity>
     </application>
 
 </manifest>
