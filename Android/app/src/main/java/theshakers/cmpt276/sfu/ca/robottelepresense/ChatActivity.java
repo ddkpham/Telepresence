@@ -11,8 +11,10 @@ import java.util.Date;
 
 import theshakers.cmpt276.sfu.ca.robottelepresense.Model.Author;
 import theshakers.cmpt276.sfu.ca.robottelepresense.Model.Message;
-import theshakers.cmpt276.sfu.ca.robottelepresense.Server.Client;
-import theshakers.cmpt276.sfu.ca.robottelepresense.Server.ServerResponseCallback;
+import theshakers.cmpt276.sfu.ca.robottelepresense.SocketServer_Unused.SocketServerClient;
+import theshakers.cmpt276.sfu.ca.robottelepresense.SocketServer_Unused.SocketServerResponseCallback;
+import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.JsonResponseCallback;
+import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.SendAndReceiveJsonAsyncTask;
 
 /**
  * Created by baesubin on 2018-10-22.
@@ -37,13 +39,15 @@ public class ChatActivity extends AppCompatActivity {
         adapter = new MessagesListAdapter<>(senderId, null);
         messagesList.setAdapter(adapter);
 
-        sendAndReceiveMsgFromServer("Connect");
+        //sendAndReceiveMsgFromSocketServer("Connect");
+        sendAndReceiveJsonFromWebserver("Connect");
 
         inputView.setInputListener(new MessageInput.InputListener() {
             @Override
             public boolean onSubmit(CharSequence input) {
                 addMsgToAdapter("User", input.toString());
-                sendAndReceiveMsgFromServer(input.toString());
+                sendAndReceiveJsonFromWebserver(input.toString());
+                //sendAndReceiveMsgFromSocketServer(input.toString());
                 return true;
             }
         });
@@ -56,14 +60,25 @@ public class ChatActivity extends AppCompatActivity {
         adapter.addToStart(message, true);
     }
 
-    private void sendAndReceiveMsgFromServer(String inputText) {
-        Client client =new Client(this, new ServerResponseCallback() {
+    private void sendAndReceiveJsonFromWebserver(String inputText) {
+        SendAndReceiveJsonAsyncTask sendAndReceiveJsonAsyncTask = new SendAndReceiveJsonAsyncTask(this, new JsonResponseCallback() {
+            @Override
+            public void onResponseReceived(String result) {
+                addMsgToAdapter("Pepper", result);
+            }
+        });
+        sendAndReceiveJsonAsyncTask.execute(inputText);
+    }
+
+    /*
+    private void sendAndReceiveMsgFromSocketServer(String inputText) {
+        SocketServerClient socketServerClient =new SocketServerClient(this, new SocketServerResponseCallback() {
             @Override
             public void onResponseReceived(String str) {
                 addMsgToAdapter("Pepper", str);
             }
         });
-        client.execute(inputText);
-    }
+        socketServerClient.execute(inputText);
+    }*/
 }
 

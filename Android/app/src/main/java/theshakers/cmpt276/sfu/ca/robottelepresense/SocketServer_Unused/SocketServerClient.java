@@ -1,4 +1,4 @@
-package theshakers.cmpt276.sfu.ca.robottelepresense.Server;
+package theshakers.cmpt276.sfu.ca.robottelepresense.SocketServer_Unused;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -19,18 +19,18 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.R;
  */
 
 // The class for connecting to python server in Pepper
-public class Client extends AsyncTask <String, Void, String>{
-    private final String TAG = "Client";
+public class SocketServerClient extends AsyncTask <String, Void, String>{
+    private final String TAG = "SocketServerClient";
     private InetAddress inetAddress = null;
     private int serverPort = 9051;
     private DatagramSocket udpSocket = null;
     private String returnMsg = "";
     private Context context;
 
-    private ServerResponseCallback serverResponseCallback = null;
+    private SocketServerResponseCallback socketServerResponseCallback = null;
 
-    public Client(Context context, ServerResponseCallback serverResponseCallback) {
-        this.serverResponseCallback = serverResponseCallback;
+    public SocketServerClient(Context context, SocketServerResponseCallback socketServerResponseCallback) {
+        this.socketServerResponseCallback = socketServerResponseCallback;
         this.context = context;
     }
 
@@ -81,7 +81,7 @@ public class Client extends AsyncTask <String, Void, String>{
         if(result.equals("")) {
             result = context.getResources().getString(R.string.error_wrong_attempt);
         }
-        serverResponseCallback.onResponseReceived(result);
+        socketServerResponseCallback.onResponseReceived(result);
     }
 
 }
