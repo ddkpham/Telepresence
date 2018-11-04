@@ -78,12 +78,3 @@ proposal: %food2 %random what is your favourite kind of food?
                 u4:(~no) Good things I dont have feelings because they wouldve been hurt otherwise.  
         u2:(~can_you_repeat) Absolutely! 
     u1:(~can_you_repeat) Absolutely!
-
-
-
-
-        
-    
-
-# Replying to speech
-#u:(~hello) ~hello

@@ -1,32 +1,5 @@
 topic: ~Introduction()
 language: enu
 
-# Defining extra concepts out of words or group of words
-concept:(hello) [hello hi hey "good morning" greetings]
-concept:(bad) ["not good" terrible awful gross poopy "not fun"]
-concept:(good) [great awesome grand ]
-concept: (no) [no nope "don't want" "no way" never "not at all"]
-concept:(yes) [yes "all right" sure "why not" ok certainly "very well" yep yea definitely amen]
 
-
-# Catching inputs and triggering outputs
-#u:(e:onStart) $onStopped=1
-
-# Replying to speech
-#u:(~hello) ~hello
-
-
-u:(~hello) ^rand[hello hi hey "whats up" "what is going on" sup]
-u: (["what is" "give me" "tell me" ] your name) of course. My name is Pepper. Nice to meet you. What is your name? 
-u:(my name is _*) nice to meet you $1 $name=$1 ^activate(action)^goto(action) 
-
-#Conservation 
-
-
-u:(dance for me) ^start(animations/Stand/Gestures/Hey_1) Nice to meet you ^wait(animations/Stand/Gestures/Hey_1)
-proposal: %action would you like to see what kinds of actions that I can do? 
-    u1: (~yes) that's great! ^topicTag(PerformAction, random)
-    u1: (~no) well you are no fun.
-
- 
 

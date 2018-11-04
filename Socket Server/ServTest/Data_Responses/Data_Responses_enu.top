@@ -1,0 +1,52 @@
+topic: ~Data_Responses()
+language: enu
+
+
+#-----------------------Status & Sensors-----------------------------------------
+u: (How are you?) ^first["Amazing! My battery level is at 100 percent! $Device/SubDeviceList/Battery/Charge/Sensor/Value==1" "Great! My battery level is above 75 percent!$Device/SubDeviceList/Battery/Charge/Sensor/Value>0.75" "I am ok! My battery level is above 50 percent! $Device/SubDeviceList/Battery/Charge/Sensor/Value>0.51" "Getting tired, my battery level is above 25 percent $Device/SubDeviceList/Battery/Charge/Sensor/Value>0.25" "Very tired, please plug me in. My battery level is below 25 percent."]
+
+u: (Are you cold?) ^first["A little bit, my head is $Device/SubDeviceList/Head/Temperature/Sensor/Value degrees celsius$Device/SubDeviceList/Head/Temperature/Sensor/Value<40" "Not at all, my head is $Device/SubDeviceList/Head/Temperature/Sensor/Value degrees celsius"]
+
+u: (Are you plugged in?) ^first["Yes, I am plugged in. $BatteryPowerPluggedChanged==true" "No, I am not plugged in."]
+
+u:(Are you watching anyone?) ^first["No, I am not watching anyone. $ALBasicAwareness/HumanTracked==-1" "Yes, I am watching someone."]
+
+u: (How far are they from you?) ^first["Sorry, I am not watching anyone right now $Launchpad/DistanceOfTrackedHuman==-1" "They are $Launchpad/DistanceOfTrackedHuman meters away from me"]
+
+u:(What was the last thing someone said to you?) They said $ActualLastMessage
+
+#-----------------------Installed Applications-----------------------------------
+#u: (What is installed?) Arcadia Dance, Berlin Orientation, and See and Listen are installed, do you want to run Arcadia Dance?
+#    u1: (yes) ^run(arcadia/full_launcher)
+#    u1: (no)  ^nextProposal
+
+#proposal: Would you like to run the Berlin Orientation?
+#    u1: (yes) ^run(berlin-orientation/anims/Vivaldi)
+#    u1: (no)  ^nextProposal
+    
+#proposal: Would you like to run See And Listen?
+#    u1: (yes) ^run(seeandlisten/animations/01_hello)
+#    u1: (no)  Okay
+
+u: (What is installed?) 
+%script
+import random
+
+memory = ALProxy('ALMemory')
+packageNameList = memory.getData("InstalledPackages")
+length = len(packageNameList)
+numbers = [random.uniform(0,length),random.uniform(0,length),random.uniform(0,length)]
+print (packageNameList[int(numbers[0])]+","+packageNameList[int(numbers[1])]+","+packageNameList[int(numbers[2])]+" and more applications are installed")
+%script
+
+u: (Run Arcadia Dance) Okay running Arcadia Dance ^run(arcadia/full_launcher)
+
+u: (Run Berlin Orientation) Okay running Berlin Orientation. ^run(berlin-orientation/anims/Vivaldi)
+
+u: (Run See And Listen) Okay running See And Listen. ^run(seeandlisten/animations/01_hello)
+
+#--------------------Connection-----------------------------------------------------
+u:(connect) Hello! You're connected!
+
+#--------------------Miscellaneous-----------------------------------------------------
+u:({Pepper} Repeat after me _[*]) $1
