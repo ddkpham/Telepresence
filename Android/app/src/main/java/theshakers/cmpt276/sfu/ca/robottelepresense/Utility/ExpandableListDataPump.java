@@ -11,7 +11,7 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.R;
  * Created by baesubin on 2018-10-25.
  */
 
-//the class for data will be showed Help page through ExpandableList
+// This class is for data will be showed Help page through ExpandableList
 public class ExpandableListDataPump {
     private Context context = null;
 

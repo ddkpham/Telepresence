@@ -17,6 +17,11 @@
     <string name="title_activity_help_page">HelpPageActivity</string>
     <string name="help_intro">You can have a conversation with Pepper. Here are some messages you can send to Pepper. </string>
 
+    <!-- Photo Activity -->
+    <string name="select_picture_from_gallery">Select Picture From Gallery</string>
+    <string name="send_picture_to_pepper">Send Picture to Server</string>
+
+    <!-- List Pepper Can Do For Help Page -->
     <string-array name="simple_conversation">
         <item>Hello</item> 
         <item>wassuppp</item> 
@@ -44,9 +49,5 @@
         <item>How far are they from you</item>
         <item>What was the last thing someone said to you?</item>
     </string-array>
-
-    <!-- Photo Activity -->
-    <string name="select_picture_from_gallery">Select Picture From Gallery</string>
-    <string name="send_picture_to_pepper">Send Picture to Server</string>
 
 </resources>

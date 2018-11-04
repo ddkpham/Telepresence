@@ -17,7 +17,7 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.R;
  * Created by baesubin on 2018-10-25.
  */
 
-//The class is custom adapter for ExpandableList in Help page
+// This class is custom adapter for ExpandableList in Help page
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<String> expandableListTitle;

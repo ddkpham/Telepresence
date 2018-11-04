@@ -24,6 +24,7 @@ import java.util.HashMap;
 
 import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.UploadPhotoAsyncTask;
 
+// PhotoActivity allows you to select photo from your gallery then send it to pepper
 public class PhotoActivity extends AppCompatActivity implements View.OnClickListener{
     private final String TAG = "PhotoActivity";
     private final int REQUEST_PHOTOS_FROM_GALLERY_CODE = 1112;

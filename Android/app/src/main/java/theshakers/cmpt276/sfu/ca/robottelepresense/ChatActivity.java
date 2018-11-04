@@ -20,7 +20,7 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.SendAndReceiveJsonA
  * Created by baesubin on 2018-10-22.
  */
 
-//chat activity creates chat window allows to send commands to Pepper
+// ChatActivity creates chat window allows to send commands to Pepper
 public class ChatActivity extends AppCompatActivity {
     private final String TAG = "ChatActivity";
     private MessageInput inputView = null;
@@ -70,6 +70,7 @@ public class ChatActivity extends AppCompatActivity {
         sendAndReceiveJsonAsyncTask.execute(inputText);
     }
 
+    //This code was for Web Socket in Sprint1, so it's not used in this sprint.
     /*
     private void sendAndReceiveMsgFromSocketServer(String inputText) {
         SocketServerClient socketServerClient =new SocketServerClient(this, new SocketServerResponseCallback() {

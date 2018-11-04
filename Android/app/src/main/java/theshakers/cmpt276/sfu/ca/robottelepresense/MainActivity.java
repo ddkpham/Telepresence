@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-//Main activity contains two buttons: Connect button and Help Page button
+// Main activity contains three buttons: Connect button, Photo button, and Help Page button
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private final String TAG = "MainActivity";
     private Button connectBtn = null;
