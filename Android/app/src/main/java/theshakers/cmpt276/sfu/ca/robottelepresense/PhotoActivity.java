@@ -20,6 +20,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import java.io.IOException;
+import java.util.HashMap;
+
+import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.UploadPhotoAsyncTask;
 
 public class PhotoActivity extends AppCompatActivity implements View.OnClickListener{
     private final String TAG = "PhotoActivity";
@@ -29,6 +32,8 @@ public class PhotoActivity extends AppCompatActivity implements View.OnClickList
     private Button sendBtn = null;
     private ImageView imageView = null;
     private String[] permissionList = null;
+    private HashMap<String, String> param = null;
+    private HashMap<String, String> files = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,10 @@ public class PhotoActivity extends AppCompatActivity implements View.OnClickList
 
         selectBtn.setOnClickListener(this);
         sendBtn.setOnClickListener(this);
+
+        param = new HashMap<String, String>();
+        param.put("id", "id");
+        files = new HashMap<String, String>();
     }
 
 
@@ -55,8 +64,13 @@ public class PhotoActivity extends AppCompatActivity implements View.OnClickList
                 selectGallery();
                 break;
             case R.id.sendBtn:
+                sendPhoto();
                 break;
         }
+    }
+
+    private void sendPhoto() {
+        new UploadPhotoAsyncTask(this, param, files).execute();
     }
 
     @Override
@@ -103,6 +117,7 @@ public class PhotoActivity extends AppCompatActivity implements View.OnClickList
 
     private void getPicture(Uri imgUri) {
         String imagePath = getRealPathFromURI(imgUri);
+        files.put("file", imagePath);
         Log.i(TAG, "getPath(): " + imagePath);
 
         ExifInterface exif = null;

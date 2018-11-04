@@ -21,11 +21,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         connectBtn = (Button)findViewById(R.id.connectBtn);
         connectBtn.setOnClickListener(this);
 
-        helpPageBtn = (Button)findViewById(R.id.helpPageBtn);
-        helpPageBtn.setOnClickListener(this);
-
         photoBtn = (Button)findViewById(R.id.photoBtn);
         photoBtn.setOnClickListener(this);
+
+        helpPageBtn = (Button)findViewById(R.id.helpPageBtn);
+        helpPageBtn.setOnClickListener(this);
     }
 
     @Override
@@ -36,12 +36,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(this, ChatActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.helpPageBtn:
-                intent = new  Intent (this, HelpPageActivity.class);
-                startActivity(intent);
-                break;
             case R.id.photoBtn:
                 intent = new  Intent (this, PhotoActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.helpPageBtn:
+                intent = new  Intent (this, HelpPageActivity.class);
                 startActivity(intent);
                 break;
         }
