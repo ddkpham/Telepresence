@@ -6,13 +6,14 @@
     <!-- Main Activity -->
     <string name="connect_btn">Connection</string>
     <string name="help_page_btn">Help Page</string>
+    <string name="photo_btn">Send Photo</string>
 
     <!-- Chat Activity -->
     <string name="hint_enter_a_message">Enter a message here</string>
     <string name="error_wrong_attempt">This is wrong attempt, can you try again?</string>
     <string name="error_connection">There is connection error with server, can you try again?</string>
 
-    <!-- Help Page Activity-->
+    <!-- Help Page Activity -->
     <string name="title_activity_help_page">HelpPageActivity</string>
     <string name="help_intro">You can have a conversation with Pepper. Here are some messages you can send to Pepper. </string>
 
@@ -43,5 +44,9 @@
         <item>How far are they from you</item>
         <item>What was the last thing someone said to you?</item>
     </string-array>
+
+    <!-- Photo Activity -->
+    <string name="select_picture_from_gallery">Select Picture From Gallery</string>
+    <string name="send_picture_to_pepper">Send Picture to Server</string>
 
 </resources>

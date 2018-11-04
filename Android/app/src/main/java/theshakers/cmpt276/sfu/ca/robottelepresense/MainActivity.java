@@ -11,6 +11,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private final String TAG = "MainActivity";
     private Button connectBtn = null;
     private Button helpPageBtn = null;
+    private Button photoBtn = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         helpPageBtn = (Button)findViewById(R.id.helpPageBtn);
         helpPageBtn.setOnClickListener(this);
+
+        photoBtn = (Button)findViewById(R.id.photoBtn);
+        photoBtn.setOnClickListener(this);
     }
 
     @Override
@@ -34,6 +38,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.helpPageBtn:
                 intent = new  Intent (this, HelpPageActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.photoBtn:
+                intent = new  Intent (this, PhotoActivity.class);
                 startActivity(intent);
                 break;
         }
