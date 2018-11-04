@@ -12,12 +12,14 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import theshakers.cmpt276.sfu.ca.robottelepresense.App;
 import theshakers.cmpt276.sfu.ca.robottelepresense.R;
 
 /**
  * Created by baesubin on 2018-11-04.
  */
 
+// This is AsyncTask used to send and receive Json data from Flask Server
 public class SendAndReceiveJsonAsyncTask extends AsyncTask<String, Void, String> {
     private final String TAG = "SendAndReceiveJsonAT";
     private HttpURLConnection conn = null;
@@ -35,7 +37,7 @@ public class SendAndReceiveJsonAsyncTask extends AsyncTask<String, Void, String>
     @Override
     protected String doInBackground(String... params) {
         try {
-            URL url = new URL("http://python-server-221001.appspot.com/echomessage");
+            URL url = new URL(App.httpAddress + "echomessage");
             //URL url = new URL("http://142.58.170.104:5000/echo");
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");

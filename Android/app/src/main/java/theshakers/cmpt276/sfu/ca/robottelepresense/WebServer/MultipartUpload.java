@@ -24,6 +24,7 @@ import java.util.Map;
  * Created by baesubin on 2018-10-31.
  */
 
+// This class is for creating packet string for sending photo in HTTP
 public class MultipartUpload {
     private final String boundary;
     private final String tail;

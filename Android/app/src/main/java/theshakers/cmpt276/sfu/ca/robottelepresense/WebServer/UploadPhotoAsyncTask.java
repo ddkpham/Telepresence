@@ -11,10 +11,13 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.HashMap;
 
+import theshakers.cmpt276.sfu.ca.robottelepresense.App;
+
 /**
  * Created by baesubin on 2018-11-04.
  */
 
+// This is AsyncTask used to upload photo to Flask Server
 public class UploadPhotoAsyncTask extends AsyncTask<Object, Integer, JSONObject> implements UploadPhotoProgressListener {
     private final String TAG = "UploadAsync";
     private ProgressDialog progressDialog;
@@ -45,7 +48,7 @@ public class UploadPhotoAsyncTask extends AsyncTask<Object, Integer, JSONObject>
     protected JSONObject doInBackground(Object... params) {
         JSONObject json = null;
         try {
-            String url = "http://python-server-221001.appspot.com/photo";
+            String url = App.httpAddress + "photo";
             MultipartUpload multipartUpload = new MultipartUpload(url, "UTF-8");
             multipartUpload.setUploadPhotoProgressListener(this);
             json = multipartUpload.upload(param, files);

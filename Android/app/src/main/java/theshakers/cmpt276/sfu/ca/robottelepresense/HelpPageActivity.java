@@ -18,7 +18,7 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.Utility.ExpandableListDataPum
  * Created by baesubin on 2018-10-24.
  */
 
-//Help page activity gives information how to connect to Pepper and how to use it
+// HelpPageActivity gives information how to connect to Pepper and how to use it
 public class HelpPageActivity extends AppCompatActivity {
     private final String TAG = "HelpPageActivity";
     private Button goBackBtn = null;

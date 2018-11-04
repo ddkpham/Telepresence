@@ -7,7 +7,7 @@ import java.util.Date;
  * Created by baesubin on 2018-10-21.
  */
 
-//Message class to form the mesaage
+// Message class to form the message for ChatActivity
 public class Message implements IMessage {
    private String id;
    private String text;
