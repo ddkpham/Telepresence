@@ -4,6 +4,10 @@
     <string name="app_name">Robot Telepresence</string>
 
     <!-- Main Activity -->
+    <string name="title_chat">Chat mode</string>
+    <string name="description_chat">Communicate with Pepper through photo and text</string>
+    <string name="title_help">Help page</string>
+    <string name="description_help">Look for what Pepper can do</string>
     <string name="connect_btn">Connection</string>
     <string name="help_page_btn">Help Page</string>
     <string name="photo_btn">Send Photo</string>
@@ -12,6 +16,7 @@
     <string name="hint_enter_a_message">Enter a message here</string>
     <string name="error_wrong_attempt">This is wrong attempt, can you try again?</string>
     <string name="error_connection">There is connection error with server, can you try again?</string>
+    <string name="sending_photo_to_pepper">Sending photo to pepper</string>
 
     <!-- Help Page Activity -->
     <string name="title_activity_help_page">HelpPageActivity</string>

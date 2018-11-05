@@ -1,49 +1,54 @@
 package theshakers.cmpt276.sfu.ca.robottelepresense;
 
 import android.content.Intent;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 
+import me.relex.circleindicator.CircleIndicator;
+import theshakers.cmpt276.sfu.ca.robottelepresense.Utility.MenuCardFragment;
+import theshakers.cmpt276.sfu.ca.robottelepresense.Utility.MainActivityPagerAdapter;
+
 // Main activity contains three buttons: Connect button, Photo button, and Help Page button
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements MenuCardFragment.OnActionListener {
     private final String TAG = "MainActivity";
-    private Button connectBtn = null;
-    private Button helpPageBtn = null;
-    private Button photoBtn = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE); //will hide the title
+        getSupportActionBar().hide(); // hide the title bar
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_main);
 
-        connectBtn = (Button)findViewById(R.id.connectBtn);
-        connectBtn.setOnClickListener(this);
+        ViewPager pager = (ViewPager) findViewById(R.id.pager);
+        pager.setAdapter(new MainActivityPagerAdapter(this, getSupportFragmentManager()));
+        pager.setPageMargin((int) getResources().getDimension(R.dimen.card_padding) / 4);
+        pager.setOffscreenPageLimit(3);
 
-        photoBtn = (Button)findViewById(R.id.photoBtn);
-        photoBtn.setOnClickListener(this);
+        CircleIndicator indicator = (CircleIndicator) findViewById(R.id.indicator);
+        indicator.setViewPager(pager);
 
-        helpPageBtn = (Button)findViewById(R.id.helpPageBtn);
-        helpPageBtn.setOnClickListener(this);
     }
-
     @Override
-    public void onClick(View v) {
+    public void onAction(int id) {
         Intent intent = null;
-        switch (v.getId()) {
-            case R.id.connectBtn:
+        switch (id) {
+            case MainActivityPagerAdapter.ID_CHAT:
                 intent = new Intent(this, ChatActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.photoBtn:
-                intent = new  Intent (this, PhotoActivity.class);
+            case MainActivityPagerAdapter.ID_HELP_PAGE:
+                intent = new Intent(this, HelpPageActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.helpPageBtn:
-                intent = new  Intent (this, HelpPageActivity.class);
-                startActivity(intent);
-                break;
+
         }
     }
 }

@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.util.HashMap;
 
 import theshakers.cmpt276.sfu.ca.robottelepresense.App;
+import theshakers.cmpt276.sfu.ca.robottelepresense.R;
+import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.ResponseCallback.UploadPhotoProgressListener;
+import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.ResponseCallback.UploadResponseCallback;
 
 /**
  * Created by baesubin on 2018-11-04.
@@ -19,15 +22,17 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.App;
 
 // This is AsyncTask used to upload photo to Flask Server
 public class UploadPhotoAsyncTask extends AsyncTask<Object, Integer, JSONObject> implements UploadPhotoProgressListener {
-    private final String TAG = "UploadAsync";
+    private final String TAG = "UploadPhotoAsyncTask";
     private ProgressDialog progressDialog;
-    private Context mContext;
+    private Context context;
     private HashMap<String, String> param;
     private HashMap<String, String> files;
-    private long startTime;
+    private long startTime = 0;
+
+    private UploadResponseCallback uploadResponseCallback = null;
 
     public UploadPhotoAsyncTask(Context context, HashMap<String, String> param, HashMap<String, String> files) {
-        mContext = context;
+        this.context = context;
         this.param = param;
         this.files = files;
     }
@@ -36,9 +41,9 @@ public class UploadPhotoAsyncTask extends AsyncTask<Object, Integer, JSONObject>
     protected void onPreExecute() {
         super.onPreExecute();
         startTime = System.currentTimeMillis();
-        progressDialog = new ProgressDialog(mContext);
+        progressDialog = new ProgressDialog(context);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDialog.setMessage("wait");
+        progressDialog.setMessage(context.getString(R.string.sending_photo_to_pepper));
         progressDialog.setMax(100);
         progressDialog.setCancelable(false);
         progressDialog.show();
@@ -79,16 +84,15 @@ public class UploadPhotoAsyncTask extends AsyncTask<Object, Integer, JSONObject>
         }
 
         if (result != null) {
-
             try {
                 if (result.getInt("success") == 1) {
-                    Toast.makeText(mContext, "success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "success", Toast.LENGTH_SHORT).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         } else {
-            Toast.makeText(mContext, "connection error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "connection error", Toast.LENGTH_SHORT).show();
         }
     }
 
