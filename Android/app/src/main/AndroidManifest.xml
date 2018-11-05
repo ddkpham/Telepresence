@@ -24,7 +24,6 @@
         </activity>
         <activity android:name=".ChatActivity"></activity>
         <activity android:name=".HelpPageActivity"></activity>
-        <activity android:name=".PhotoActivity"></activity>
     </application>
 
 </manifest>

@@ -14,6 +14,7 @@ import java.net.URL;
 
 import theshakers.cmpt276.sfu.ca.robottelepresense.App;
 import theshakers.cmpt276.sfu.ca.robottelepresense.R;
+import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.ResponseCallback.JsonResponseCallback;
 
 /**
  * Created by baesubin on 2018-11-04.

@@ -20,12 +20,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.ResponseCallback.UploadPhotoProgressListener;
+
 /**
  * Created by baesubin on 2018-10-31.
  */
 
 // This class is for creating packet string for sending photo in HTTP
 public class MultipartUpload {
+    private final String TAG = "MultipartUpload";
     private final String boundary;
     private final String tail;
     private static final String LINE_END = "\r\n";
@@ -34,10 +37,9 @@ public class MultipartUpload {
     private String charset;
     private PrintWriter writer;
     private OutputStream outputStream;
-    private static final String TAG = "MultipartUtility";
-    int maxBufferSize = 1024;
+    private int maxBufferSize = 1024;
     private UploadPhotoProgressListener uploadPhotoProgressListener;
-    private long startTime;
+    private long startTime = 0;
 
     public MultipartUpload(String requestURL, String charset) throws IOException {
         this.charset = charset;
