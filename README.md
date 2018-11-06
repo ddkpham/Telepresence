@@ -1,4 +1,4 @@
-##Sprint 2 Project Details  
+## Sprint 2 Project Details  
 **Python Servers:**  
 Created using Python Flask: http://flask.pocoo.org/docs/1.0/  
 Send requests using Requests: http://docs.python-requests.org/en/latest/user/quickstart/  
