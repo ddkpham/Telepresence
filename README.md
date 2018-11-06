@@ -28,6 +28,7 @@ Json Web Token: https://en.wikipedia.org/wiki/JSON_Web_Token
 HTTPS
 
 //------------------------------------------------
+
 Database Schema:
 Pepper Entity: 
 Pepper ID,String, PRIMARY KEY
@@ -54,6 +55,7 @@ Email,String
 Composite Key(Pepper ID,Username)
 
 //------------------------------------------------
+
 Device Requirements:
 Pepper Tablet:
 -show pepper ID
