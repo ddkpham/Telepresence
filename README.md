@@ -1,20 +1,20 @@
-#Sprint 2 Project Details  
-**Python Servers:  **
+##Sprint 2 Project Details  
+**Python Servers:**  
 Created using Python Flask: http://flask.pocoo.org/docs/1.0/  
 Send requests using Requests: http://docs.python-requests.org/en/latest/user/quickstart/  
 
-**Definitions:  **
+**Definitions:**  
 Android: Android Device running Telepresence App  
 Cloud (Server): Python Server running on Google Cloud Platform   
 Pepper Server: Python Server running on Pepper  
 Database: Google Cloud Platform mysql database  
 Security Key: randomly generated string for security  
 
-**Connection:  **
+**Connection:**  
 Send/receive HTTP requests to communicate between Android, Cloud, Pepper  
 All data from Android to Pepper or vice versa will go through the Cloud  
 
-**Authentication and Security:  **
+**Authentication and Security:**  
 User account, Username + Password combo  
 Security Key generation on Pepper or Cloud using random algorithm  
 Pepper’s Python Server should compare security keys before processing requests  
@@ -29,7 +29,7 @@ HTTPS
 
 //------------------------------------------------
 
-**Database Schema:  **
+**Database Schema:**  
 Pepper Entity:  
 Pepper ID,String, PRIMARY KEY  
 IP Address, String  
@@ -56,7 +56,7 @@ Composite Key(Pepper ID,Username)
 
 //------------------------------------------------
 
-**Device Requirements:  **
+**Device Requirements:**  
 Pepper Tablet:  
 -show pepper ID  
 -register new pepper  
