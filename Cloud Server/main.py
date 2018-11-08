@@ -13,7 +13,7 @@ app = Flask(__name__)
 app.config.from_object(config)
 db = SQLAlchemy(app)
 
-#tmp
+#TODO: delete this bonobo
 pepper_ip_address = ""
 
 #-----------------ENTITY-MODELS-----
@@ -72,21 +72,6 @@ class User(db.Model):
 #         self.email = email
 
 #-------------------ROUTES------------------------
-@app.route('/')
-def hello():
-    return '01001101 01111001 00100000 01101110 01100001 01101101 01100101 00100000 01101001 01110011 00100000 01010000 01100101 01110000 01110000 01100101 01110010 00101110 00100000 01010010 01100101 01110011 01101001 01110011 01110100 01100001 01101110 01100011 01100101 00100000 01101001 01110011 00100000 01100110 01110101 01110100 01101001 01101100 01100101 00101110'
-
-@app.route('/echomessage', methods=['POST'])
-def echo():
-    print("/echo")
-    if request.method == 'POST':
-        content = request.json
-        print(content)
-        #print(content['msg'])
-        # print("Received Message= "+request.values.get('msg'))
-        # print("Request.headers= "+ str(request.headers.values))
-        # print("Request.remote_addr= " + request.remote_addr)
-        return jsonify({'msg':'Echo echo echo echo echo.'})
 
 #Login route for User to Login on Android
 #Return 200, and Android Security Key on Success
@@ -154,7 +139,7 @@ def photo():
 
 #Accept Authorization Request and add to database
 @app.route('/reqAuth', methods=['POST'])
-def addReq():
+def addAuthorizationRequest():
     content = request.json
     pep_id = content['pep_id']
     uname = content['username']
@@ -173,7 +158,7 @@ def addReq():
     new_request = UserAuth(pep_id=pep_id,username=uname,email=email)
     db.session.add(new_request)
     db.session.commit()
-    return 'True'
+    return Response(status=200)
 
 #Deauthorizes a user
 @app.route('/deAuth', methods=['POST'])
@@ -198,8 +183,9 @@ def deauthorize():
     return Response(status=200)
 
 #Adds user to database
+#TODO: Add check for already added username/email
 @app.route('/addUser', methods=['POST'])
-def register():
+def addUser():
     content = request.json
     uname = content['username']
     password = content['password']
@@ -284,10 +270,11 @@ def authorizeUser():
     return Response(status=200)
 
 
-
 #TODO: setPepperActive
-#TODO: connect
+
 #TODO: addPepper
+
+#TODO: connect
 
 @app.errorhandler(500)
 def server_error(e):
@@ -311,8 +298,8 @@ def send_ip():
     print("Sending: "+pepper_ip_address)
     return pepper_ip_address
 
-@app.route('/createDatabase', methods=['GET'])
-def create_db():
+@app.route('/wipeDatabase', methods=['GET'])
+def wipe_db():
     print("DB CREATE FUNC")
     db.drop_all()
     db.create_all()
@@ -359,6 +346,22 @@ def showDB():
         result = result + 'pep_id: ' + pepper.pep_id + '| ip_address: ' + pepper.ip_address + '<br>'
 
     return result
+
+@app.route('/')
+def hello():
+    return '01001101 01111001 00100000 01101110 01100001 01101101 01100101 00100000 01101001 01110011 00100000 01010000 01100101 01110000 01110000 01100101 01110010 00101110 00100000 01010010 01100101 01110011 01101001 01110011 01110100 01100001 01101110 01100011 01100101 00100000 01101001 01110011 00100000 01100110 01110101 01110100 01101001 01101100 01100101 00101110'
+
+@app.route('/echomessage', methods=['POST'])
+def echo():
+    print("/echo")
+    if request.method == 'POST':
+        content = request.json
+        print(content)
+        #print(content['msg'])
+        # print("Received Message= "+request.values.get('msg'))
+        # print("Request.headers= "+ str(request.headers.values))
+        # print("Request.remote_addr= " + request.remote_addr)
+        return jsonify({'msg':'Echo echo echo echo echo.'})
 #-----------------Main--------------------------
 
 if __name__ == '__main__':
