@@ -58,19 +58,6 @@ class User(db.Model):
         self.password = password
         self.ASK = ASK
 
-# class AuthRequest(db.Model):
-#     __table_args__ = (
-#         db.PrimaryKeyConstraint(pep_id, username)
-#     )
-#     pep_id = db.Column(db.String(100), db.ForeignKey('Pepper.pep_id'), nullable=False)
-#     username = db.Column(db.String(100), db.ForeignKey('User.username'), nullable=False)
-#     email = db.Column(db.String(100))
-#
-#     def __init__(self, pep_id, username, email):
-#         self.pep_id = pep_id
-#         self.username = username
-#         self.email = email
-
 #-------------------ROUTES------------------------
 
 #Login route for User to Login on Android
@@ -108,34 +95,73 @@ def login():
     else:
         Response(status=500)
 
-#TODO: Update Relay when Pepper Server up
+#TODO: Test Relay when Pepper Server up
 @app.route('/message', methods=['POST'])
 def relay():
-    print("/relay")
-    #print("Received Message= " + request.values.get('msg'))
+    print("/Message")
+
     content = request.json
-    print(content)
+    username = content['username']
+    pep_id = content['pep_id']
+    ASK = content['ASK']
+    message = content['message']
 
-    #pepper_ip_address = 'python-server-221001.appspot.com'
-    pepper_ip_address = "207.23.182.85:8080"
-    relay_ip = "http://" + pepper_ip_address + "/echomessage"
-    print(relay_ip)
+    #Check ASK
 
-    #req = r.post(relay_ip, data=(jsonify({'msg':'bleep'})))
+    #Check Authorization
+    uauth_req = UserAuth.query.get((pep_id, username))
+    if uauth_req is None:
+        return Response(status=410)
+
+    #Get Pepper Entity
+    pepper = Pepper.query.filter_by(pep_id=pep_id).first()
+    if pepper is None:
+        return Response(status=404)
+
+    relay_ip = "http://" + pepper.ip_address + "/message"
+    print("Relay ip: " + relay_ip)
+
     # try:
-    req = r.post(relay_ip, data=json.dumps({'msg': "Message from cloud"}))
+    req = r.post(relay_ip, data=json.dumps({'msg': message}))
     # except r.exceptions.RequestException as e:
     #     print e
     #     return "failure"
-    print(req.text)
-    return req.text
 
-#TODO: photo send to pepper
+    print(req.text)
+    if req.status_code == 200:
+        return req.text
+    else:
+        return Response(status=req.status_code)
+
+#TODO:Test photo when Pepper Server Up
 @app.route('/photo', methods=['POST'])
 def photo():
-    if request.method == 'POST':
-        f = request.files['file']
-        return Response(status=200)
+    # if request.method == 'POST':
+    content = request.json
+    username = content['username']
+    pep_id = content['pep_id']
+    ASK = content['ASK']
+
+    photo = request.files['file']
+
+    #Check ASK
+
+    #Check Authorization
+    uauth_req = UserAuth.query.get((pep_id, username))
+    if uauth_req is None:
+        return Response(status=410)
+
+    # Get Pepper Entity
+    pepper = Pepper.query.filter_by(pep_id=pep_id).first()
+    if pepper is None:
+        return Response(status=404)
+
+    relay_ip = "http://" + pepper.ip_address + "/message"
+    print("Relay ip: " + relay_ip)
+
+    req = r.post(relay_ip, files=photo)
+
+    return Response(status=req.status_code)
 
 #Accept Authorization Request and add to database
 @app.route('/reqAuth', methods=['POST'])
@@ -165,10 +191,11 @@ def addAuthorizationRequest():
 def deauthorize():
     content = request.json
     pep_id = content['pep_id']
-    SK = content['key']
+    ASK = content['ASK']
+    PSK = content['PSK']
     uname = content['username']
 
-    #test key first letter for A or P as indicator
+    #One of ASK or PSK is blank, NOT blank one is the sender
 
     uauth_req = UserAuth.query.get((pep_id,uname))
     if uauth_req is None:
@@ -183,7 +210,7 @@ def deauthorize():
     return Response(status=200)
 
 #Adds user to database
-#TODO: Add check for already added username/email
+#TODO: Test check for already added username/email
 @app.route('/addUser', methods=['POST'])
 def addUser():
     content = request.json
@@ -194,6 +221,13 @@ def addUser():
 
     # Generate ASK here
 
+    user_query = User.query.filter_by(username=uname).first()
+    if user_query is not None:
+        return Response(jsonify({'Error:': 'Username already used.'}), status=409)
+    user_query = User.query.filter_by(email=email).first()
+    if user_query is not None:
+        return Response(jsonify({'Error:': 'Email already used.'}), status=409)
+
     new_user = User(username=uname, email=email, name=name, password=password, ASK ='')
 
     db.session.add(new_user)
@@ -201,12 +235,7 @@ def addUser():
 
     return Response(status=200)#return ASK
 
-#TODO: removeUser
-#Optional, Not in requirements but useful for administrative purposes
-# @app.route('/removeUser', methods=['POST'])
-# def removeUser():
-
-#TODO: getAuthRequests
+#TODO: Test getAuthRequests
 @app.route('/getAuthRequests', methods=['POST'])
 def getAuthRequests():
     content = request.json
@@ -227,7 +256,7 @@ def getAuthRequests():
     print(authreq_list)
     return jsonify({'AuthReqs': authreq_list})
 
-#TODO: getAuthUsers
+#TODO:Test getAuthUsers
 @app.route('/getAuthUsers',methods=['POST'])
 def getAuthUsers():
     content = request.json
@@ -248,7 +277,7 @@ def getAuthUsers():
     print(authuser_list)
     return jsonify({'AuthUsers': authuser_list})
 
-#TODO: authorizeUser
+#TODO:Test authorizeUser
 @app.route('/authorizeUser', methods=['POST'])
 def authorizeUser():
     content = request.json
@@ -270,16 +299,82 @@ def authorizeUser():
     return Response(status=200)
 
 
-#TODO: setPepperActive
+#TODO:Test setPepperActive
+@app.route('/setPepperActive', methods=['POST'])
+def setPepperActive():
+    content = request.json
+    pep_id = content['pep_id']
+    #ip_address = content['ip_address']
+    ip = request.access_route[0]
+    PSKs = ['PSK']
 
-#TODO: addPepper
+    pepper = Pepper.query.filter_by(pep_id=pep_id).first()
+    if pepper is None:
+        return Response(status=404)
+        # new_pepper = Pepper(pep_id=pep_id, ip_address=ip, PSK='')
+        # db.session.add(new_pepper)
+        # db.session.commit()
+        # return Response(status=200)
+    else:
+        pepper.ip_address = ip
+        db.session.commit()
+    return Response(status=200)
 
-#TODO: connect
+#TODO:Test addPepper
+@app.route('/addPepper', methods=['POST'])
+def addPepper():
+    content = request.json
+    pep_id = content['pep_id']
+    PSK = content['PSK']
+    ip = request.access_route[0]
+
+    new_pepper = Pepper(pep_id=pep_id, ip_address = ip, PSK = '')
+    db.session.add(new_pepper)
+    db.session.commit()
+    return Response(status=200)
+
+#TODO: pepper Login
+#Login for Pepper Tablet
+def pepperLogin():
+    if request.method == 'POST':
+        content = request.json
+        print (content)
+
+        uname = content['username']
+        pword = content['password']
+
+        #For debugging, delete before production
+        print('Username Input: ' + uname)
+        print('Password Input: ' + pword)
+
+        #Query Database for User
+        user_query = User.query.filter_by(username=uname).first()
+        if user_query is None:
+            return Response(status=409)
+
+        if pword==user_query.password:
+            authpep_list = []
+            uauth_query = UserAuth.query.filter_by(username=uname).all()
+            for uauth in uauth_query:
+                if uauth.authorized is True:
+                    authpep_list.append(uauth.pep_id)
+
+            return jsonify({'pepper_list':authpep_list})
+        else:
+            return Response(status=409)
+
+    else:
+        Response(status=500)
+
+
+#TODO: removeUser
+#Optional, Not in requirements but useful for administrative purposes
+# @app.route('/removeUser', methods=['POST'])
+# def removeUser():
 
 @app.errorhandler(500)
 def server_error(e):
     return """An internal error occurred: <pre>{}</pre>See logs for full stacktrace.""".format(e), 500
-
 #------------------DIAGNOSTIC-ROUTES---------------
 @app.route('/setIP', methods=['POST'])
 def set_ip():
@@ -297,13 +392,6 @@ def set_ip():
 def send_ip():
     print("Sending: "+pepper_ip_address)
     return pepper_ip_address
-
-@app.route('/wipeDatabase', methods=['GET'])
-def wipe_db():
-    print("DB CREATE FUNC")
-    db.drop_all()
-    db.create_all()
-    return 'db created'
 
 @app.route('/adminPepper',methods=['GET'])
 def user_pepper():
@@ -325,6 +413,14 @@ def query_db():
     print(Pepper.query.all())
     # print(AuthUsers.query.all())
     return 'Queries in Logs'
+
+
+@app.route('/wipeDatabase', methods=['GET'])
+def wipe_db():
+    print("DB CREATE FUNC")
+    db.drop_all()
+    db.create_all()
+    return 'db created'
 
 #TODO: ONLY use this route for debugging, disable in production environment
 #IF used in production environment, update with security features before enabling
@@ -348,7 +444,7 @@ def showDB():
     return result
 
 @app.route('/')
-def hello():
+def Telepresence():
     return '01001101 01111001 00100000 01101110 01100001 01101101 01100101 00100000 01101001 01110011 00100000 01010000 01100101 01110000 01110000 01100101 01110010 00101110 00100000 01010010 01100101 01110011 01101001 01110011 01110100 01100001 01101110 01100011 01100101 00100000 01101001 01110011 00100000 01100110 01110101 01110100 01101001 01101100 01100101 00101110'
 
 @app.route('/echomessage', methods=['POST'])
@@ -362,6 +458,37 @@ def echo():
         # print("Request.headers= "+ str(request.headers.values))
         # print("Request.remote_addr= " + request.remote_addr)
         return jsonify({'msg':'Echo echo echo echo echo.'})
+
+#OLD PHOTO----------------------------------------
+# @app.route('/photo', methods=['POST'])
+# def photo():
+#     if request.method == 'POST':
+#         f = request.files['file']
+#         return Response(status=200)
+#OLD RELAY-----------------------------------------
+# @app.route('/message', methods=['POST'])
+# def relay():
+#     print("/Message")
+#
+#     content = request.json
+#     username = content['username']
+#     pep_id = content['pep_id']
+#     ASK = content['ASK']
+#
+#     # pepper_ip_address = 'python-server-221001.appspot.com'
+#     pepper_ip_address = "207.23.182.85:8080"
+#     relay_ip = "http://" + pepper_ip_address + "/echomessage"
+#     print(relay_ip)
+#
+#     # req = r.post(relay_ip, data=(jsonify({'msg':'bleep'})))
+#     # try:
+#     req = r.post(relay_ip, data=json.dumps({'msg': "Message from cloud"}))
+#     # except r.exceptions.RequestException as e:
+#     #     print e
+#     #     return "failure"
+#     print(req.text)
+#     return req.text
+
 #-----------------Main--------------------------
 
 if __name__ == '__main__':
