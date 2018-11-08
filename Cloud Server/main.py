@@ -286,15 +286,14 @@ def authorizeUser():
 
 
 #TODO: setPepperActive
-
-
 #TODO: connect
 #TODO: addPepper
-#------------------DIAGNOSTIC-ROUTES---------------
+
 @app.errorhandler(500)
 def server_error(e):
     return """An internal error occurred: <pre>{}</pre>See logs for full stacktrace.""".format(e), 500
 
+#------------------DIAGNOSTIC-ROUTES---------------
 @app.route('/setIP', methods=['POST'])
 def set_ip():
     print('/setIP')
@@ -340,14 +339,27 @@ def query_db():
     # print(AuthUsers.query.all())
     return 'Queries in Logs'
 
-#-----------------Main--------------------------
+#TODO: ONLY use this route for debugging, disable in production environment
+#IF used in production environment, update with security features before enabling
+@app.route('/showDB', methods=['GET'])
+def showDB():
+    users = User.query.all()
+    uauths = UserAuth.query.all()
+    peppers = Pepper.query.all()
 
-def query_for_user(username):
-    user_query = User.query.filter_by(username=uname).first()
-    if user_query is None:
-        return None
-    else:
-        return user_query
+    result = '<h3> Users: </h3><br>'
+
+    for user in users:
+        result = result + 'Username: ' + user.username + '| Email: ' + user.email + '| Name: ' + user.name + '| Password: ' + user.password + '<br>'
+    result += '<h3> UserAuths: </h3><br>'
+    for uauth in uauths:
+        result = result + 'pep_id: ' + uauth.pep_id + '| username: ' + uauth.username + '| email: ' + uauth.email + '| Authorized: ' + str(uauth.authorized) + '<br>'
+    result += '<h3> Peppers: </h3><br>'
+    for pepper in peppers:
+        result = result + 'pep_id: ' + pepper.pep_id + '| ip_address: ' + pepper.ip_address + '<br>'
+
+    return result
+#-----------------Main--------------------------
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1',port=8080)
