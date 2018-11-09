@@ -9,13 +9,29 @@
     <string name="register">Register</string>
     <string name="request_sent">Request sent</string>
 
-    <!-- Signup Activity -->
+    <!-- Login Activity -->
     <string name="account_is_created">Account is Created</string>
     <string name="login_failed">Login failed</string>
     <string name="authenticating">Authenticating...</string>
-
-    <!-- Main Activity -->
+    <string name="enter_a_valid_username">enter a valid username</string>
+    <string name="between_4_and_10_alphanumeric_characters">between 4 and 10 alphanumeric characters</string>
     <string name="check_your_id_or_password">Check your ID or Password</string>
+    <string name="user_name">Username</string>
+    <string name="password">Password</string>
+    <string name="no_account_yet_create_one">No account yet? Create one</string>
+    <string name="login">Login</string>
+
+    <!-- Signup Activity -->
+    <string name="signup_failed">Signup failed</string>
+    <string name="at_least_3_characters">"at least 3 characters"</string>
+    <string name="enter_a_valid_email_address">enter a valid email address</string>
+    <string name="password_do_not_match">"Password Do not match"</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="reenter_password">Re-enter Password</string>
+    <string name="create_account">Create Account</string>
+    <string name="already_a_member_login">Already a member? Login</string>
 
     <!-- Menu Activity -->
     <string name="title_chat">Chat mode</string>
@@ -25,6 +41,11 @@
     <string name="connect_btn">Connection</string>
     <string name="help_page_btn">Help Page</string>
     <string name="photo_btn">Send Photo</string>
+
+    <!-- Photo Activity -->
+    <string name="authorized_pepper_list">Authorized Pepper List</string>
+    <string name="requested_pepper_list">Requested Pepper List</string>
+    <string name="add_pepper">Add Pepper</string>
 
     <!-- Chat Activity -->
     <string name="hint_enter_a_message">Enter a message here</string>
@@ -36,9 +57,6 @@
     <string name="title_activity_help_page">HelpPageActivity</string>
     <string name="help_intro">You can have a conversation with Pepper. Here are some messages you can send to Pepper. </string>
 
-    <!-- Photo Activity -->
-    <string name="select_picture_from_gallery">Select Picture From Gallery</string>
-    <string name="send_picture_to_pepper">Send Picture to Server</string>
 
     <!-- List Pepper Can Do For Help Page -->
     <string-array name="simple_conversation">

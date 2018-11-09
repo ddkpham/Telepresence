@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -26,8 +25,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.ResponseCallback.StringResponseCallback;
-import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.SignUpAsyncTask;
+import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.StringResponseCallback;
+import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.requestUserAndAuthAsyncTask;
 
 /**
  * Created by baesubin on 2018-11-08.
@@ -35,7 +34,7 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.SignUpAsyncTask;
 
 // This Activity is for showing all authorized peppers which current user can use
 public class PepperListActivity extends Activity implements View.OnClickListener{
-    static final String TAG = "PepperListActivity";
+    private static final String TAG = "PepperListActivity";
     private Context context = null;
 
     private ArrayList<String> authorizedPepperStrArr = null;
@@ -156,7 +155,7 @@ public class PepperListActivity extends Activity implements View.OnClickListener
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        SignUpAsyncTask signUpAsyncTask= new SignUpAsyncTask(this, "deAuth", new StringResponseCallback() {
+        requestUserAndAuthAsyncTask requestUserAndAuthAsyncTask = new requestUserAndAuthAsyncTask(this, "deAuth", new StringResponseCallback() {
             @Override
             public void onResponseReceived(String result) {
                 if(result=="OK"){
@@ -177,7 +176,7 @@ public class PepperListActivity extends Activity implements View.OnClickListener
                 }
             }
         });
-        signUpAsyncTask.execute(jsonData);
+        requestUserAndAuthAsyncTask.execute(jsonData);
     }
 
     private void startMenuActivity() {

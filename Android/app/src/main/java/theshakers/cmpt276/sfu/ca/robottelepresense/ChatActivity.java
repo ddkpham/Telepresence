@@ -28,9 +28,9 @@ import java.util.HashMap;
 
 import theshakers.cmpt276.sfu.ca.robottelepresense.Model.Author;
 import theshakers.cmpt276.sfu.ca.robottelepresense.Model.Message;
-import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.ResponseCallback.StringResponseCallback;
-import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.SendAndReceiveJsonAsyncTask;
-import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.UploadPhotoAsyncTask;
+import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.StringResponseCallback;
+import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.SendAndReceiveJsonAsyncTask;
+import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.UploadPhotoAsyncTask;
 
 /**
  * Created by baesubin on 2018-10-22.

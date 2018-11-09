@@ -17,8 +17,8 @@ import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.ResponseCallback.StringResponseCallback;
-import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.SignUpAsyncTask;
+import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.StringResponseCallback;
+import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.requestUserAndAuthAsyncTask;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
@@ -100,7 +100,7 @@ public class SignupActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        SignUpAsyncTask signUpAsyncTask= new SignUpAsyncTask(this, "addUser", new StringResponseCallback() {
+        requestUserAndAuthAsyncTask requestUserAndAuthAsyncTask = new requestUserAndAuthAsyncTask(this, "addUser", new StringResponseCallback() {
             @Override
             public void onResponseReceived(String result) {
                 if(result=="OK"){
@@ -112,7 +112,7 @@ public class SignupActivity extends AppCompatActivity {
                 }
             }
         });
-        signUpAsyncTask.execute(jsonData);
+        requestUserAndAuthAsyncTask.execute(jsonData);
     }
 
     public void onSignupSuccess() {
@@ -123,7 +123,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void onSignupFailed() {
-        Toast.makeText(getBaseContext(), "Signup failed", Toast.LENGTH_LONG).show();
+        Toast.makeText(getBaseContext(), context.getString(R.string.signup_failed), Toast.LENGTH_LONG).show();
         signupBtn.setEnabled(true);
     }
 
@@ -138,42 +138,42 @@ public class SignupActivity extends AppCompatActivity {
         String reEnterPassword = reEnterPasswordText.getText().toString();
 
         if (userName.isEmpty() || userName.length() < 3) {
-            usernameText.setError("at least 3 characters");
+            usernameText.setError(context.getString(R.string.at_least_3_characters));
             valid = false;
         } else {
             usernameText.setError(null);
         }
 
         if (firstName.isEmpty() || firstName.length() < 3) {
-            firstnameText.setError("at least 3 characters");
+            firstnameText.setError(context.getString(R.string.at_least_3_characters));
             valid = false;
         } else {
             firstnameText.setError(null);
         }
 
         if (lastName.isEmpty() || lastName.length() < 3) {
-            lastnameText.setError("at least 3 characters");
+            lastnameText.setError(context.getString(R.string.at_least_3_characters));
             valid = false;
         } else {
             lastnameText.setError(null);
         }
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailText.setError("enter a valid email address");
+            emailText.setError(context.getString(R.string.enter_a_valid_username));
             valid = false;
         } else {
             emailText.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            passwordText.setError("between 4 and 10 alphanumeric characters");
+            passwordText.setError(context.getString(R.string.between_4_and_10_alphanumeric_characters));
             valid = false;
         } else {
             passwordText.setError(null);
         }
 
         if (reEnterPassword.isEmpty() || reEnterPassword.length() < 4 || reEnterPassword.length() > 10 || !(reEnterPassword.equals(password))) {
-            reEnterPasswordText.setError("Password Do not match");
+            reEnterPasswordText.setError(context.getString(R.string.password_do_not_match));
             valid = false;
         } else {
             reEnterPasswordText.setError(null);

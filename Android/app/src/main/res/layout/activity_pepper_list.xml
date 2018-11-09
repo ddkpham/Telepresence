@@ -23,7 +23,7 @@
             android:layout_marginBottom="30dp"
             android:layout_weight="0.5"
             android:gravity="center"
-            android:text="Authorized Pepper List"
+            android:text="@string/authorized_pepper_list"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
@@ -43,7 +43,7 @@
             android:layout_marginBottom="30dp"
             android:layout_weight="0.5"
             android:gravity="center"
-            android:text="Requested Pepper List"
+            android:text="@string/requested_pepper_list"
             android:textColor="@color/white"
             android:textSize="20sp" />
 
@@ -65,7 +65,7 @@
                 android:layout_margin="5dp"
                 android:layout_gravity="center"
                 android:id="@+id/addBtn"
-                android:text="Add Pepper"
+                android:text="@string/add_pepper"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>

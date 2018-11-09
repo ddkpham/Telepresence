@@ -1,4 +1,4 @@
-package theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.ResponseCallback;
+package theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback;
 
 /**
  * Created by baesubin on 2018-10-31.
