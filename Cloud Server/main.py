@@ -92,9 +92,15 @@ def login():
                 if uauth.authorized is True:
                     authpep_list.append(uauth.pep_id)
 
+            req_list = []
+            req_query = UserAuth.query.filter_by(username=uname).all()
+            for req in req_query:
+                if req.authorized is False:
+                    req_list.append(req.pep_id)
+
             #Hash ASK
             hashed_ASK = generate_password_hash(ASK)
-            return jsonify({'ASK': hashed_ASK,'pepper_list':authpep_list,'email':user_query.email})
+            return jsonify({'ASK': hashed_ASK,'pepper_list':authpep_list,'request_list':req_list,'email':user_query.email})
         else:
             return Response(status=409)
 
