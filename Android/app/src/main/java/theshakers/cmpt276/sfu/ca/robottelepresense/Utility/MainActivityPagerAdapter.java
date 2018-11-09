@@ -9,9 +9,9 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.R;
  * Created by baesubin on 2018-11-04.
  */
 
-// This class is Pager Adapter For MainActivity
+// This class is Pager Adapter For MenuActivity
 public class MainActivityPagerAdapter extends FragmentStatePagerAdapter {
-    private final String TAG = "MainActivityPagerAdapter";
+    private final String TAG = "MenuActivityPagerAdapter";
     public static final int ID_CHAT = 0;
     public static final int ID_HELP_PAGE = 1;
     private Context context;

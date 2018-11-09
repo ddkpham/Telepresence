@@ -6,15 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 
 import me.relex.circleindicator.CircleIndicator;
 import theshakers.cmpt276.sfu.ca.robottelepresense.Utility.MenuCardFragment;
 import theshakers.cmpt276.sfu.ca.robottelepresense.Utility.MainActivityPagerAdapter;
 
 // Main activity contains three buttons: Connect button, Photo button, and Help Page button
-public class MainActivity extends AppCompatActivity implements MenuCardFragment.OnActionListener {
-    private final String TAG = "MainActivity";
+public class MenuActivity extends AppCompatActivity implements MenuCardFragment.OnActionListener {
+    private final String TAG = "MenuActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements MenuCardFragment.
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_menu);
 
         ViewPager pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(new MainActivityPagerAdapter(this, getSupportFragmentManager()));
