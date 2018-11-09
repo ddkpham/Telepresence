@@ -1,4 +1,4 @@
-package theshakers.cmpt276.sfu.ca.robottelepresense.WebServer;
+package theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -15,7 +15,7 @@ import java.net.URL;
 
 import theshakers.cmpt276.sfu.ca.robottelepresense.App;
 import theshakers.cmpt276.sfu.ca.robottelepresense.R;
-import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.ResponseCallback.StringResponseCallback;
+import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.StringResponseCallback;
 
 /**
  * Created by baesubin on 2018-11-04.

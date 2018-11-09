@@ -16,7 +16,7 @@ public class MessageUnitTest {
         assertEquals(messageWithDefaultConstructor.getUser().getName(), "author_name");
 
         Author test = new Author("test", "null", "pepper");
-        Message messageWithParmeterizedConstructor = new Message ("test", "null", test, null);
+        Message messageWithParmeterizedConstructor = new Message ("test", "null", test, null, null);
         assertEquals(messageWithParmeterizedConstructor.getId(), "test");
         assertEquals(messageWithParmeterizedConstructor.getText(), "null");
         assertEquals(messageWithParmeterizedConstructor.getUser().getName(), "null");

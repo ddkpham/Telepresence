@@ -17,15 +17,13 @@ import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.LoginAsyncTask;
-import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.ResponseCallback.StringResponseCallback;
+import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.LoginAsyncTask;
+import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.StringResponseCallback;
 
+// LoginActivity allows user to login or access to SignupActivity when user doesn't have account
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
-    private static final int START_MENU_ACTIVITY = 11;
-    private static final int START_AUTH_ACTIVITY = 12;
-    private static final int START_LIST_ACTIVITY = 13;
     private Context context = null;
     private ProgressDialog progressDialog;
 
@@ -135,14 +133,14 @@ public class LoginActivity extends AppCompatActivity {
         String password = passwordText.getText().toString();
 
         if (name.isEmpty() || name.length() < 1) {
-            nameText.setError("enter a valid username");
+            nameText.setError(context.getString(R.string.enter_a_valid_username));
             isValidInput = false;
         } else {
             nameText.setError(null);
         }
 
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
-            passwordText.setError("between 4 and 10 alphanumeric characters");
+            passwordText.setError(context.getString(R.string.between_4_and_10_alphanumeric_characters));
             isValidInput = false;
         } else {
             passwordText.setError(null);

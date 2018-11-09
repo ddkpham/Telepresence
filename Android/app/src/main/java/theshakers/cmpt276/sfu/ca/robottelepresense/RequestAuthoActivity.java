@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -18,8 +17,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.ResponseCallback.StringResponseCallback;
-import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.SignUpAsyncTask;
+import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.StringResponseCallback;
+import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.requestUserAndAuthAsyncTask;
 
 /**
  * Created by baesubin on 2018-11-07.
@@ -67,7 +66,7 @@ public class RequestAuthoActivity extends AppCompatActivity implements View.OnCl
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        SignUpAsyncTask signUpAsyncTask= new SignUpAsyncTask(this, "reqAuth", new StringResponseCallback() {
+        requestUserAndAuthAsyncTask requestUserAndAuthAsyncTask = new requestUserAndAuthAsyncTask(this, "reqAuth", new StringResponseCallback() {
             @Override
             public void onResponseReceived(String result) {
                 if(result=="OK"){
@@ -91,7 +90,7 @@ public class RequestAuthoActivity extends AppCompatActivity implements View.OnCl
                 }
             }
         });
-        signUpAsyncTask.execute(jsonData);
+        requestUserAndAuthAsyncTask.execute(jsonData);
     }
 
     private void startActivity() {

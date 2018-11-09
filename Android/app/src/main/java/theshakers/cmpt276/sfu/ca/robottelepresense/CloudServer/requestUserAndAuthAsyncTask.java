@@ -1,4 +1,4 @@
-package theshakers.cmpt276.sfu.ca.robottelepresense.WebServer;
+package theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -15,15 +15,15 @@ import java.net.URL;
 
 import theshakers.cmpt276.sfu.ca.robottelepresense.App;
 import theshakers.cmpt276.sfu.ca.robottelepresense.R;
-import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.ResponseCallback.StringResponseCallback;
+import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.StringResponseCallback;
 
 /**
  * Created by baesubin on 2018-11-04.
  */
 
-// This is AsyncTask used to send and receive Json data from Flask Server
-public class SignUpAsyncTask extends AsyncTask<JSONObject, Void, String> {
-    private final String TAG = "SignUpAsyncTask";
+// This is AsyncTask used for addUser, deAuth, requestAuth
+public class requestUserAndAuthAsyncTask extends AsyncTask<JSONObject, Void, String> {
+    private final String TAG = "requestUserAndAuthAT";
     private HttpURLConnection conn = null;
     private String returnMsg = "";
     private Context context = null;
@@ -31,7 +31,7 @@ public class SignUpAsyncTask extends AsyncTask<JSONObject, Void, String> {
 
     private StringResponseCallback stringResponseCallback = null;
 
-    public SignUpAsyncTask(Context context, String path, StringResponseCallback stringResponseCallback) {
+    public requestUserAndAuthAsyncTask(Context context, String path, StringResponseCallback stringResponseCallback) {
         this.stringResponseCallback = stringResponseCallback;
         this.context = context;
         try {

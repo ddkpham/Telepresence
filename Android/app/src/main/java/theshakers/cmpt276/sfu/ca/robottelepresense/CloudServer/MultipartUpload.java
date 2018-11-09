@@ -1,6 +1,5 @@
-package theshakers.cmpt276.sfu.ca.robottelepresense.WebServer;
+package theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer;
 
-import android.content.SharedPreferences;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -21,7 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.ResponseCallback.UploadPhotoProgressListener;
+import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.UploadPhotoProgressListener;
 
 /**
  * Created by baesubin on 2018-10-31.

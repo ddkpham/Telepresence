@@ -1,4 +1,4 @@
-package theshakers.cmpt276.sfu.ca.robottelepresense.WebServer;
+package theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -13,8 +13,7 @@ import java.util.HashMap;
 
 import theshakers.cmpt276.sfu.ca.robottelepresense.App;
 import theshakers.cmpt276.sfu.ca.robottelepresense.R;
-import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.ResponseCallback.UploadPhotoProgressListener;
-import theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.ResponseCallback.UploadResponseCallback;
+import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.UploadPhotoProgressListener;
 
 /**
  * Created by baesubin on 2018-11-04.
@@ -28,8 +27,6 @@ public class UploadPhotoAsyncTask extends AsyncTask<Object, Integer, JSONObject>
     private HashMap<String, String> param;
     private HashMap<String, String> files;
     private long startTime = 0;
-
-    private UploadResponseCallback uploadResponseCallback = null;
 
     public UploadPhotoAsyncTask(Context context, HashMap<String, String> param, HashMap<String, String> files) {
         this.context = context;
@@ -86,13 +83,13 @@ public class UploadPhotoAsyncTask extends AsyncTask<Object, Integer, JSONObject>
         if (result != null) {
             try {
                 if (result.getInt("success") == 1) {
-                    Toast.makeText(context, "success", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, context.getString(R.string.request_sent), Toast.LENGTH_SHORT).show();
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         } else {
-            Toast.makeText(context, "connection error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, context.getString(R.string.error_connection), Toast.LENGTH_SHORT).show();
         }
     }
 
