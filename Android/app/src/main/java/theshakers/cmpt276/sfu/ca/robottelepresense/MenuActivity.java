@@ -1,9 +1,15 @@
 package theshakers.cmpt276.sfu.ca.robottelepresense;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -14,10 +20,12 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.Utility.MainActivityPagerAdap
 // Main activity contains three buttons: Connect button, Photo button, and Help Page button
 public class MenuActivity extends AppCompatActivity implements MenuCardFragment.OnActionListener {
     private final String TAG = "MenuActivity";
+    private Context context = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = this;
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getSupportActionBar().hide();
@@ -49,5 +57,38 @@ public class MenuActivity extends AppCompatActivity implements MenuCardFragment.
                 break;
 
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            showDialog();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void showDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(MenuActivity.this);
+        dialogBuilder.setMessage(context.getString(R.string.do_you_really_want_to_logout));
+        dialogBuilder.setPositiveButton(context.getString(R.string.yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SharedPreferences sharedPreferences = context.getSharedPreferences("userdetails", context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear().commit();
+                Intent intent = new Intent(MenuActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        dialogBuilder.setNegativeButton(context.getString(R.string.no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
     }
 }
