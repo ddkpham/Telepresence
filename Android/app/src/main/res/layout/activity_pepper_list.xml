@@ -8,12 +8,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/dark_green_top_gradient"
-        android:fitsSystemWindows="true"/>
+        android:fitsSystemWindows="true" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:padding="18dp"
         android:weightSum="4">
 
         <TextView
@@ -33,6 +34,7 @@
             android:layout_height="110dp"
             android:layout_margin="10dp"
             android:layout_weight="1.5"
+            android:background="@color/white"
             android:choiceMode="singleChoice"
             android:textSize="15dp" />
 
@@ -53,6 +55,7 @@
             android:layout_height="110dp"
             android:layout_margin="10dp"
             android:layout_weight="1.5"
+            android:background="@color/white"
             android:choiceMode="singleChoice"
             android:textSize="15dp" />
 
@@ -61,9 +64,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
-            <Button
+            <android.support.v7.widget.AppCompatButton
                 android:layout_margin="5dp"
                 android:layout_gravity="center"
+                style="@style/Widget.AppCompat.Button.Colored"
                 android:id="@+id/addBtn"
                 android:text="@string/add_pepper"
                 android:layout_width="wrap_content"

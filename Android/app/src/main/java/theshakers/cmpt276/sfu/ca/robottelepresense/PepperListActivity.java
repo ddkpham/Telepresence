@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -93,6 +94,7 @@ public class PepperListActivity extends Activity implements View.OnClickListener
                 Log.i(TAG, "selected_pepper_id: "+selected_pepper_id);
 
                 AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(PepperListActivity.this);
+                dialogBuilder.setMessage(context.getString(R.string.what_action_do_you_want_to_take));
                 dialogBuilder.setPositiveButton("Connect", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -195,5 +197,38 @@ public class PepperListActivity extends Activity implements View.OnClickListener
         Intent intent  = new Intent(this, RequestAuthoActivity.class);
         startActivity(intent);
         this.finish();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            showDialog();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void showDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(PepperListActivity.this);
+        dialogBuilder.setMessage(context.getString(R.string.do_you_really_want_to_logout));
+        dialogBuilder.setPositiveButton(context.getString(R.string.yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SharedPreferences sharedPreferences = context.getSharedPreferences("userdetails", context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear().commit();
+                Intent intent = new Intent(PepperListActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        dialogBuilder.setNegativeButton(context.getString(R.string.no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
     }
 }

@@ -20,6 +20,10 @@
     <string name="password">Password</string>
     <string name="no_account_yet_create_one">No account yet? Create one</string>
     <string name="login">Login</string>
+    <string name="do_you_really_want_to_exit">Do you really want to exit?</string>
+    <string name="do_you_really_want_to_logout">Do you really want to Logout?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
     <!-- Signup Activity -->
     <string name="signup_failed">Signup failed</string>
@@ -42,7 +46,9 @@
     <string name="help_page_btn">Help Page</string>
     <string name="photo_btn">Send Photo</string>
 
-    <!-- Photo Activity -->
+
+    <!-- Pepper List Activity -->
+    <string name="what_action_do_you_want_to_take">What action do you want to take?</string>
     <string name="authorized_pepper_list">Authorized Pepper List</string>
     <string name="requested_pepper_list">Requested Pepper List</string>
     <string name="add_pepper">Add Pepper</string>
