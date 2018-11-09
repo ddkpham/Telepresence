@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<package uuid="servtest-b2f7cf" version="0.0.0">
+ <names>
+  <name lang="en_US">PepChat</name>
+ </names>
+ <supportedLanguages>
+  <language>en_US</language>
+ </supportedLanguages>
+ <descriptionLanguages>
+  <language>en_US</language>
+ </descriptionLanguages>
+ <contents>
+  <behaviorContent path="behavior_1">
+   <userRequestable/>
+   <nature>interactive</nature>
+   <permissions/>
+  </behaviorContent>
+  <dialogContent typeVersion="1.0" topicName="PerformAction">
+   <topic language="en_US" path="PerformAction/PerformAction_enu.top"/>
+  </dialogContent>
+  <dialogContent typeVersion="1.0" topicName="Introduction">
+   <topic language="en_US" path="Introduction/Introduction_enu.top"/>
+  </dialogContent>
+  <dialogContent typeVersion="1.0" topicName="Data_Responses">
+   <topic language="en_US" path="Data_Responses/Data_Responses_enu.top"/>
+  </dialogContent>
+  <dialogContent typeVersion="1.0" topicName="Conversation">
+   <topic language="en_US" path="Conversation/Conversation_enu.top"/>
+  </dialogContent>
+ </contents>
+</package>

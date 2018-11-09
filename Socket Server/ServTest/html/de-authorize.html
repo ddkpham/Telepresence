@@ -13,6 +13,7 @@
 <script src="js/jquery.min.js"></script>
 <script src="/libs/qimessaging/2/qimessaging.js"></script>
 <script src="js/robotutils.js"></script>
+<script type="text/javascript" src="js/de-authorize.js"></script>
 
 
 
@@ -49,6 +50,9 @@
   p {font-size: 16px;}
   .margin {margin-bottom: 45px;}
   .bg-1 { 
+      background: linear-gradient( rgba(135,168,238,0.6), rgba(135,168,238,0.6)), url("images/vancouver-sunset.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
       background-color: #87A8EE; /* blue */
       color: #ffffff;
   }
@@ -104,9 +108,10 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Subin</a></li>
-        <li><a href="#">Anthony</a></li>
-        <li><a href="#">Kassym</a></li>
+        <li><a href="authorize.html">Auth</a></li>
+        <li><a href="de-authorize.html">De-Auth</a></li>
+        <li><a href="authorize.html">Register</a></li>
+        <li><a href="index.html">Log-Out</a></li>
       </ul>
     </div>
   </div>
@@ -115,7 +120,7 @@
 <!-- First Container -->
 <div class="container-fluid bg-1 text-center">
   <h3 class="margin">PepperID: XXXXXXXXXXXXXXXXXXXX</h3>
-  <img src="pepperbotphoto1.jpg" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="500" height="500">
+  <img src="images/pepper_waving_bye.png" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="500" height="500">
   <h3>Current Authorized User Page</h3>
 </div>
 
@@ -167,15 +172,15 @@
   <div class="row">
     <div class="col-sm-4">
       <p>Can a dog bring you your cofee in the morning? Heck no! Pepper can! </p>
-      <img src="pepperbotphoto2.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+      <img src="images/pepperbotphoto2.jpg" class="img-responsive margin" style="width:100%" alt="Image">
     </div>
     <div class="col-sm-4"> 
       <p>Looking for someone to impress your co-workers on a night out? Just the job for a robot who has memorized all 45 jokes in the known universe</p>
-      <img src="pepperbotphoto3.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+      <img src="images/pepperbotphoto3.jpg" class="img-responsive margin" style="width:100%" alt="Image">
     </div>
     <div class="col-sm-4"> 
       <p>Need someone to show you around Paris? Now if only you knew someone who was born there... </p>
-      <img src="pepperbotphoto4.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+      <img src="images/pepperbotphoto4.jpg" class="img-responsive margin" style="width:100%" alt="Image">
     </div>
   </div>
 </div>
