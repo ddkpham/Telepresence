@@ -258,6 +258,7 @@
         <File name="vancouver-sunset" src="ServTest/html/images/vancouver-sunset.jpg" />
         <File name="register" src="ServTest/html/js/register.js" />
         <File name="register" src="ServTest/html/register.html" />
+        <File name="home" src="html/js/home.js" />
     </Resources>
     <Topics>
         <Topic name="PerformAction_enu" src="PerformAction/PerformAction_enu.top" topicName="PerformAction" language="en_US" />
@@ -270,30 +271,30 @@
         <Topic name="Data_Responses_enu" src="ServTest/ServTest/Data_Responses/Data_Responses_enu.top" topicName="Data_Responses" language="en_US" />
     </Topics>
     <IgnoredPaths>
-        <Path src="translations/translation_en_US.ts" />
-        <Path src="ServTest/Introduction/Introduction_enu.top" />
-        <Path src="ServTest/translations/translation_en_US.ts" />
-        <Path src="Introduction/Introduction.dlg" />
-        <Path src="ServTest/Introduction/Introduction.dlg" />
-        <Path src="ServTest/PerformAction/PerformAction_enu.top" />
         <Path src="DisplayImage/translations/translation_en_US.ts" />
-        <Path src="lovesong.wav" />
-        <Path src="ServTest/brickhouse.wav" />
-        <Path src="DisplayImage/behavior_1/behavior.xar" />
-        <Path src="ServTest/PerformAction" />
-        <Path src="behavior_1/behavior.xar" />
-        <Path src="ServTest/Introduction" />
-        <Path src="PerformAction/PerformAction.dlg" />
-        <Path src="PerformAction" />
-        <Path src="ServTest/lovesong.wav" />
-        <Path src="PerformAction/PerformAction_enu.top" />
-        <Path src="ServTest/johnmayer.wav" />
-        <Path src="ServTest/PerformAction/PerformAction.dlg" />
+        <Path src="ServTest/PerformAction/PerformAction_enu.top" />
         <Path src="brickhouse.wav" />
-        <Path src="ServTest/behavior_1/behavior.xar" />
-        <Path src="johnmayer.wav" />
-        <Path src="Introduction/Introduction_enu.top" />
         <Path src="Introduction" />
+        <Path src="Introduction/Introduction_enu.top" />
+        <Path src="PerformAction/PerformAction.dlg" />
+        <Path src="translations/translation_en_US.ts" />
+        <Path src="ServTest/PerformAction" />
+        <Path src="PerformAction" />
+        <Path src="lovesong.wav" />
+        <Path src="ServTest/Introduction/Introduction_enu.top" />
+        <Path src="ServTest/brickhouse.wav" />
+        <Path src="ServTest/translations/translation_en_US.ts" />
+        <Path src="ServTest/Introduction" />
+        <Path src="Introduction/Introduction.dlg" />
+        <Path src="johnmayer.wav" />
+        <Path src="behavior_1/behavior.xar" />
+        <Path src="ServTest/johnmayer.wav" />
+        <Path src="PerformAction/PerformAction_enu.top" />
+        <Path src="DisplayImage/behavior_1/behavior.xar" />
+        <Path src="ServTest/lovesong.wav" />
+        <Path src="ServTest/Introduction/Introduction.dlg" />
+        <Path src="ServTest/behavior_1/behavior.xar" />
+        <Path src="ServTest/PerformAction/PerformAction.dlg" />
     </IgnoredPaths>
     <Translations auto-fill="en_US">
         <Translation name="translation_en_US" src="translations/translation_en_US.ts" language="en_US" />

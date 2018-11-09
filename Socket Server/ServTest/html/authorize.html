@@ -3,7 +3,7 @@
 <head>
 
   <!-- Theme Made By www.w3schools.com - No Copyright -->
-  <title>Bootstrap Theme Simply Me</title>
+  <title>Telepresence</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -87,11 +87,16 @@
     height:100%;
   }
   table {
-    margin: 0 auto; /* or margin: 0 auto 0 auto */
+    margin: 0 auto;
+    border-width: 1px;
+   border-style: solid;
+   border-collapse: separate;
+   border-spacing: 15px;
+   width: 400px; /* or margin: 0 auto 0 auto */
   }
   </style>
 </head>
-<body>
+<body onload ="createTable()">
 
 <!-- Navbar -->
 <nav class="navbar navbar-default">
@@ -109,6 +114,7 @@
         <li><a href="authorize.html">Auth</a></li>
         <li><a href="de-authorize.html">De-Auth</a></li>
         <li><a href="register.html">Register</a></li>
+        <li><a href="index.html">Log-Out</a></li>
       </ul>
     </div>
   </div>
@@ -116,7 +122,7 @@
 
 <!-- First Container -->
 <div class="container-fluid bg-1 text-center">
-  <h3 class="margin">PepperID: XXXXXXXXXXXXXXXXXXXX</h3>
+  <h3 class="margin" id="header">PepperID: XXXXXXXXXXXXXXXXXXXX</h3>
   <img src="images/pepper_hi_five.jpg" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="500" height="500">
   <h3>I'm ready to be your best friend!</h3>
 </div>
@@ -124,8 +130,8 @@
 <!-- Second Container -->
 <div class="container-fluid bg-2 text-center">
   <h3 class="margin">Authorization Requests</h3>
-  <table>
-    <tr>
+  <table id="authTable" cellspacing="20" >
+    <!--<tr>
       <th>      Username</th>
       <th>      Email</th>
       <th></th>
@@ -166,7 +172,7 @@
       <td>Alfreds Futterkiste@gmail.com</td>
       <td><a href="#" class="button">Accept</a></td>
       <td><a href="#" class="button2">Deny</a></td>
-    </tr>
+    </tr>-->
   </table>
 </div>
 
