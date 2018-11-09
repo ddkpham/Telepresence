@@ -1,19 +1,17 @@
-from flask import Flask,request,jsonify,Blueprint
-from flask import Response
-import requests as r
-
-import os
-import config
-import json
+from flask import Flask,request,jsonify,Blueprint, Response
 from flask_sqlalchemy import SQLAlchemy
+import os,config,json
 import sqlalchemy
+import requests as r
+import random, string
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 
 app.config.from_object(config)
 db = SQLAlchemy(app)
 
-#TODO: delete this bonobo
+#TODO: Delete this with Diag routes
 pepper_ip_address = ""
 
 #-----------------ENTITY-MODELS-----
@@ -82,13 +80,21 @@ def login():
             return Response(status=409)
 
         if pword==user_query.password:
+
+            #Gen ASK and update Database
+            ASK = generate_random_string()
+            user_query.ASK = ASK
+            db.session.commit()
+
             authpep_list = []
             uauth_query = UserAuth.query.filter_by(username=uname).all()
             for uauth in uauth_query:
                 if uauth.authorized is True:
                     authpep_list.append(uauth.pep_id)
 
-            return jsonify({'ASK': '','pepper_list':authpep_list})
+            #Hash ASK
+            hashed_ASK = generate_password_hash(ASK)
+            return jsonify({'ASK': hashed_ASK,'pepper_list':authpep_list,'email':user_query.email})
         else:
             return Response(status=409)
 
@@ -107,6 +113,8 @@ def relay():
     message = content['message']
 
     #Check ASK
+    if check_sk('A',ASK,username) is False:
+        return Response(status=410)
 
     #Check Authorization
     uauth_req = UserAuth.query.get((pep_id, username))
@@ -145,6 +153,8 @@ def photo():
     photo = request.files['file']
 
     #Check ASK
+    if check_sk('A',ASK,username) is False:
+        return Response(status=410)
 
     #Check Authorization
     uauth_req = UserAuth.query.get((pep_id, username))
@@ -165,20 +175,21 @@ def photo():
 
 #Accept Authorization Request and add to database
 @app.route('/reqAuth', methods=['POST'])
-def addAuthorizationRequest():
+def request_auth():
     content = request.json
     pep_id = content['pep_id']
     uname = content['username']
     email = content['email']
-    #ASK = content['key']
+    ASK = content['ASK']
 
-    # user_query = User.query.filter_by(username=uname).first()
-    # if user_query is None:
-    #     return Response(status=409)
-    #if ASK == user_query.ASK: #continue
-    #else:  #return 410 Bad ASK
+    #Check ASK
+    if check_sk('A',ASK,uname) is False:
+        return Response(status=410)
 
-    #also add check to see if user exists
+    #Check Pepper Exists
+    pepper = Pepper.query.filter_by(pep_id=pep_id).first()
+    if pepper is None:
+        return Response(status=404)
 
     #continue:
     new_request = UserAuth(pep_id=pep_id,username=uname,email=email)
@@ -197,6 +208,13 @@ def deauthorize():
 
     #One of ASK or PSK is blank, NOT blank one is the sender
 
+    if PSK == '':
+        #Check ASK
+        if check_sk('A', ASK, uname) is False:
+            return Response(status=410)
+    # else:
+        #Check PSK
+
     uauth_req = UserAuth.query.get((pep_id,uname))
     if uauth_req is None:
         return Response(status=404)
@@ -210,7 +228,6 @@ def deauthorize():
     return Response(status=200)
 
 #Adds user to database
-#TODO: Test check for already added username/email
 @app.route('/addUser', methods=['POST'])
 def addUser():
     content = request.json
@@ -220,6 +237,7 @@ def addUser():
     name = content['name']
 
     # Generate ASK here
+    ASK = generate_random_string()
 
     user_query = User.query.filter_by(username=uname).first()
     if user_query is not None:
@@ -228,14 +246,14 @@ def addUser():
     if user_query is not None:
         return Response(jsonify({'Error:': 'Email already used.'}), status=409)
 
-    new_user = User(username=uname, email=email, name=name, password=password, ASK ='')
+    new_user = User(username=uname, email=email, name=name, password=password, ASK =ASK)
 
     db.session.add(new_user)
     db.session.commit()
 
-    return Response(status=200)#return ASK
+    hashed_ASK = generate_password_hash(ASK)
+    return jsonify({'ASK': hashed_ASK})
 
-#TODO: Test getAuthRequests
 @app.route('/getAuthRequests', methods=['POST'])
 def getAuthRequests():
     content = request.json
@@ -256,14 +274,13 @@ def getAuthRequests():
     print(authreq_list)
     return jsonify({'AuthReqs': authreq_list})
 
-#TODO:Test getAuthUsers
 @app.route('/getAuthUsers',methods=['POST'])
 def getAuthUsers():
     content = request.json
     pep_id = content['pep_id']
     PSK = content['PSK']
 
-    #check sec key   if continue else 410
+    #check PSK  if continue else 410
 
     authreq_query = UserAuth.query.filter_by(pep_id=pep_id).all()
     print(authreq_query)
@@ -277,7 +294,6 @@ def getAuthUsers():
     print(authuser_list)
     return jsonify({'AuthUsers': authuser_list})
 
-#TODO:Test authorizeUser
 @app.route('/authorizeUser', methods=['POST'])
 def authorizeUser():
     content = request.json
@@ -298,8 +314,7 @@ def authorizeUser():
 
     return Response(status=200)
 
-
-#TODO:Test setPepperActive
+#TODO:Test setPepperActive again when Pepper Server Online
 @app.route('/setPepperActive', methods=['POST'])
 def setPepperActive():
     content = request.json
@@ -307,6 +322,8 @@ def setPepperActive():
     #ip_address = content['ip_address']
     ip = request.access_route[0]
     PSKs = ['PSK']
+
+    #Check PSK
 
     pepper = Pepper.query.filter_by(pep_id=pep_id).first()
     if pepper is None:
@@ -320,7 +337,7 @@ def setPepperActive():
         db.session.commit()
     return Response(status=200)
 
-#TODO:Test addPepper
+#TODO:Test addPepper again with Pepper Server
 @app.route('/addPepper', methods=['POST'])
 def addPepper():
     content = request.json
@@ -328,12 +345,14 @@ def addPepper():
     PSK = content['PSK']
     ip = request.access_route[0]
 
+    #CheckPSK
+
     new_pepper = Pepper(pep_id=pep_id, ip_address = ip, PSK = '')
     db.session.add(new_pepper)
     db.session.commit()
     return Response(status=200)
 
-#TODO: pepper Login
+#TODO: Test with Pepper Server
 #Login for Pepper Tablet
 def pepperLogin():
     if request.method == 'POST':
@@ -367,8 +386,7 @@ def pepperLogin():
         Response(status=500)
 
 
-#TODO: removeUser
-#Optional, Not in requirements but useful for administrative purposes
+#TODO: removeUser  #Optional, Not in requirements but useful for administrative purposes
 # @app.route('/removeUser', methods=['POST'])
 # def removeUser():
 
@@ -414,7 +432,7 @@ def query_db():
     # print(AuthUsers.query.all())
     return 'Queries in Logs'
 
-
+#TODO: Disable or add authentication
 @app.route('/wipeDatabase', methods=['GET'])
 def wipe_db():
     print("DB CREATE FUNC")
@@ -422,8 +440,7 @@ def wipe_db():
     db.create_all()
     return 'db created'
 
-#TODO: ONLY use this route for debugging, disable in production environment
-#IF used in production environment, update with security features before enabling
+#TODO: ONLY use this route for debugging, disable or add authentication in production environment
 @app.route('/showDB', methods=['GET'])
 def showDB():
     users = User.query.all()
@@ -489,7 +506,45 @@ def echo():
 #     print(req.text)
 #     return req.text
 
-#-----------------Main--------------------------
+#-----------------Functions--------------------------
+
+#check_sk usage:
+#Pepper:
+# if check_sk('P',PSK,pep_id) is False:
+#     return Response(status=410)
+
+#Example Hash and Check:
+# print("Password: asdf")
+# abs = generate_password_hash("asdf")
+# print(abs)
+# bbs = generate_password_hash("asdf")
+# print(bbs)
+# print(check_password_hash(abs,"asdf"))
+# print(check_password_hash(abs,bbs))
+
+def check_sk(type,key,id):
+    if type == 'P':
+        query = Pepper.query.filter_by(pep_id=id).first()
+        if query is None:
+            return False
+        cloud_key = query.PSK
+    elif type == 'A':
+        query = User.query.filter_by(username=id).first()
+        if query is None:
+            return False
+        cloud_key = query.ASK
+    else:
+        return False
+
+    # if key == cloud_key:
+    #     return True
+    # else:
+    #     return False
+    return check_password_hash(key,cloud_key)
+
+def generate_random_string():
+    letters = string.ascii_lowercase
+    return ''.join(random.choice(letters) for i in range(15))
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1',port=8080)
