@@ -5,6 +5,6 @@ package theshakers.cmpt276.sfu.ca.robottelepresense.WebServer.ResponseCallback;
  */
 
 // This callback is for getting response after SendAndReceiveJsonAsyncTask
-public interface JsonResponseCallback {
+public interface StringResponseCallback {
     void onResponseReceived(String result);
 }

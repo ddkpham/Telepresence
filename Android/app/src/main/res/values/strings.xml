@@ -3,7 +3,21 @@
     <!-- App -->
     <string name="app_name">Robot Telepresence</string>
 
+    <!-- Autorization Activity-->
+    <string name="please_register_your_pepper">Please Register Your Pepper</string>
+    <string name="pepper_id">Pepper ID</string>
+    <string name="register">Register</string>
+    <string name="request_sent">Request sent</string>
+
+    <!-- Signup Activity -->
+    <string name="account_is_created">Account is Created</string>
+    <string name="login_failed">Login failed</string>
+    <string name="authenticating">Authenticating...</string>
+
     <!-- Main Activity -->
+    <string name="check_your_id_or_password">Check your ID or Password</string>
+
+    <!-- Menu Activity -->
     <string name="title_chat">Chat mode</string>
     <string name="description_chat">Communicate with Pepper through photo and text</string>
     <string name="title_help">Help page</string>

@@ -1,5 +1,6 @@
 package theshakers.cmpt276.sfu.ca.robottelepresense.WebServer;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -64,6 +65,7 @@ public class MultipartUpload {
         String filePart = "";
         long fileLength = 0;
         startTime = System.currentTimeMillis();
+
 
         ArrayList<String> paramHeaders = new ArrayList<>();
         for (Map.Entry<String, String> entry : params.entrySet()) {

@@ -35,7 +35,10 @@ dependencies {
     implementation 'com.github.stfalcon:chatkit:0.3.3'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'me.relex:circleindicator:1.2.2'
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }
+
 
 
 
