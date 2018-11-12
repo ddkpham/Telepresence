@@ -15,17 +15,17 @@
    <nature>interactive</nature>
    <permissions/>
   </behaviorContent>
-  <dialogContent typeVersion="1.0" topicName="PerformAction">
-   <topic path="PerformAction/PerformAction_enu.top" language="en_US"/>
+  <dialogContent topicName="PerformAction" typeVersion="1.0">
+   <topic language="en_US" path="PerformAction/PerformAction_enu.top"/>
   </dialogContent>
-  <dialogContent typeVersion="1.0" topicName="Introduction">
-   <topic path="Introduction/Introduction_enu.top" language="en_US"/>
+  <dialogContent topicName="Introduction" typeVersion="1.0">
+   <topic language="en_US" path="Introduction/Introduction_enu.top"/>
   </dialogContent>
-  <dialogContent typeVersion="1.0" topicName="Data_Responses">
-   <topic path="Data_Responses/Data_Responses_enu.top" language="en_US"/>
+  <dialogContent topicName="Data_Responses" typeVersion="1.0">
+   <topic language="en_US" path="Data_Responses/Data_Responses_enu.top"/>
   </dialogContent>
-  <dialogContent typeVersion="1.0" topicName="Conversation">
-   <topic path="Conversation/Conversation_enu.top" language="en_US"/>
+  <dialogContent topicName="Conversation" typeVersion="1.0">
+   <topic language="en_US" path="Conversation/Conversation_enu.top"/>
   </dialogContent>
  </contents>
 </package>
