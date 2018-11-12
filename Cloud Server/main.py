@@ -11,7 +11,7 @@ app = Flask(__name__)
 app.config.from_object(config)
 db = SQLAlchemy(app)
 
-#TODO: Delete this with Diag routes
+#TODO: Delete this with setIP, getIP
 pepper_ip_address = ""
 
 #-----------------ENTITY-MODELS-----
@@ -109,7 +109,7 @@ def login():
 
 #TODO: Test Relay when Pepper Server up
 @app.route('/message', methods=['POST'])
-def relay():
+def message():
     print("/Message")
 
     content = request.json
@@ -132,7 +132,7 @@ def relay():
     if pepper is None:
         return Response(status=404)
 
-    relay_ip = "http://" + pepper.ip_address + "/message"
+    relay_ip = "http://" + pepper.ip_address + ":8080/message"
     print("Relay ip: " + relay_ip)
 
     # try:
@@ -150,8 +150,8 @@ def relay():
 #TODO:Test photo when Pepper Server Up
 @app.route('/photo', methods=['POST'])
 def photo():
-    # if request.method == 'POST':
-    content = request.json
+
+    content = request.form
     username = content['username']
     pep_id = content['pep_id']
     ASK = content['ASK']
@@ -242,7 +242,7 @@ def addUser():
     email = content['email']
     name = content['name']
 
-    # Generate ASK here
+    # Generate ASK
     ASK = generate_random_string()
 
     user_query = User.query.filter_by(username=uname).first()
@@ -266,7 +266,7 @@ def getAuthRequests():
     pep_id = content['pep_id']
     PSK = content['PSK']
 
-    #check sec key   if continue else 410
+    #Check PSK
 
     authreq_query = UserAuth.query.filter_by(pep_id=pep_id).all()
     print(authreq_query)
@@ -360,11 +360,13 @@ def addPepper():
 
 #TODO: Test with Pepper Server
 #Login for Pepper Tablet
+@app.route('/pepperLogin', methods=['POST'])
 def pepperLogin():
     if request.method == 'POST':
         content = request.json
         print (content)
 
+        pep_id = content['pep_id']
         uname = content['username']
         pword = content['password']
 
@@ -381,16 +383,14 @@ def pepperLogin():
             authpep_list = []
             uauth_query = UserAuth.query.filter_by(username=uname).all()
             for uauth in uauth_query:
-                if uauth.authorized is True:
-                    authpep_list.append(uauth.pep_id)
-
-            return jsonify({'pepper_list':authpep_list})
+                if uauth.pep_id == pep_id:
+                    return Response(status=200)
+            return Response(status=410)
         else:
             return Response(status=409)
 
     else:
         Response(status=500)
-
 
 #TODO: removeUser  #Optional, Not in requirements but useful for administrative purposes
 # @app.route('/removeUser', methods=['POST'])
@@ -399,6 +399,7 @@ def pepperLogin():
 @app.errorhandler(500)
 def server_error(e):
     return """An internal error occurred: <pre>{}</pre>See logs for full stacktrace.""".format(e), 500
+
 #------------------DIAGNOSTIC-ROUTES---------------
 @app.route('/setIP', methods=['POST'])
 def set_ip():
@@ -413,7 +414,7 @@ def set_ip():
     return 'ip set!'
 
 @app.route('/getIP',methods=['GET'])
-def send_ip():
+def get_IP():
     print("Sending: "+pepper_ip_address)
     return pepper_ip_address
 
@@ -553,4 +554,4 @@ def generate_random_string():
     return ''.join(random.choice(letters) for i in range(15))
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1',port=8080)
+    app.run(host='0.0.0.0',port=8080)
