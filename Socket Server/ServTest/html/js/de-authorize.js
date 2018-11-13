@@ -30,10 +30,25 @@ var jsonTest = [
   var authorize=["ddkpham", "ddkpham@gmail.com"]
   var headers = ["username", "email", "request response"]
 
+  var authUsers = {
+    "AuthUsers": [
+      [
+        "admin",
+        "admin@example.com"
+      ],
+      [
+        "admin2",
+        "admin@example.com"
+      ]
+    ]
+  }
+  console.log(authUsers)
+  console.log(authUsers)
+  console.log(authUsers.AuthUsers.length)
   //console.log(jsonTest[1].username)
   function createTable() {
     setPep();
-    for(var i=0; i< jsonTest.length; i++ ){
+    for(var i=0; i< authUsers.AuthUsers.length; i++ ){
       //create row
       var table = document.getElementById("deauthTable");
       var row = table.insertRow(0);
@@ -48,8 +63,8 @@ var jsonTest = [
       denyBtn.onclick = unfriend;
       deny.appendChild(denyBtn)
       //set text for username // email
-      username_text = jsonTest[i].username + "    "
-      email_text = jsonTest[i].email + "    "
+      username_text = authUsers.AuthUsers[i][0] + "    "
+      email_text = authUsers.AuthUsers[i][1] + "    "
       username.innerHTML = username_text;
       email.innerHTML = email_text;
 

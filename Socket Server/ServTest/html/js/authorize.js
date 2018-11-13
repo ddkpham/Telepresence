@@ -30,9 +30,39 @@ var jsonTest = [
     }
 ]
 
+var test = {
+    "AuthReqs": [
+      [
+        "kassym",
+        "kassym@a.c"
+      ],
+      [
+        "paul",
+        "paul@a.com"
+      ],
+      [
+        "salt",
+        "salt@a.z"
+      ],
+      [
+        "testuser",
+        "test@a.b"
+      ]
+    ]
+  }
+
+  console.log(test.AuthReqs[1][0])
+  console.log(test.AuthReqs.length)
+  for (var i = 0; i < test.length; i++){
+    console.log(test.AuthReqs[i])
+  }
+
+
 function createTable() {
+    //var jsonTest2 = JSON.parse(test)
+    //console.log(jsonTest2)
     setPep();
-    for(var i=0; i< jsonTest.length; i++ ){
+    for(var i=0; i< test.AuthReqs.length; i++ ){
         //create row
         var table = document.getElementById("authTable");
         var row = table.insertRow(0);
@@ -56,8 +86,8 @@ function createTable() {
         accept.appendChild(acceptBtn)
         deny.appendChild(denyBtn)
         //set text for username // email
-        username_text = jsonTest[i].username + "    "
-        email_text = jsonTest[i].email + "    "
+        username_text = test.AuthReqs[i][0] + "    "
+        email_text = test.AuthReqs[i][1] + "    "
         username.innerHTML = username_text;
         email.innerHTML = email_text;
 

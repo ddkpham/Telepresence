@@ -37,5 +37,8 @@ function grabInput() {
 }
 
 RobotUtils.subscribeToALMemoryEvent("app/signup_status", function(value) {
+    if(value == "login.html"){
+        alert("sign up successful! please log in!")
+    }
   alert("signup_status: " + value);
 });
