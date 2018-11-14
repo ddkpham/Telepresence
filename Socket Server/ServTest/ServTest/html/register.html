@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <title>Bootstrap Theme Simply Me</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.min.js"></script>
+<script src="/libs/qimessaging/1.0/qimessaging.js"></script>
+<script src="js/robotutils.js"></script>
+<script type="text/javascript" src="js/register.js"></script>
+
+
+
+  <style>
+  input, select, textarea{
+    color: #070606;
+}
+  body {
+      font: 20px Montserrat, sans-serif;
+      line-height: 1.8;
+      color: #f5f6f7;
+  }
+  p {font-size: 16px;}
+  .margin {margin-bottom: 45px;}
+  .bg-1 { 
+      background: linear-gradient( rgba(135,168,238,0.6), rgba(135,168,238,0.6)), url("images/vancouver-sunset.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-color: #87A8EE; /* blue */
+      color: #ffffff;
+  }
+  .bg-2 { 
+      background-color: #474e5d; /* Dark Blue */
+      color: #ffffff;
+  }
+  .bg-3 { 
+      background-color: #ffffff; /* White */
+      color: #555555;
+  }
+  .bg-4 { 
+      background-color: #2f2f2f; /* Black Gray */
+      color: #fff;
+  }
+  .container-fluid {
+      padding-top: 70px;
+      padding-bottom: 70px;
+  }
+  .navbar {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      border: 0;
+      border-radius: 0;
+      margin-bottom: 0;
+      font-size: 12px;
+      letter-spacing: 5px;
+  }
+  .navbar-nav  li a:hover {
+      color: #1abc9c !important;
+  }
+  </style>
+</head>
+<body onload="startSubscribe();">
+
+<!-- Navbar -->
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="index.html">Home</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="authorize.html">Auth</a></li>
+        <li><a href="de-authorize.html">De-Auth</a></li>
+        <li><a href="register.html">Register</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
+<!-- First Container -->
+<div class="container-fluid bg-1 text-center">
+  <h3 class="margin">Please Register Your Pepper </h3>
+  <p id="demo"></p> I cant wait to come to life </p>
+  <!-----Replace this code with Login Form -->
+  <form id="form">
+      PepperID:<br>
+      <input type="text" name="username"><br><br>
+    </form>
+    
+    
+  <a href="#" id="img-click" onclick= "" class="btn btn-default btn-lg">
+    <span class="" onclick="" ></span> Register
+  </a>
+  
+</div>
+
+    
+    
+    
+<!-- Second Container -->
+<div class="container-fluid bg-2 text-center">
+  <h3 class="margin">PepperID: XXXXXXXXXXXXXXXXXXXX</h3>
+  <img src="images/pepper_football.jpg" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="500" height="500">
+  <h3>I'm ready to be your best friend!</h3>
+</div>
+    
+    
+    
+<!-- Third Container (Grid) -->
+<div class="container-fluid bg-3 text-center">    
+  <h3 class="margin">Who needs a dog when you have Pepper?!</h3><br>
+  <div class="row">
+    <div class="col-sm-4">
+      <p>Can a dog bring you your cofee in the morning? Heck no! Pepper can! </p>
+      Command send by choregraphe: <span id="command">None</span>
+      <img src="images/pepperbotphoto2.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+    </div>
+    <div class="col-sm-4"> 
+      <p>Looking for someone to impress your co-workers on a night out? Just the job for a robot who has memorized all 45 jokes in the known universe</p>
+      <img src="images/pepperbotphoto3.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+    </div>
+    <div class="col-sm-4"> 
+      <p>Need someone to show you around Paris? Now if only you knew someone who was born there... </p>
+      <img src="images/pepperbotphoto4.jpg" class="img-responsive margin" style="width:100%" alt="Image">
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="container-fluid bg-4 text-center">
+  <p>Bootstrap Theme Made By <a href="https://www.w3schools.com">www.w3schools.com</a></p> 
+</footer>
+
+</body>
+</html>
