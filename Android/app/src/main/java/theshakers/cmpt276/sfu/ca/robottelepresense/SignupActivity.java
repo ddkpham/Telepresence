@@ -23,6 +23,7 @@ import butterknife.ButterKnife;
 import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.StringResponseCallback;
 import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.requestUserAndAuthAsyncTask;
 
+// This Activity allows user to make new account
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
     private Context context = null;
