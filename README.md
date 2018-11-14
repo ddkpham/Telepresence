@@ -50,6 +50,9 @@ To setup a local instance of the Cloud Server:
 ## Pepper Server
 ### Language
 Python
+### Built With
+* Urllib2 - Python library for sending HTTP POST requests
+* BaseHTTPServer - Python library for receiving and handling HTTP POST requests 
 
 ## App for Tablet
 ### Language
