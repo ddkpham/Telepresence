@@ -3,20 +3,67 @@
     <!-- App -->
     <string name="app_name">Robot Telepresence</string>
 
-    <!-- Main Activity -->
+    <!-- Request Auth Activity-->
+    <string name="please_register_your_pepper">Please Register Your Pepper</string>
+    <string name="pepper_id">Pepper ID</string>
+    <string name="register">Register</string>
+    <string name="request_sent">Request sent</string>
+
+    <!-- Login Activity -->
+    <string name="account_is_created">Account is Created</string>
+    <string name="login_failed">Login failed</string>
+    <string name="authenticating">Authenticating...</string>
+    <string name="enter_a_valid_username">enter a valid username</string>
+    <string name="between_4_and_10_alphanumeric_characters">between 4 and 10 alphanumeric characters</string>
+    <string name="check_your_id_or_password">Check your ID or Password</string>
+    <string name="user_name">Username</string>
+    <string name="password">Password</string>
+    <string name="no_account_yet_create_one">No account yet? Create one</string>
+    <string name="login">Login</string>
+    <string name="do_you_really_want_to_exit">Do you really want to exit?</string>
+    <string name="do_you_really_want_to_logout">Do you really want to Logout?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <!-- Signup Activity -->
+    <string name="signup_failed">Signup failed</string>
+    <string name="at_least_3_characters">"at least 3 characters"</string>
+    <string name="enter_a_valid_email_address">enter a valid email address</string>
+    <string name="password_do_not_match">"Password Do not match"</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">Email</string>
+    <string name="reenter_password">Re-enter Password</string>
+    <string name="create_account">Create Account</string>
+    <string name="already_a_member_login">Already a member? Login</string>
+
+    <!-- Menu Activity -->
+    <string name="title_chat">Chat mode</string>
+    <string name="description_chat">Communicate with Pepper through photo and text</string>
+    <string name="title_help">Help page</string>
+    <string name="description_help">Look for what Pepper can do</string>
     <string name="connect_btn">Connection</string>
     <string name="help_page_btn">Help Page</string>
     <string name="photo_btn">Send Photo</string>
+
+    <!-- Pepper List Activity -->
+    <string name="what_action_do_you_want_to_take">What action do you want to take?</string>
+    <string name="authorized_pepper_list">Authorized Pepper List</string>
+    <string name="requested_pepper_list">Requested Pepper List</string>
+    <string name="add_pepper">Add Pepper</string>
+    <string name="do_you_want_to_go_back">Do you want to go back??</string>
 
     <!-- Chat Activity -->
     <string name="hint_enter_a_message">Enter a message here</string>
     <string name="error_wrong_attempt">This is wrong attempt, can you try again?</string>
     <string name="error_connection">There is connection error with server, can you try again?</string>
+    <string name="sending_photo_to_pepper">Sending photo to pepper</string>
 
     <!-- Help Page Activity -->
     <string name="title_activity_help_page">HelpPageActivity</string>
     <string name="help_intro">You can have a conversation with Pepper. Here are some messages you can send to Pepper. </string>
 
+    <!-- List Pepper Can Do For Help Page -->
     <string-array name="simple_conversation">
         <item>Hello</item> 
         <item>wassuppp</item> 
@@ -44,9 +91,5 @@
         <item>How far are they from you</item>
         <item>What was the last thing someone said to you?</item>
     </string-array>
-
-    <!-- Photo Activity -->
-    <string name="select_picture_from_gallery">Select Picture From Gallery</string>
-    <string name="send_picture_to_pepper">Send Picture to Server</string>
 
 </resources>
