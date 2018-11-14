@@ -7,7 +7,7 @@ RobotUtils.onServices(function(ALLeds, ALTextToSpeech) {
 var authorize = ["ddkpham", "ddkpham@gmail.com"]
 console.log("Hello")
 
-var PepperID = "PepperID : 424242424242424242424"  
+var PepperID = "PepperID : Salt"  
 
   function setPep(){
       console.log("setting header!")
@@ -30,7 +30,7 @@ var jsonTest = [
     }
 ]
 
-var test = {
+var test2 = {
     "AuthReqs": [
       [
         "kassym",
@@ -58,10 +58,32 @@ var test = {
   }
 
 
+ function getAuthRequests(){
+    RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
+        var count = Math.random()
+        var random_string = count.toString()
+        console.log("raising new auth request with value: " + random_string)
+        //raise event to get new auth requests
+        ALMemory.raiseEvent("app/new_auth_requests", random_string)
+        //console.log("app/username event was raised with value: " +username.value);
+      });
+      
+ } 
+
+
+ 
 function createTable() {
     //var jsonTest2 = JSON.parse(test)
     //console.log(jsonTest2)
+    getAuthRequests();
     setPep();
+
+RobotUtils.subscribeToALMemoryEvent("app/tablet_new_auth_request", function(value) {
+    console.log("this is new auth requests "+ value)
+    console.log(typeof value)
+    console.log(typeof test2)
+    test = JSON.parse(value)
+    console.log(typeof test)
     for(var i=0; i< test.AuthReqs.length; i++ ){
         //create row
         var table = document.getElementById("authTable");
@@ -90,16 +112,19 @@ function createTable() {
         email_text = test.AuthReqs[i][1] + "    "
         username.innerHTML = username_text;
         email.innerHTML = email_text;
-
+        
     }
     createheaders();
+  });
+    
     //parseJson();
 }
 
 function acceptRequest() {
     alert("request has been granted!")
-    RobotUtils.onServices(function(ALLeds, ALTextToSpeech) {
-        ALLeds.randomEyes(2.0);
+    RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
+        ALMemory.raiseEvent("app/app/auth_username_reply", "")
+        ALMemory.raiseEvent("app/auth_reply", "accept")
         ALTextToSpeech.say("You made a friend! Good for you");
         console.log("Connected to services");
       });

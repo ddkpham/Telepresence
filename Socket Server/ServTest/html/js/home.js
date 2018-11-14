@@ -6,7 +6,7 @@ RobotUtils.onServices(function(ALLeds, ALTextToSpeech) {
     console.log("I got into robot services")
   });
 
-var PepperID = "PepperID : 424242424242424242424"  
+var PepperID = "PepperID : Salt"  
 
   function setPep(){
       console.log("setting header!")
