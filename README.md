@@ -11,6 +11,7 @@ Java (Android Studio)
 * [ChatKit](https://github.com/stfalcon-studio/ChatKit) - Message UI library
 * [CircleIndicator](https://github.com/ongakuer/CircleIndicator) - Customed Circle Indicator
 * [Butterknife](http://jakewharton.github.io/butterknife/) - Field and method binding for Android views
+
 ### screenshot 
 ![layer 0-8](https://user-images.githubusercontent.com/34588197/48456692-d294f480-e774-11e8-9fe6-8483908d95ca.png)
 ![layer 0-10](https://user-images.githubusercontent.com/34588197/48456694-d32d8b00-e774-11e8-8e98-603b4ec23e15.png)
@@ -30,6 +31,7 @@ Google Cloud Platform Account with an App Engine Project and a SQL Database Inst
 which can be installed using pip
 Ex: pip install <packagename>
 ```
+
 ### Deployement
 To upload and run the Cloud Server in the Cloud:
 * Using the Google Cloud SDK go to the Cloud Server folder from our repository
@@ -40,6 +42,7 @@ To setup a local instance of the Cloud Server:
       (Note: PROJECTNAME should be the “cloud_sql_instances:” value in app.yaml) </br>
 * Using a terminal go to the Cloud Server folder from our repository </br>
   a. Run the Cloud Server instance by using:	python main.py
+
 ### Built With
 * Flask – Web framework used
 * Flask-sqlalchemy – Object Relational Mapper used to interact with Database
