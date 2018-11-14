@@ -59,14 +59,15 @@ Python
 * Pepperhacking/robot- jumpstarter Author(s): ekroeger@aldebaran.com
 * Service built with naoqi see qimessaging service guide for more details
 
+
 ## Service for Pepper Server and Tablet
-* To install service onto Pepper's head 
-* (Service must be run to connect Pepper's Tablet to Pepper Server)
-*   - run command below to copy current directory into Pepper's head
-*   - rsync -av . nao@salt.local:~/telepresence_server
-*   - ssh into Pepper's head
-*   - cd into telepresence_server 
-*   - run telepresence_server.py
+
+To install service onto Pepper's head (Service must be run to connect Pepper's Tablet to Pepper Server)
+*   run command below to copy current directory into Pepper's head
+*   rsync -av . nao@salt.local:~/telepresence_server
+*   ssh into Pepper's head
+*   cd into telepresence_server 
+*   run telepresence_server.py
 
 
 
