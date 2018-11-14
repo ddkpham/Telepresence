@@ -28,8 +28,8 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.requestUserAndAut
  */
 
 // This Activity is for sending pepper authorization
-public class RequestAuthoActivity extends AppCompatActivity implements View.OnClickListener {
-    private final String TAG = "RequestAuthoActivity";
+public class RequestAuthActivity extends AppCompatActivity implements View.OnClickListener {
+    private final String TAG = "RequestAuthActivity";
     private EditText pepperEdit = null;
     private Button registerBtn = null;
     private Context context = null;
@@ -121,15 +121,12 @@ public class RequestAuthoActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void showDialog() {
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(RequestAuthoActivity.this);
-        dialogBuilder.setMessage(context.getString(R.string.do_you_really_want_to_logout));
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(RequestAuthActivity.this);
+        dialogBuilder.setMessage(context.getString(R.string.do_you_want_to_go_back));
         dialogBuilder.setPositiveButton(context.getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                SharedPreferences sharedPreferences = context.getSharedPreferences("userdetails", context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.clear().commit();
-                Intent intent = new Intent(RequestAuthoActivity.this, LoginActivity.class);
+                Intent intent = new Intent(RequestAuthActivity.this, PepperListActivity.class);
                 startActivity(intent);
                 finish();
             }
