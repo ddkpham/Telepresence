@@ -32,7 +32,7 @@ which can be installed using pip
 Ex: pip install <packagename>
 ```
 
-### Deployement
+### Deployment
 To upload and run the Cloud Server in the Cloud:
 * Using the Google Cloud SDK go to the Cloud Server folder from our repository
 * run the command: gcloud app deploy </br>
@@ -54,10 +54,12 @@ Python
 * Urllib2 - Python library for sending HTTP POST requests
 * BaseHTTPServer - Python library for receiving and handling HTTP POST requests 
 
-## App for Tablet
-* Built with * Bootstrap/JQuery, qimessaging.js and robotutilis.js from pepperhacking/robot-jumpstarter
+## WebApp for Tablet
+
+Built with Bootstrap/JQuery, qimessaging.js and robotutilis.js from pepperhacking/robot-jumpstarter
+
 * Pepperhacking/robot- jumpstarter Author(s): ekroeger@aldebaran.com
-* Service built with naoqi see qimessaging service guide for more details
+* Service built with naoqi (see qimessaging service guide for more details)
 
 
 ## Service for Pepper Server and Tablet
