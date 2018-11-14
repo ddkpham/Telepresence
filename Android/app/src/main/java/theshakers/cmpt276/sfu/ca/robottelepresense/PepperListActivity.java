@@ -194,7 +194,7 @@ public class PepperListActivity extends Activity implements View.OnClickListener
     }
 
     private void requestPepperAuth() {
-        Intent intent  = new Intent(this, RequestAuthoActivity.class);
+        Intent intent  = new Intent(this, RequestAuthActivity.class);
         startActivity(intent);
         this.finish();
     }

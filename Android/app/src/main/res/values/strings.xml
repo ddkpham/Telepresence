@@ -3,7 +3,7 @@
     <!-- App -->
     <string name="app_name">Robot Telepresence</string>
 
-    <!-- Autorization Activity-->
+    <!-- Request Auth Activity-->
     <string name="please_register_your_pepper">Please Register Your Pepper</string>
     <string name="pepper_id">Pepper ID</string>
     <string name="register">Register</string>
@@ -46,12 +46,12 @@
     <string name="help_page_btn">Help Page</string>
     <string name="photo_btn">Send Photo</string>
 
-
     <!-- Pepper List Activity -->
     <string name="what_action_do_you_want_to_take">What action do you want to take?</string>
     <string name="authorized_pepper_list">Authorized Pepper List</string>
     <string name="requested_pepper_list">Requested Pepper List</string>
     <string name="add_pepper">Add Pepper</string>
+    <string name="do_you_want_to_go_back">Do you want to go back??</string>
 
     <!-- Chat Activity -->
     <string name="hint_enter_a_message">Enter a message here</string>
@@ -62,7 +62,6 @@
     <!-- Help Page Activity -->
     <string name="title_activity_help_page">HelpPageActivity</string>
     <string name="help_intro">You can have a conversation with Pepper. Here are some messages you can send to Pepper. </string>
-
 
     <!-- List Pepper Can Do For Help Page -->
     <string-array name="simple_conversation">
