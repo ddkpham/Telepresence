@@ -6,6 +6,9 @@ import requests as r
 import random, string
 from werkzeug.security import generate_password_hash, check_password_hash
 
+import firebase_admin
+from firebase_admin import credentials
+
 app = Flask(__name__)
 
 app.config.from_object(config)
@@ -13,6 +16,12 @@ db = SQLAlchemy(app)
 
 #TODO: Delete this with setIP, getIP
 pepper_ip_address = ""
+
+# F = open('C:/Users/Atho/Desktop/python-server-221001-firebase-adminsdk-zfrb5-8ee102d34a.json','r')
+# print F.read()
+
+cred = credentials.Certificate('C:/Users/Atho/Desktop/python-server-221001-firebase-adminsdk-zfrb5-8ee102d34a.json')
+default_app = firebase_admin.initialize_app(cred)
 
 #-----------------ENTITY-MODELS-----
 class Pepper(db.Model):
@@ -413,9 +422,10 @@ def set_ip():
     #pepper_ip_address = request.access_route[0]
     return 'ip set!'
 
-@app.route('/getIP',methods=['GET'])
+@app.route('/sendToIP',methods=['GET'])
 def get_IP():
-    print("Sending: "+pepper_ip_address)
+    print("Sending to: "+pepper_ip_address +":8080")
+    req = r.post("http://" + pepper_ip_address + ":8080/echomessage")
     return pepper_ip_address
 
 @app.route('/adminPepper',methods=['GET'])

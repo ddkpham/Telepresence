@@ -491,30 +491,36 @@
         <Topic name="Data_Responses_enu" src="ServTest/ServTest/Data_Responses/Data_Responses_enu.top" topicName="Data_Responses" language="en_US" />
     </Topics>
     <IgnoredPaths>
-        <Path src="Introduction" />
-        <Path src="ServTest/Introduction/Introduction_enu.top" />
-        <Path src="DisplayImage/translations/translation_en_US.ts" />
-        <Path src="lovesong.wav" />
-        <Path src="PerformAction/PerformAction.dlg" />
-        <Path src="DisplayImage/behavior_1/behavior.xar" />
         <Path src="ServTest/PerformAction/PerformAction.dlg" />
-        <Path src="PerformAction" />
-        <Path src="ServTest/translations/translation_en_US.ts" />
-        <Path src="ServTest/PerformAction/PerformAction_enu.top" />
+        <Path src="DisplayImage/behavior_1/behavior.xar" />
         <Path src="brickhouse.wav" />
-        <Path src="ServTest/PerformAction" />
-        <Path src="ServTest/Introduction/Introduction.dlg" />
+        <Path src="PerformAction/PerformAction.dlg" />
+        <Path src="DisplayImage/translations/translation_en_US.ts" />
+        <Path src="ServTest/Data_Responses/Data_Responses.dlg" />
+        <Path src="Flask-1.0.2/examples/javascript/.gitignore" />
+        <Path src="ServTest/lovesong.wav" />
+        <Path src="lovesong.wav" />
         <Path src="ServTest/brickhouse.wav" />
-        <Path src="johnmayer.wav" />
-        <Path src="ServTest/johnmayer.wav" />
+        <Path src="translations/translation_en_US.ts" />
+        <Path src="Flask-1.0.2/tests/test_apps/.env" />
+        <Path src="ServTest/Introduction/Introduction_enu.top" />
         <Path src="behavior_1/behavior.xar" />
+        <Path src="Introduction" />
+        <Path src="PerformAction/PerformAction_enu.top" />
         <Path src="ServTest/Introduction" />
         <Path src="ServTest/behavior_1/behavior.xar" />
         <Path src="Introduction/Introduction_enu.top" />
+        <Path src="ServTest/johnmayer.wav" />
+        <Path src="ServTest/Introduction/Introduction.dlg" />
         <Path src="Introduction/Introduction.dlg" />
-        <Path src="PerformAction/PerformAction_enu.top" />
-        <Path src="translations/translation_en_US.ts" />
-        <Path src="ServTest/lovesong.wav" />
+        <Path src="PerformAction" />
+        <Path src="ServTest/translations/translation_en_US.ts" />
+        <Path src="ServTest/Conversation/Conversation.dlg" />
+        <Path src="johnmayer.wav" />
+        <Path src="Flask-1.0.2/examples/tutorial/.gitignore" />
+        <Path src="Flask-1.0.2/tests/test_apps/.flaskenv" />
+        <Path src="ServTest/PerformAction/PerformAction_enu.top" />
+        <Path src="ServTest/PerformAction" />
     </IgnoredPaths>
     <Translations auto-fill="en_US">
         <Translation name="translation_en_US" src="translations/translation_en_US.ts" language="en_US" />
