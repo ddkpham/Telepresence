@@ -41,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
+        MyFirebaseInstanceService.onTokenRefresh();
+
         context = getApplicationContext();
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override

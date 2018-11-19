@@ -8,6 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 import firebase_admin
 from firebase_admin import credentials
+from firebase_admin import messaging
 
 app = Flask(__name__)
 
@@ -20,8 +21,20 @@ pepper_ip_address = ""
 # F = open('C:/Users/Atho/Desktop/python-server-221001-firebase-adminsdk-zfrb5-8ee102d34a.json','r')
 # print F.read()
 
-cred = credentials.Certificate('C:/Users/Atho/Desktop/python-server-221001-firebase-adminsdk-zfrb5-8ee102d34a.json')
+cred = credentials.Certificate('C:/Users/antho/Desktop/python-server-221001-firebase-adminsdk-zfrb5-8ee102d34a.json')
 default_app = firebase_admin.initialize_app(cred)
+# default_app = firebase_admin.initialize_app()
+
+reg_token = 'eMT8G9Cw1mw:APA91bF7U_TJPvDtwz3FN78itXRTf96P0BwR4QZh6yEOh0F17SdhTgHeltfbKA_v2pEq75OvTMu_y9SneIHyU6nXoO-2e8G8FGcT9cAmKVD3E09qDrYOq06YvNUE7R3_8TdggZ5jgBox'
+
+message = messaging.Message(
+    data={
+        'msg': '850',
+    },
+    token=reg_token,
+)
+response = messaging.send(message)
+print ("Fire Response: ", response)
 
 #-----------------ENTITY-MODELS-----
 class Pepper(db.Model):
@@ -564,4 +577,4 @@ def generate_random_string():
     return ''.join(random.choice(letters) for i in range(15))
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=8080)
+    app.run(host='127.0.0.1',port=8080)
