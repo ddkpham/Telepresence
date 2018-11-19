@@ -27,12 +27,16 @@ default_app = firebase_admin.initialize_app(cred)
 
 reg_token = 'eMT8G9Cw1mw:APA91bF7U_TJPvDtwz3FN78itXRTf96P0BwR4QZh6yEOh0F17SdhTgHeltfbKA_v2pEq75OvTMu_y9SneIHyU6nXoO-2e8G8FGcT9cAmKVD3E09qDrYOq06YvNUE7R3_8TdggZ5jgBox'
 
+notif = messaging.Notification("Title", "Hooba hooba")
 message = messaging.Message(
     data={
-        'msg': '850',
+        "blank": "hello",
+
     },
+    notification=notif,
     token=reg_token,
 )
+
 response = messaging.send(message)
 print ("Fire Response: ", response)
 
