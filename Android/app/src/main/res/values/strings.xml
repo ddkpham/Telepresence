@@ -38,13 +38,15 @@
     <string name="already_a_member_login">Already a member? Login</string>
 
     <!-- Menu Activity -->
-    <string name="title_chat">Chat mode</string>
+    <string name="title_chat">Chat Mode</string>
     <string name="description_chat">Communicate with Pepper through photo and text</string>
-    <string name="title_help">Help page</string>
+    <string name="title_help">Help Page</string>
     <string name="description_help">Look for what Pepper can do</string>
     <string name="connect_btn">Connection</string>
     <string name="help_page_btn">Help Page</string>
     <string name="photo_btn">Send Photo</string>
+    <string name="title_game">Game Mode</string>
+    <string name="description_game">Play HangMan with Pepper</string>
 
     <!-- Pepper List Activity -->
     <string name="what_action_do_you_want_to_take">What action do you want to take?</string>
