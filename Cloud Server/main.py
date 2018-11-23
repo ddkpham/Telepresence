@@ -455,8 +455,8 @@ def relay_to_pepper():
 
     content = request.json
     pep_id = content.pop('pep_id')
-    print pep_id
-    print content
+    print (pep_id)
+    print (content)
 
     if request.path == '/startgame':
         uname = content['android_username']
@@ -481,7 +481,7 @@ def relay_to_pepper():
         return Response(status=200)
 
     #Send to Pepper
-    req = r.post(relay_ip + request.path, json=content)
+    req = r.post(relay_ip + request.path, json=content) #TODO: or data=json.dumps(content)
 
     return Response(status=req.status_code)
 
