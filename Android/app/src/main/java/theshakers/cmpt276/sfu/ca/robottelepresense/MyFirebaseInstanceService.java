@@ -16,6 +16,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Random;
+import org.json.JSONObject;
 
 public class MyFirebaseInstanceService extends FirebaseMessagingService {
 
@@ -34,6 +35,21 @@ public class MyFirebaseInstanceService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+
+        Log.d("MsgRec","From: " + remoteMessage.getFrom());
+
+        if (remoteMessage.getData().size() > 0) {
+            Log.d("MsgRec", "Message data payload: " + remoteMessage.getData());
+
+//            if (/* Check if data needs to be processed by long running job */ true) {
+//                // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
+//                scheduleJob();
+//            } else {
+//                // Handle message within 10 seconds
+//                handleNow();
+//            }
+
+        }
 
         showNotification(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody());
     }
