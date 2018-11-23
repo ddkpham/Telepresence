@@ -12,6 +12,7 @@ from firebase_admin import messaging
 
 app = Flask(__name__)
 
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config.from_object(config)
 db = SQLAlchemy(app)
 
@@ -21,10 +22,7 @@ pepper_ip_address = ""
 # TODO: Make sure this is False before Production
 TEST_BOOL = True
 
-# F = open('C:/Users/Atho/Desktop/python-server-221001-firebase-adminsdk-zfrb5-8ee102d34a.json','r')
-# print F.read()
-
-cred = credentials.Certificate('C:/Users/antho/Desktop/python-server-221001-firebase-adminsdk-zfrb5-8ee102d34a.json')
+cred = credentials.Certificate('C:/Users/Atho/Desktop/python-server-221001-firebase-adminsdk-zfrb5-8ee102d34a.json')
 default_app = firebase_admin.initialize_app(cred)
 # default_app = firebase_admin.initialize_app()
 
@@ -462,7 +460,7 @@ def relay_to_pepper():
         uname = content['android_username']
         FBToken = content.pop('FBToken')
 
-        user_query = UserAuth.query.filter_by(username=uname).first()
+        user_query = User.query.filter_by(username=uname).first()
         if user_query is None:
             return Response(status=409)
 
@@ -472,16 +470,17 @@ def relay_to_pepper():
     #Get IP Address from Database
     pepper = Pepper.query.filter_by(pep_id=pep_id).first()
     if pepper is None:
-        return Response(status=404)
+        return Response(status=409)
 
     relay_ip = "http://" + pepper.ip_address + ":8080"
     print("Relay ip: " + relay_ip)
 
-    if TEST_BOOL:
-        return Response(status=200)
+    # if TEST_BOOL:
+    #     return Response(status=200)
 
     #Send to Pepper
-    req = r.post(relay_ip + request.path, json=content) #TODO: or data=json.dumps(content)
+    req = r.post('http://10.0.0.3:8082' + request.path, json=content) #Local Test
+    #req = r.post(relay_ip + request.path, json=content) #TODO: or data=json.dumps(content)
 
     return Response(status=req.status_code)
 
@@ -498,11 +497,13 @@ def relay_to_android():
 
     content.update({'path':request.path[1:]})
 
-    # uname = content['android_username']
-    #
-    # user_query = UserAuth.query.filter_by(username=uname).first()
-    # if user_query is None:
-    #     return Response(status=409)
+    print (request.path)
+
+    uname = content.pop('android_username')
+
+    user_query = User.query.filter_by(username=uname).first()
+    if user_query is None:
+        return Response(status=409)
 
     # if user_query.FBToken == '':
 
@@ -587,7 +588,7 @@ def showDB():
     result = '<h3> Users: </h3><br>'
 
     for user in users:
-        result = result + 'Username: ' + user.username + '| Email: ' + user.email + '| Name: ' + user.name + '| Password: ' + user.password + '<br>'
+        result = result + 'Username: ' + user.username + '| Email: ' + user.email + '| Name: ' + user.name + '| Password: ' + user.password + '|' + 'FBT: ' + user.FBToken + '|' + 'ASK: ' + user.ASK + '<br>'
     result += '<h3> UserAuths: </h3><br>'
     for uauth in uauths:
         result = result + 'pep_id: ' + uauth.pep_id + '| username: ' + uauth.username + '| email: ' + uauth.email + '| Authorized: ' + str(
@@ -655,4 +656,4 @@ def generate_random_string():
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8080)
+    app.run(host='0.0.0.0', port=8080)
