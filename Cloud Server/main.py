@@ -1,9 +1,9 @@
-from flask import Flask, request, jsonify, Blueprint, Response
+from flask import Flask, request, jsonify, Response
 from flask_sqlalchemy import SQLAlchemy
-import os, config, json
-import sqlalchemy
+import os, config, json, random, string
+# import sqlalchemy
 import requests as r
-import random, string
+
 from werkzeug.security import generate_password_hash, check_password_hash
 
 import firebase_admin
@@ -18,6 +18,9 @@ db = SQLAlchemy(app)
 # TODO: Delete this with setIP, getIP
 pepper_ip_address = ""
 
+# TODO: Make sure this is False before Production
+TEST_BOOL = True
+
 # F = open('C:/Users/Atho/Desktop/python-server-221001-firebase-adminsdk-zfrb5-8ee102d34a.json','r')
 # print F.read()
 
@@ -25,7 +28,8 @@ cred = credentials.Certificate('C:/Users/antho/Desktop/python-server-221001-fire
 default_app = firebase_admin.initialize_app(cred)
 # default_app = firebase_admin.initialize_app()
 
-reg_token = 'eMT8G9Cw1mw:APA91bF7U_TJPvDtwz3FN78itXRTf96P0BwR4QZh6yEOh0F17SdhTgHeltfbKA_v2pEq75OvTMu_y9SneIHyU6nXoO-2e8G8FGcT9cAmKVD3E09qDrYOq06YvNUE7R3_8TdggZ5jgBox'
+#My phone's FBToken
+atho_token = 'eMT8G9Cw1mw:APA91bF7U_TJPvDtwz3FN78itXRTf96P0BwR4QZh6yEOh0F17SdhTgHeltfbKA_v2pEq75OvTMu_y9SneIHyU6nXoO-2e8G8FGcT9cAmKVD3E09qDrYOq06YvNUE7R3_8TdggZ5jgBox'
 
 notif = messaging.Notification("Title", "Hooba hooba")
 message = messaging.Message(
@@ -34,12 +38,11 @@ message = messaging.Message(
 
     },
     notification=notif,
-    token=reg_token,
+    token=atho_token,
 )
 
-response = messaging.send(message)
-print ("Fire Response: ", response)
-
+# response = messaging.send(message)
+# print ("Fire Response: ", response)
 
 # -----------------ENTITY-MODELS-----
 class Pepper(db.Model):
@@ -77,13 +80,15 @@ class User(db.Model):
     name = db.Column(db.String(100))
     password = db.Column(db.String(100))
     ASK = db.Column(db.String(100))
+    FBToken = db.Column(db.String(200))
 
-    def __init__(self, username, email, name, password, ASK):
+    def __init__(self, username, email, name, password, ASK, FBToken):
         self.username = username
         self.email = email
         self.name = name
         self.password = password
         self.ASK = ASK
+        self.FBToken = FBToken
 
 
 # -------------------ROUTES------------------------
@@ -163,6 +168,10 @@ def message():
     relay_ip = "http://" + pepper.ip_address + ":8080/message"
     print("Relay ip: " + relay_ip)
 
+    # TODO: make sure TEST_BOOL is False
+    if TEST_BOOL:
+        return Response(status=200)
+
     # try:
     req = r.post(relay_ip, data=json.dumps({'msg': message}))
     # except r.exceptions.RequestException as e:
@@ -202,6 +211,10 @@ def photo():
 
     relay_ip = "http://" + pepper.ip_address + "/message"
     print("Relay ip: " + relay_ip)
+
+    # TODO: make sure TEST_BOOL is false
+    if TEST_BOOL:
+        return Response(status=200)
 
     req = r.post(relay_ip, files=photo)
 
@@ -283,7 +296,7 @@ def addUser():
     if user_query is not None:
         return Response(jsonify({'Error:': 'Email already used.'}), status=409)
 
-    new_user = User(username=uname, email=email, name=name, password=password, ASK=ASK)
+    new_user = User(username=uname, email=email, name=name, password=password, ASK=ASK, FBToken='')
 
     db.session.add(new_user)
     db.session.commit()
@@ -362,7 +375,6 @@ def setPepperActive():
     pep_id = content['pep_id']
     # ip_address = content['ip_address']
     ip = request.access_route[0]
-    PSKs = ['PSK']
 
     # Check PSK
 
@@ -426,7 +438,7 @@ def pepperLogin():
         return Response(status=409)
 
 
-# TODO: removeUser  #Optional, Not in requirements but useful for administrative purposes
+# TODO: removeUser  #Optional, Not in requirements but useful admin tool
 # @app.route('/removeUser', methods=['POST'])
 # def removeUser():
 
@@ -435,29 +447,85 @@ def server_error(e):
     return """An internal error occurred: <pre>{}</pre>See logs for full stacktrace.""".format(e), 500
 
 
-# -------------------GAME-ROUTES--------------------
+# --------------ANDROID-GAME-ROUTES-----------------
 
-@app.route('/startgame', methods=['POST'])
-def start_game():
-    # send to firebase
+def relay_to_pepper():
+    # if request.method == 'POST':
+    # print (request.path)
 
-    # send object then check for error
-    return 200
-    # else error
-    # return not 200
+    content = request.json
+    pep_id = content.pop('pep_id')
+    print pep_id
+    print content
+
+    if request.path == '/startgame':
+        uname = content['android_username']
+        FBToken = content.pop('FBToken')
+
+        user_query = UserAuth.query.filter_by(username=uname).first()
+        if user_query is None:
+            return Response(status=409)
+
+        user_query.FBToken = FBToken
+        db.session.commit()
+
+    #Get IP Address from Database
+    pepper = Pepper.query.filter_by(pep_id=pep_id).first()
+    if pepper is None:
+        return Response(status=404)
+
+    relay_ip = "http://" + pepper.ip_address + ":8080"
+    print("Relay ip: " + relay_ip)
+
+    if TEST_BOOL:
+        return Response(status=200)
+
+    #Send to Pepper
+    req = r.post(relay_ip + request.path, json=content)
+
+    return Response(status=req.status_code)
 
 
-@app.route('/endgame', methods=['POST'])
-def end_game():
-    # send to firebase
+app.add_url_rule('/startgame', 'Start', relay_to_pepper, methods=['POST'])
+app.add_url_rule('/sendresults', 'Results', relay_to_pepper, methods=['POST'])
+app.add_url_rule('/pepperanimation', 'PAnimation', relay_to_pepper, methods=['POST'])
 
-    # send object then check for error
-    return 200
-    # else error
-    # return not 200
+# --------------PEPPER-GAME-ROUTES------------------
 
+
+def relay_to_android():
+    content = request.json
+
+    content.update({'path':request.path[1:]})
+
+    # uname = content['android_username']
+    #
+    # user_query = UserAuth.query.filter_by(username=uname).first()
+    # if user_query is None:
+    #     return Response(status=409)
+
+    # if user_query.FBToken == '':
+
+
+    notif = messaging.Notification("RTA Test Notif", "Relay To Android")
+    message = messaging.Message(
+        data=content,
+        notification=notif,
+        token=atho_token, #TODO: Replace with user_query.FBToken
+    )
+
+    response = messaging.send(message)
+    # if TEST_BOOL:
+    return Response(status=200)
+
+
+app.add_url_rule('/acceptgame', 'Accept', relay_to_android, methods=['POST'])
+app.add_url_rule('/endgame', 'End', relay_to_android, methods=['POST'])
+app.add_url_rule('/androidanimation', 'AAnimation', relay_to_android, methods=['POST'])
 
 # ------------------DIAGNOSTIC-ROUTES---------------
+
+
 @app.route('/setIP', methods=['POST'])
 def set_ip():
     print('/setIP')
@@ -504,7 +572,6 @@ def query_db():
 # TODO: Disable or add authentication
 @app.route('/wipeDatabase', methods=['GET'])
 def wipe_db():
-    print("DB CREATE FUNC")
     db.drop_all()
     db.create_all()
     return 'db created'
@@ -532,9 +599,13 @@ def showDB():
     return result
 
 
-@app.route('/')
+# @app.route('/')
+
 def Telepresence():
     return '01001101 01111001 00100000 01101110 01100001 01101101 01100101 00100000 01101001 01110011 00100000 01010000 01100101 01110000 01110000 01100101 01110010 00101110 00100000 01010010 01100101 01110011 01101001 01110011 01110100 01100001 01101110 01100011 01100101 00100000 01101001 01110011 00100000 01100110 01110101 01110100 01101001 01101100 01100101 00101110'
+
+
+app.add_url_rule('/', 'TP', Telepresence)
 
 
 @app.route('/echomessage', methods=['POST'])
@@ -556,15 +627,6 @@ def echo():
 # Pepper:
 # if check_sk('P',PSK,pep_id) is False:
 #     return Response(status=410)
-
-# Example Hash and Check:
-# print("Password: asdf")
-# abs = generate_password_hash("asdf")
-# print(abs)
-# bbs = generate_password_hash("asdf")
-# print(bbs)
-# print(check_password_hash(abs,"asdf"))
-# print(check_password_hash(abs,bbs))
 
 def check_sk(type, key, id):
     if type == 'P':
