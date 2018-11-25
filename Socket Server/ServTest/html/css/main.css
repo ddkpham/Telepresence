@@ -1,0 +1,250 @@
+
+
+/* Mixin's */ 
+
+@mixin transition {
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+@mixin clear {
+  &:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+}
+
+ @mixin box-size {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+ @mixin transition {
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+@mixin fade {
+  -moz-transition: all 1s ease-in;
+  -moz-transition:all 0.3s ease-in-out;
+  -webkit-transition:all 0.3s ease-in-out;
+}
+
+@mixin opacity {
+  opacity:0.4;
+  filter:alpha(opacity=40); 
+  @include fade;
+}
+
+@mixin corners ($radius) {
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  border-radius: $radius; 
+  -khtml-border-radius: $radius; 
+}
+
+body {
+  background:#2e93d7;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+  color:#fff;
+  height:100%;
+  text-align:center;
+  font-size:18px;
+}
+
+.invisible{
+  background:#2e93d7;
+}
+
+.wrappper{
+  @include clear;
+  width:100%;
+  margin:0 auto;
+}
+
+.container-fluid {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  width:100%;
+  margin:0 auto;
+  position: relative;
+}
+.bot-left{
+  position: absolute;
+  left: 10px;
+  bottom:10px;
+  float: left;
+  border-radius: 12px;
+  color: aqua;
+  background-color: aqua!important;
+}
+.bot-right{
+  position: absolute;
+  right: 10px;
+  bottom:10px;
+  float: left;
+  border-radius: 12px;
+  color:orange;
+  background-color:orange!important;
+}
+.top-left{
+  position: absolute;
+  left: 10px;
+  top:10px;
+  float: left;
+  border-radius: 12px;
+  color: rebeccapurple;
+  background-color: rebeccapurple!important;
+}
+.top-right{
+  position: absolute;
+  right: 10px;
+  top:10px;
+  float: right;
+  border-radius: 12px;
+  color: #c1d72e;
+  background-color: #c1d72e!important;
+}
+.hint{
+  border-radius: 12px;
+  color: #34d72e;
+  background-color:#34d72e !important;
+}
+.play_again{
+  border-radius: 12px;
+  color: #c1d72e;
+  background-color:#c1d72e !important;
+}
+
+canvas{
+  color:#ffffff;
+  border: #ffffff dashed 2px;
+  padding:15px;
+}
+
+h1, h2, h3 {
+	font-family: 'Roboto', sans-serif;
+	font-weight: 100;
+   margin:5px 0;
+}
+
+h1 {
+  font-size: 2.6em;
+  text-transform: uppercase;
+}
+
+h2 {
+	font-size: 1.6em;
+}
+
+p{
+  font-size: 1.6em;
+}
+
+#alphabet {
+  @include clear;
+  margin:15px auto;
+  padding:0;
+  width:600px;
+}
+
+#alphabet li {
+  float:left;
+  margin: 0 10px 10px 0;
+  list-style:none;
+  width:35px;
+  height:30px;
+  padding-top:5px;
+  background:#ffffff;
+  color:#c1d72e;
+  cursor:pointer;
+  @include corners(5px);
+  border: solid 1px #ffffff;
+    
+}
+
+#alphabet li:hover{
+  background:#2e93d7 !important;
+  border: solid 1px #ffffff;
+  color:#ffffff;
+}
+#my-word {
+  margin: 0;
+  padding: 0;
+  display:block;
+}
+
+#my-word li {
+  position: relative;
+  list-style: none;
+  margin: 0;
+  display: inline-block;
+  padding: 0 10px;
+  font-size:1.6em;
+}
+
+.chosen {
+  @include opacity;
+  position: relative !important;
+  cursor:default;
+  display: inline-block;
+  background: #c1d72e !important;
+  text-overflow: clip !important;
+}
+
+.active:hover{
+  @include fade;
+  @include opacity !important;
+}
+
+
+#mylives{
+  font-size:1.6em;
+  text-align:center;
+  display:block;
+}
+
+.bg-1 { 
+  background: linear-gradient( rgba(135,168,238,0.6), rgba(135,168,238,0.6)), url("images/vancouver-sunset.jpg") !important;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: #87A8EE; /* blue */
+  color: #ffffff;
+}
+
+button{
+  @include corners (5px);
+  background:#2e93d7;
+  color:#ffffff;
+  border: solid 1px #ffffff;
+  text-decoration:none;
+  cursor:pointer;
+  font-size:1.2em;
+  padding:18px 10px;
+  width:180px;
+  margin: 10px;
+  outline: none;
+}
+
+button:hover{
+    @include transition;
+    background:#ffffff;
+    border: solid 1px #ffffff;
+    color:#c1d72e;
+  }
+
+@media (max-width: 767px) {
+  #alphabet {
+  padding:0 0 0 15px;
+}
+  }
+
+  @media (max-width: 480px) {
+  #alphabet {
+  padding:0 0 0 25px;
+}
+  }
