@@ -23,7 +23,7 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.R;
  * Created by baesubin on 2018-11-04.
  */
 
-// This is AsyncTask used to login request to Cloud Server
+// This is AsyncTask used to game start request to Cloud Server
 public class RequestGameStartAsyncTask extends AsyncTask<JSONObject, Void, String> {
     private final String TAG = "RequestGameStartAT";
     private HttpURLConnection conn = null;
@@ -43,7 +43,6 @@ public class RequestGameStartAsyncTask extends AsyncTask<JSONObject, Void, Strin
         }
     }
 
-    // Android socket client
     @Override
     protected String doInBackground(JSONObject... params) {
         try {

@@ -17,7 +17,7 @@ import me.relex.circleindicator.CircleIndicator;
 import theshakers.cmpt276.sfu.ca.robottelepresense.Utility.MenuCardFragment;
 import theshakers.cmpt276.sfu.ca.robottelepresense.Utility.MainActivityPagerAdapter;
 
-// Main activity contains three buttons: Connect button, Photo button, and Help Page button
+// Menu activity allows user to choose Chat Mode, Game Mode, Help Page
 public class MenuActivity extends AppCompatActivity implements MenuCardFragment.OnActionListener {
     private final String TAG = "MenuActivity";
     private Context context = null;

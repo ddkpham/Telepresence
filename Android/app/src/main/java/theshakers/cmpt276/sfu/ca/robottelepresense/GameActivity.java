@@ -21,8 +21,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.iid.FirebaseInstanceId;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -39,6 +37,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private final String TAG = "GameActivity";
     private Context context = null;
     private ImageView hangImage = null;
+    private TextView pepperText = null;
     private TextView answerText = null;
     private TextView hintText = null;
     private TextView resultText = null;
@@ -52,6 +51,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private int countForCorrect = 0;
     private String hintStr = "";
     private String answerStr = "";
+    private String pepperNameStr = "";
     private String count = "";
     private MediaPlayer soundForCorrect = null;
     private MediaPlayer soundForWrong = null;
@@ -67,8 +67,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_game);
 
         context = this;
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        pepperNameStr = bundle.getString("pepper_username");
+        hintStr = bundle.getString("hint");
+        answerStr = bundle.getString("word");
+
 
         hangImage = (ImageView) findViewById(R.id.hang_img);
+        pepperText = (TextView) findViewById(R.id.pepper_text);
         answerText = (TextView) findViewById(R.id.answer_text);
         hintText = (TextView) findViewById(R.id.hint_text);
         resultText = (TextView) findViewById(R.id.result_text);
@@ -130,8 +137,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         yBtn.setOnClickListener(this);
         zBtn.setOnClickListener(this);
 
-        hintStr = "Animal";
-        answerStr = "RABBIT";
 
         initGame();
 
@@ -161,6 +166,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         countForCorrect = 0;
         changeHangMan();
         hintText.setText(hintStr);
+        pepperText.setText("You are playing with" + pepperNameStr);
         count = "";
         for(int i=0; i<answerStr.length(); i++)
             count += "_ ";
