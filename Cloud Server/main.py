@@ -10,11 +10,11 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import messaging
 
-import model_sqlalchemy
+# import model_sqlalchemy
 
-User = model_sqlalchemy.User
-Pepper = model_sqlalchemy.Pepper
-UserAuth = model_sqlalchemy.UserAuth
+# User = model_sqlalchemy.User
+# Pepper = model_sqlalchemy.Pepper
+# UserAuth = model_sqlalchemy.UserAuth
 
 app = Flask(__name__)
 
@@ -47,6 +47,51 @@ atho_token = 'eMT8G9Cw1mw:APA91bF7U_TJPvDtwz3FN78itXRTf96P0BwR4QZh6yEOh0F17SdhTg
 # )
 # response = messaging.send(message)
 # print ("Fire Response: ", response)
+# -------------------MODELS------------------------
+class Pepper(db.Model):
+    pep_id = db.Column(db.String(100), primary_key=True)
+    ip_address = db.Column(db.String(100))
+    PSK = db.Column(db.String(100))
+
+    def __init__(self, pep_id, ip_address, PSK):
+        self.pep_id = pep_id
+        self.ip_address = ip_address
+        self.PSK = PSK
+
+
+class UserAuth(db.Model):
+    # __table_args__ = (
+    #     db.PrimaryKeyConstraint(pep_id,username)
+    # )
+    # pep_id = db.Column(db.String(100), db.ForeignKey('Pepper.pep_id'), nullable=False)
+    # username = db.Column(db.String(100), db.ForeignKey('User.username'), nullable=False)
+    pep_id = db.Column(db.String(100), primary_key=True)
+    username = db.Column(db.String(100), primary_key=True)
+    email = db.Column(db.String(100))
+    authorized = db.Column(db.Boolean)
+
+    def __init__(self, pep_id, username, email):
+        self.pep_id = pep_id
+        self.username = username
+        self.email = email
+        self.authorized = False
+
+
+class User(db.Model):
+    username = db.Column(db.String(100), primary_key=True)
+    email = db.Column(db.String(100), unique=True)
+    name = db.Column(db.String(100))
+    password = db.Column(db.String(100))
+    ASK = db.Column(db.String(100))
+    FBToken = db.Column(db.String(200))
+
+    def __init__(self, username, email, name, password, ASK, FBToken):
+        self.username = username
+        self.email = email
+        self.name = name
+        self.password = password
+        self.ASK = ASK
+        self.FBToken = FBToken
 
 # -------------------ROUTES------------------------
 
@@ -69,6 +114,7 @@ def login():
     # Query Database for User
     user_query = User.query.filter_by(username=uname).first()
     if user_query is None:
+        print('User not found')
         return Response(status=409)
 
     if pword == user_query.password:
@@ -208,8 +254,8 @@ def request_auth():
         return Response(status=400)
 
     # Check ASK
-    if check_sk(ASK, username) is False:
-        return Response(status=410)
+    # if check_sk(ASK, uname) is False:
+    #     return Response(status=410)
 
     # Check Pepper Exists
     pepper = Pepper.query.filter_by(pep_id=pep_id).first()
@@ -236,8 +282,8 @@ def deauthorize():
         print ("Missing Data")
         return Response(status=400)
 
-    if check_sk(ASK, username) is False:
-        return Response(status=410)
+    # if check_sk(ASK, uname) is False:
+    #     return Response(status=410)
 
     uauth_req = UserAuth.query.get((pep_id, uname))
     if uauth_req is None:
@@ -514,7 +560,9 @@ def send_to_ip():
 def create_TestSet():
     print("Create Test DB")
 
-    model_sqlalchemy.wipeDB()
+    # model_sqlalchemy.wipeDB()
+    db.drop_all()
+    db.create_all()
 
     admin = User(username='admin', email='admin@example.com', name='Atho', password='admin', ASK='', FBToken='')
     subin = User(username='subin', email='subin@example.com', name='S', password='subin', ASK='', FBToken='')
@@ -549,8 +597,11 @@ def create_TestSet():
 # TODO: Disable or add authentication before Production
 @app.route('/wipeDatabase', methods=['GET'])
 def wipe_db():
-    model_sqlalchemy.wipeDB()
+    # model_sqlalchemy.wipeDB()
+    db.drop_all()
+    db.create_all()
     return 'DB Wiped'
+
 
 
 # TODO: Disable or add authentication before Production
