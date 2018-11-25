@@ -1,10 +1,11 @@
-package theshakers.cmpt276.sfu.ca.robottelepresense;
+package theshakers.cmpt276.sfu.ca.robottelepresense.Firebase;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.Service;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
@@ -18,6 +19,8 @@ import com.google.firebase.messaging.RemoteMessage;
 import java.util.Random;
 import org.json.JSONObject;
 
+import theshakers.cmpt276.sfu.ca.robottelepresense.R;
+
 public class MyFirebaseInstanceService extends FirebaseMessagingService {
 
 //    @Override
@@ -25,7 +28,6 @@ public class MyFirebaseInstanceService extends FirebaseMessagingService {
         // Get updated InstanceID token.
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Log.d("FBToken", "Refreshed token: " + refreshedToken);
-
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the
         // Instance ID token to your app server.
@@ -40,14 +42,6 @@ public class MyFirebaseInstanceService extends FirebaseMessagingService {
 
         if (remoteMessage.getData().size() > 0) {
             Log.d("MsgRec", "Message data payload: " + remoteMessage.getData());
-
-//            if (/* Check if data needs to be processed by long running job */ true) {
-//                // For long-running tasks (10 seconds or more) use Firebase Job Dispatcher.
-//                scheduleJob();
-//            } else {
-//                // Handle message within 10 seconds
-//                handleNow();
-//            }
 
         }
 

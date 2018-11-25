@@ -29,9 +29,9 @@
         <activity android:name=".RequestAuthActivity"></activity>
         <activity android:name=".PepperListActivity"></activity>
         <activity android:name=".GameActivity" android:screenOrientation="landscape"></activity>
-        
+        <activity android:name=".RequestGameActivity"></activity>
         <service
-            android:name=".MyFirebaseInstanceService">
+            android:name=".Firebase.MyFirebaseInstanceService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>

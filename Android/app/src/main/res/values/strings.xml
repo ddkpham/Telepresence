@@ -65,6 +65,12 @@
     <string name="title_activity_help_page">HelpPageActivity</string>
     <string name="help_intro">You can have a conversation with Pepper. Here are some messages you can send to Pepper. </string>
 
+    <!-- Request Game Activity -->
+    <string name="please_enter_the_word_and_hint_for_pepper_to_start_the_game">Please enter the word and hint for Pepper to start the game</string>
+    <string name="hint">Hint</string>
+    <string name="word">Word</string>
+    <string name="send">Send</string>
+
     <!-- List Pepper Can Do For Help Page -->
     <string-array name="simple_conversation">
         <item>Hello</item> 

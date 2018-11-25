@@ -4,15 +4,31 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.RequestGameStartAsyncTask;
+import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.StringResponseCallback;
+import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.SendGameResultAsyncTask;
 
 /**
  * Created by baesubin on 2018-11-07.
@@ -26,6 +42,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private TextView answerText = null;
     private TextView hintText = null;
     private TextView resultText = null;
+    private Chronometer stopWatch = null;
+    private Button soundToggleBtn = null;
+
     private Button aBtn = null, bBtn = null, cBtn = null, dBtn = null, eBtn = null, fBtn = null, gBtn = null, hBtn = null, iBtn = null,
         jBtn = null, kBtn = null, lBtn = null, mBtn = null, nBtn = null, oBtn = null, pBtn = null, qBtn = null, rBtn = null, sBtn = null,
         tBtn = null, uBtn = null, vBtn = null, wBtn = null, xBtn = null, yBtn = null, zBtn = null;
@@ -34,6 +53,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private String hintStr = "";
     private String answerStr = "";
     private String count = "";
+    private MediaPlayer soundForCorrect = null;
+    private MediaPlayer soundForWrong = null;
+    private boolean isSoundOn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +72,9 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         answerText = (TextView) findViewById(R.id.answer_text);
         hintText = (TextView) findViewById(R.id.hint_text);
         resultText = (TextView) findViewById(R.id.result_text);
+        soundToggleBtn = (Button) findViewById(R.id.sound_toggle);
+        soundToggleBtn.setOnClickListener(this);
+        stopWatch = (Chronometer) findViewById(R.id.stopwatch);
 
         aBtn = (Button) findViewById(R.id.btnA);
         bBtn = (Button) findViewById(R.id.btnB);
@@ -110,8 +135,26 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         initGame();
 
+        soundForCorrect = MediaPlayer.create(getApplicationContext(), R.raw.winnerbell);
+        soundForWrong = MediaPlayer.create(getApplicationContext(), R.raw.loserbell);
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        stopWatch.start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(soundForWrong.isPlaying())
+            soundForCorrect.stop();
+        if(soundForWrong.isPlaying())
+            soundForWrong.stop();
+        stopWatch.stop();
+    }
 
     private void initGame() {
         countForWrong = 0;
@@ -176,11 +219,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private void wonTheGame() {
         disableAllButtons();
         resultText.setText("You are a winner");
+        soundForCorrect.start();
+        sendGameResultToServer();
+        stopWatch.stop();
     }
 
     private void lostTheGame() {
         disableAllButtons();
         resultText.setText("You are a loser");
+        soundForWrong.start();
+        stopWatch.stop();
     }
 
     private void disableAllButtons() {
@@ -319,7 +367,83 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 checkResult('Z');
                 zBtn.setEnabled(false);
                 break;
+            case R.id.sound_toggle:
+                //soundOnOff();
+                sendDistractionToPepper("Test");
+                break;
         }
+    }
+
+    private void soundOnOff() {
+        isSoundOn = !isSoundOn;
+        AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+        int time = (int)(SystemClock.elapsedRealtime() - stopWatch.getBase()) / 1000;
+        Log.i(TAG, "systemclock is " + SystemClock.elapsedRealtime() + "base: " + stopWatch.getBase());
+        Log.i(TAG, "current time is " + time);
+        /*
+        deprecated
+        AudioManager amanager=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
+        amanager.setStreamMute(AudioManager.STREAM_NOTIFICATION, isSoundOn);
+        amanager.setStreamMute(AudioManager.STREAM_ALARM, isSoundOn);
+        amanager.setStreamMute(AudioManager.STREAM_MUSIC, isSoundOn);
+        amanager.setStreamMute(AudioManager.STREAM_RING, isSoundOn);
+        amanager.setStreamMute(AudioManager.STREAM_SYSTEM, isSoundOn);
+        */
+    }
+
+    private void sendDistractionToPepper(String animation) {
+        JSONObject jsonData = new JSONObject();
+        SharedPreferences sharedPreferences = context.getSharedPreferences("userdetails", context.MODE_PRIVATE);
+        try {
+            jsonData.put("animation",animation);
+            jsonData.put("pep_id", sharedPreferences.getString("selected_pepper_id", ""));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        RequestGameStartAsyncTask requestGameStartAsyncTask= new RequestGameStartAsyncTask(this, "pepperanimation", new StringResponseCallback() {
+            @Override
+            public void onResponseReceived(String result) {
+                if(result.equals("OK")) {
+                    Toast.makeText(getApplicationContext(), "SUCEED", Toast.LENGTH_SHORT).show();
+                } else if(result.equals("ACCOUNT_ERROR")) {
+                    Toast.makeText(getApplicationContext(), "ACCOUNT_ERROR", Toast.LENGTH_SHORT).show();
+                    //onLoginFailed(context.getString(R.string.check_your_id_or_password));
+                } else {
+                    Toast.makeText(getApplicationContext(), "ERROR", Toast.LENGTH_SHORT).show();
+                    //onLoginFailed(context.getString(R.string.login_failed));
+                }
+            }
+        });
+        requestGameStartAsyncTask.execute(jsonData);
+    }
+
+    private void sendGameResultToServer() {
+        JSONObject jsonData = new JSONObject();
+        SharedPreferences sharedPreferences = context.getSharedPreferences("userdetails", context.MODE_PRIVATE);
+        try {
+            jsonData.put("time_taken", (int)(SystemClock.elapsedRealtime() - stopWatch.getBase()) / 1000);
+            jsonData.put("lives_left", 6-countForWrong);
+            jsonData.put("pep_id", sharedPreferences.getString("selected_pepper_id", ""));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        SendGameResultAsyncTask sendGameResultAsyncTask= new SendGameResultAsyncTask(this, "sendresults", new StringResponseCallback() {
+            @Override
+            public void onResponseReceived(String result) {
+                if(result.equals("OK")) {
+                    Toast.makeText(getApplicationContext(), "SUCEED", Toast.LENGTH_SHORT).show();
+                } else if(result.equals("ACCOUNT_ERROR")) {
+                    Toast.makeText(getApplicationContext(), "ACCOUNT_ERROR", Toast.LENGTH_SHORT).show();
+                    //onLoginFailed(context.getString(R.string.check_your_id_or_password));
+                } else {
+                    Toast.makeText(getApplicationContext(), "ERROR", Toast.LENGTH_SHORT).show();
+                    //onLoginFailed(context.getString(R.string.login_failed));
+                }
+            }
+        });
+        sendGameResultAsyncTask.execute(jsonData);
     }
 
     @Override

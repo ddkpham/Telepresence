@@ -13,8 +13,8 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.R;
 public class MainActivityPagerAdapter extends FragmentStatePagerAdapter {
     private final String TAG = "MenuActivityPagerAdapter";
     public static final int ID_CHAT = 0;
-    public static final int ID_HELP_PAGE = 1;
-    public static final int ID_GAME = 2;
+    public static final int ID_GAME = 1;
+    public static final int ID_HELP_PAGE = 2;
     private Context context;
 
     public MainActivityPagerAdapter(Context context, android.support.v4.app.FragmentManager fm) {
@@ -31,13 +31,13 @@ public class MainActivityPagerAdapter extends FragmentStatePagerAdapter {
                 title = context.getString(R.string.title_chat);
                 description = context.getString(R.string.description_chat);
                 break;
-            case ID_HELP_PAGE:
-                title = context.getString(R.string.title_help);
-                description = context.getString(R.string.description_help);
-                break;
             case ID_GAME:
                 title = context.getString(R.string.title_game);
                 description = context.getString(R.string.description_game);
+                break;
+            case ID_HELP_PAGE:
+                title = context.getString(R.string.title_help);
+                description = context.getString(R.string.description_help);
                 break;
         }
         return MenuCardFragment.newInstance(position, title, description);
