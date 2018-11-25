@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7da67c9f-891b-4cf9-8460-7043f962e7eb" name="Default Changelist" comment="Add Android Security Key Functionality">
+    <list default="true" id="7da67c9f-891b-4cf9-8460-7043f962e7eb" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/model_sqlalchemy.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CloudServTester/CloudServTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/CloudServTester/CloudServTest.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -141,38 +143,40 @@
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.18" value="1" />
-          <entry key="project.open.time.20" value="1" />
+          <entry key="project.open.time.20" value="2" />
           <entry key="project.open.time.22" value="1" />
           <entry key="project.open.time.24" value="2" />
           <entry key="project.open.time.29" value="1" />
           <entry key="project.open.time.30" value="1" />
           <entry key="project.open.time.34" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="12" />
+          <entry key="project.opened" value="13" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="9037" />
-          <entry key="txt" value="258" />
+          <entry key="py" value="12322" />
+          <entry key="txt" value="1072" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="258" />
-          <entry key="Python" value="9037" />
+          <entry key="PLAIN_TEXT" value="1072" />
+          <entry key="Python" value="12322" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="3" />
-          <entry key="yaml" value="1" />
+          <entry key="Local" value="2" />
+          <entry key="py" value="9" />
+          <entry key="yaml" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="3" />
-          <entry key="YAML" value="1" />
+          <entry key="Python" value="9" />
+          <entry key="Terminal Session" value="2" />
+          <entry key="YAML" value="2" />
         </counts>
       </usages-collector>
     </session>
@@ -204,11 +208,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-81">
-              <caret line="486" lean-forward="true" selection-start-line="486" selection-end-line="486" />
+            <state relative-caret-position="158">
+              <caret line="255" column="20" selection-start-line="255" selection-start-column="13" selection-end-line="255" selection-end-column="20" />
+              <folding>
+                <element signature="e#0#51#0" expanded="true" />
+                <marker date="1543133209437" expanded="true" signature="10939:10970" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -217,16 +225,28 @@
         <entry file="file://$PROJECT_DIR$/app.yaml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="374">
-              <caret line="22" column="70" lean-forward="true" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="70" />
+              <caret line="22" column="70" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="70" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config.py">
+        <entry file="file://$PROJECT_DIR$/model_sqlalchemy.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+            <state relative-caret-position="378">
+              <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+              <folding>
+                <marker date="1543132284134" expanded="true" signature="1560:1561" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/CloudServTester/CloudServTest.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="32" selection-start-line="32" selection-end-line="32" selection-end-column="67" />
             </state>
           </provider>
         </entry>
@@ -242,13 +262,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>crud</find>
-      <find>sqlalchemy</find>
-      <find>respon</find>
-      <find>filt</find>
-      <find>filter</find>
-      <find>response</find>
-      <find>asdf</find>
       <find>test</find>
       <find>ask</find>
       <find>query func</find>
@@ -260,7 +273,6 @@
       <find>generate</find>
       <find>#Check ASK</find>
       <find>ASK</find>
-      <find>check_sk</find>
       <find>access_ro</find>
       <find>authre</find>
       <find>sendToIP</find>
@@ -272,10 +284,19 @@
       <find>user_query = UserAuth.query.filter_by(username=uname).first()</find>
       <find>/login</find>
       <find>/showd</find>
+      <find>check_sk('A', ASK, username)</find>
+      <find>check_sk</find>
+      <find>testset</find>
+      <find>addPepper</find>
+      <find>showDB</find>
+      <find>bob</find>
+      <find>showdb</find>
+      <find>adduser</find>
     </findStrings>
     <replaceStrings>
       <replace>h3</replace>
       <replace>atho_token</replace>
+      <replace>check_sk(ASK, username)</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -295,12 +316,15 @@
         <option value="$PROJECT_DIR$/create_tables.py" />
         <option value="$PROJECT_DIR$/config.py" />
         <option value="D:/ServTest/jinja-master/jinja2/asyncfilters.py" />
+        <option value="$PROJECT_DIR$/diag_routes.py" />
+        <option value="$PROJECT_DIR$/model_sqlalchemy.py" />
+        <option value="$PROJECT_DIR$/CloudServTester/CloudServTest.py" />
         <option value="$PROJECT_DIR$/main.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="520" />
+    <option name="x" value="550" />
     <option name="y" value="-15" />
     <option name="width" value="854" />
     <option name="height" value="920" />
@@ -311,7 +335,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -323,9 +346,11 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="SearchEverywhereHistoryKey" value="split&#9;ACTION&#9;SplitVertically" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -368,6 +393,9 @@
       <module name="flaskServTest" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -432,8 +460,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.08997429" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.090616964" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -442,34 +471,15 @@
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32847533" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32749325" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="9" weight="0.32749325" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info active="true" anchor="right" id="Terminal" order="3" visible="true" weight="0.3374036" />
+      <window_info anchor="right" id="Terminal" order="3" weight="0.29948586" />
     </layout>
-    <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18872549" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32852563" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.23103058" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="10" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -478,7 +488,8 @@
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="Add /showDB route&#10;Prints out the DB in HTML format" />
     <MESSAGE value="Implement all routes needed&#10;&#10;More testing needs to be done&#10;Need to test all pepper related routes with Pepper Server after Pepper Server is done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implement all routes needed&#10;&#10;More testing needs to be done&#10;Need to test all pepper related routes with Pepper Server after Pepper Server is done" />
+    <MESSAGE value="Fix Bugs, Add Exception Handling, Refactor, Update Diag Tools&#10;&#10;1 /addUser now responds correctly when Email or Username is already in database&#10;2 All pepper/android routes from Sprint 2 now have Exception handling for bad input or missing input&#10;-Responds with Code 400&#10;3 Refactor Cloud Server&#10;-sqlalchemy models moved to separate file&#10;-/pepperlogin and /login use the same function &#10;4 Updated Diagnostics Routes&#10;-Added Test Set which wipes database then creates a new one which is filled with a test set of data&#10;-Deleted Obselete Routes&#10;-Fixed /wipeDB after model refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix Bugs, Add Exception Handling, Refactor, Update Diag Tools&#10;&#10;1 /addUser now responds correctly when Email or Username is already in database&#10;2 All pepper/android routes from Sprint 2 now have Exception handling for bad input or missing input&#10;-Responds with Code 400&#10;3 Refactor Cloud Server&#10;-sqlalchemy models moved to separate file&#10;-/pepperlogin and /login use the same function &#10;4 Updated Diagnostics Routes&#10;-Added Test Set which wipes database then creates a new one which is filled with a test set of data&#10;-Deleted Obselete Routes&#10;-Fixed /wipeDB after model refactor" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$USER_HOME$/AppData/Local/Google/Cloud SDK/google-cloud-sdk/bin/dev_appserver.py">
@@ -509,22 +520,50 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/config.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+        <state relative-caret-position="680">
+          <caret line="40" selection-start-line="40" selection-end-line="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/diag_routes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="28" lean-forward="true" selection-start-line="19" selection-start-column="28" selection-end-line="19" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app.yaml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
-          <caret line="22" column="70" lean-forward="true" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="70" />
+          <caret line="22" column="70" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model_sqlalchemy.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="39" lean-forward="true" selection-start-line="39" selection-end-line="39" />
+          <folding>
+            <marker date="1543132284134" expanded="true" signature="1560:1561" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-81">
-          <caret line="486" lean-forward="true" selection-start-line="486" selection-end-line="486" />
+        <state relative-caret-position="158">
+          <caret line="255" column="20" selection-start-line="255" selection-start-column="13" selection-end-line="255" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+            <marker date="1543133209437" expanded="true" signature="10939:10970" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CloudServTester/CloudServTest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="32" selection-start-line="32" selection-end-line="32" selection-end-column="67" />
         </state>
       </provider>
     </entry>

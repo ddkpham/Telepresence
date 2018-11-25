@@ -27,6 +27,12 @@ print r.text
 admin3ASK = json.loads(r.text)['ASK']
 
 #-------------------------------------------------------------------
+print 'Adding peppers: salt,salty,bob'
+r = requests.post(ip + '/addPepper',json={'pep_id':'salt','PSK':''})
+r = requests.post(ip + '/addPepper',json={'pep_id':'salty','PSK':''})
+r = requests.post(ip + '/addPepper',json={'pep_id':'bob','PSK':''})
+
+#-------------------------------------------------------------------
 print 'Adding Auth Requests'
 r = requests.post(ip + '/reqAuth',json={'username':'admin','email':'admin@example.com','pep_id':'salt','ASK':adminASK})
 print "salt,admin"
