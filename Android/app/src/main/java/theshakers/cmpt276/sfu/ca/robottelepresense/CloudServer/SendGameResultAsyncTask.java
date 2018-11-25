@@ -19,7 +19,7 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.R;
  * Created by baesubin on 2018-11-04.
  */
 
-// This is AsyncTask used to login request to Cloud Server
+// This is AsyncTask used to send game result to Cloud Server
 public class SendGameResultAsyncTask extends AsyncTask<JSONObject, Void, String> {
     private final String TAG = "SendGameResultAsyncTask";
     private HttpURLConnection conn = null;

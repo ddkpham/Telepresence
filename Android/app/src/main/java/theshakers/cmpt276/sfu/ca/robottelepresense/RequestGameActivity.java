@@ -89,7 +89,8 @@ public class RequestGameActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onResponseReceived(String result) {
                 if(result.equals("OK")) {
-                    startActivity();
+                    Toast.makeText(getApplicationContext(), "SENT", Toast.LENGTH_SHORT).show();
+                    //startActivity();
                 } else if(result.equals("ACCOUNT_ERROR")) {
                     Toast.makeText(getApplicationContext(), "ACCOUNT_ERROR", Toast.LENGTH_SHORT).show();
                     //onLoginFailed(context.getString(R.string.check_your_id_or_password));

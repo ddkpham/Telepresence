@@ -35,7 +35,6 @@ public class SendAndReceiveJsonAsyncTask extends AsyncTask<String, Void, String>
         this.context = context;
     }
 
-    // Android socket client
     @Override
     protected String doInBackground(String... params) {
         try {

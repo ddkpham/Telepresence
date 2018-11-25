@@ -41,7 +41,6 @@ public class requestUserAndAuthAsyncTask extends AsyncTask<JSONObject, Void, Str
         }
     }
 
-    // Android socket client
     @Override
     protected String doInBackground(JSONObject... params) {
         try {
