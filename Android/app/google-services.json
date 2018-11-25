@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "579283835977",
+    "firebase_url": "https://python-server-221001.firebaseio.com",
+    "project_id": "python-server-221001",
+    "storage_bucket": "python-server-221001.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:579283835977:android:e8b2654d0e04f085",
+        "android_client_info": {
+          "package_name": "theshakers.cmpt276.sfu.ca.robottelepresense"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "579283835977-mcl59b0vn55a5okrjrsj04ng1bbf6mdr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "theshakers.cmpt276.sfu.ca.robottelepresense",
+            "certificate_hash": "7ea5307af9913bb7f1c201f8e8b5678d94708e86"
+          }
+        },
+        {
+          "client_id": "579283835977-hbuct6320o3b3qt5udu2qqnon8ng2ujh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBw7vMlxo38XmiObL_oPBSrsKA5t5zsYss"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "579283835977-hbuct6320o3b3qt5udu2qqnon8ng2ujh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

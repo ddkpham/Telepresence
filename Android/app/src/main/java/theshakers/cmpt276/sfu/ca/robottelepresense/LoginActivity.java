@@ -34,12 +34,14 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.input_password) EditText passwordText;
     @BindView(R.id.btn_login) Button loginBtn;
     @BindView(R.id.link_signup) TextView signupLink;
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+
+        MyFirebaseInstanceService.onTokenRefresh();
 
         context = getApplicationContext();
         loginBtn.setOnClickListener(new View.OnClickListener() {

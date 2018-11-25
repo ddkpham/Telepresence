@@ -14,6 +14,7 @@ public class MainActivityPagerAdapter extends FragmentStatePagerAdapter {
     private final String TAG = "MenuActivityPagerAdapter";
     public static final int ID_CHAT = 0;
     public static final int ID_HELP_PAGE = 1;
+    public static final int ID_GAME = 2;
     private Context context;
 
     public MainActivityPagerAdapter(Context context, android.support.v4.app.FragmentManager fm) {
@@ -34,12 +35,16 @@ public class MainActivityPagerAdapter extends FragmentStatePagerAdapter {
                 title = context.getString(R.string.title_help);
                 description = context.getString(R.string.description_help);
                 break;
+            case ID_GAME:
+                title = context.getString(R.string.title_game);
+                description = context.getString(R.string.description_game);
+                break;
         }
         return MenuCardFragment.newInstance(position, title, description);
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 }

@@ -512,6 +512,7 @@
         <Topic name="Data_Responses_enu" src="ServTest/ServTest/Data_Responses/Data_Responses_enu.top" topicName="Data_Responses" language="en_US" />
     </Topics>
     <IgnoredPaths>
+<<<<<<< HEAD
         <Path src="brickhouse.wav" />
         <Path src="DisplayImage/translations/translation_en_US.ts" />
         <Path src="Introduction/Introduction.dlg" />
@@ -529,13 +530,74 @@
         <Path src="ServTest/PerformAction" />
         <Path src="Introduction" />
         <Path src="PerformAction/PerformAction_enu.top" />
+||||||| merged common ancestors
+        <Path src="Introduction" />
+        <Path src="ServTest/Introduction/Introduction_enu.top" />
+        <Path src="DisplayImage/translations/translation_en_US.ts" />
+        <Path src="lovesong.wav" />
+        <Path src="PerformAction/PerformAction.dlg" />
+        <Path src="DisplayImage/behavior_1/behavior.xar" />
+        <Path src="ServTest/PerformAction/PerformAction.dlg" />
+        <Path src="PerformAction" />
+        <Path src="ServTest/translations/translation_en_US.ts" />
+        <Path src="ServTest/PerformAction/PerformAction_enu.top" />
+        <Path src="brickhouse.wav" />
+        <Path src="ServTest/PerformAction" />
+        <Path src="ServTest/Introduction/Introduction.dlg" />
+=======
+        <Path src="ServTest/PerformAction/PerformAction.dlg" />
+        <Path src="DisplayImage/behavior_1/behavior.xar" />
+        <Path src="brickhouse.wav" />
+        <Path src="PerformAction/PerformAction.dlg" />
+        <Path src="DisplayImage/translations/translation_en_US.ts" />
+        <Path src="ServTest/Data_Responses/Data_Responses.dlg" />
+        <Path src="Flask-1.0.2/examples/javascript/.gitignore" />
+        <Path src="ServTest/lovesong.wav" />
+        <Path src="lovesong.wav" />
+>>>>>>> 045ac28314e7c8ca981502feff92e0837b54b449
         <Path src="ServTest/brickhouse.wav" />
+<<<<<<< HEAD
         <Path src="johnmayer.wav" />
         <Path src="lovesong.wav" />
+||||||| merged common ancestors
+        <Path src="johnmayer.wav" />
+        <Path src="ServTest/johnmayer.wav" />
+=======
+        <Path src="translations/translation_en_US.ts" />
+        <Path src="Flask-1.0.2/tests/test_apps/.env" />
+        <Path src="ServTest/Introduction/Introduction_enu.top" />
+>>>>>>> 045ac28314e7c8ca981502feff92e0837b54b449
         <Path src="behavior_1/behavior.xar" />
+<<<<<<< HEAD
         <Path src="ServTest/PerformAction/PerformAction.dlg" />
         <Path src="ServTest/johnmayer.wav" />
         <Path src="PerformAction/PerformAction.dlg" />
+||||||| merged common ancestors
+        <Path src="ServTest/Introduction" />
+        <Path src="ServTest/behavior_1/behavior.xar" />
+        <Path src="Introduction/Introduction_enu.top" />
+        <Path src="Introduction/Introduction.dlg" />
+        <Path src="PerformAction/PerformAction_enu.top" />
+        <Path src="translations/translation_en_US.ts" />
+        <Path src="ServTest/lovesong.wav" />
+=======
+        <Path src="Introduction" />
+        <Path src="PerformAction/PerformAction_enu.top" />
+        <Path src="ServTest/Introduction" />
+        <Path src="ServTest/behavior_1/behavior.xar" />
+        <Path src="Introduction/Introduction_enu.top" />
+        <Path src="ServTest/johnmayer.wav" />
+        <Path src="ServTest/Introduction/Introduction.dlg" />
+        <Path src="Introduction/Introduction.dlg" />
+        <Path src="PerformAction" />
+        <Path src="ServTest/translations/translation_en_US.ts" />
+        <Path src="ServTest/Conversation/Conversation.dlg" />
+        <Path src="johnmayer.wav" />
+        <Path src="Flask-1.0.2/examples/tutorial/.gitignore" />
+        <Path src="Flask-1.0.2/tests/test_apps/.flaskenv" />
+        <Path src="ServTest/PerformAction/PerformAction_enu.top" />
+        <Path src="ServTest/PerformAction" />
+>>>>>>> 045ac28314e7c8ca981502feff92e0837b54b449
     </IgnoredPaths>
     <Translations auto-fill="en_US">
         <Translation name="translation_en_US" src="translations/translation_en_US.ts" language="en_US" />

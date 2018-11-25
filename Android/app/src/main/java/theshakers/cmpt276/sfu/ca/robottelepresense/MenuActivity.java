@@ -55,6 +55,9 @@ public class MenuActivity extends AppCompatActivity implements MenuCardFragment.
                 intent = new Intent(this, HelpPageActivity.class);
                 startActivity(intent);
                 break;
+            case MainActivityPagerAdapter.ID_GAME:
+                intent = new Intent(this, GameActivity.class);
+                startActivity(intent);
 
         }
     }
