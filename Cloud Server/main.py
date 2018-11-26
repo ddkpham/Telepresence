@@ -47,7 +47,10 @@ atho_token = 'eMT8G9Cw1mw:APA91bF7U_TJPvDtwz3FN78itXRTf96P0BwR4QZh6yEOh0F17SdhTg
 # )
 # response = messaging.send(message)
 # print ("Fire Response: ", response)
+
 # -------------------MODELS------------------------
+
+
 class Pepper(db.Model):
     pep_id = db.Column(db.String(100), primary_key=True)
     ip_address = db.Column(db.String(100))
@@ -282,8 +285,8 @@ def deauthorize():
         print ("Missing Data")
         return Response(status=400)
 
-    # if check_sk(ASK, uname) is False:
-    #     return Response(status=410)
+    if check_sk(ASK, uname) is False:
+        return Response(status=410)
 
     uauth_req = UserAuth.query.get((pep_id, uname))
     if uauth_req is None:
@@ -417,7 +420,7 @@ def setPepperActive():
 
     pepper = Pepper.query.filter_by(pep_id=pep_id).first()
     if pepper is None:
-        return Response(status=404)
+        return Response(status=409)
         # new_pepper = Pepper(pep_id=pep_id, ip_address=ip, PSK='')
         # db.session.add(new_pepper)
         # db.session.commit()
@@ -444,10 +447,19 @@ def addPepper():
     db.session.commit()
     return Response(status=200)
 
-# # TODO: removeUser  #Optional, Not in requirements but useful admin tool
-# @app.route('/removeUser', methods=['POST'])
-# def removeUser():
-#     content = request.json
+
+#TODO: Test /removeUser
+@app.route('/removeUser', methods=['POST'])
+def removeUser():
+    content = request.json
+    useranme = content['username']
+
+    user_query = User.query.filter_by(username=username).first()
+    if user_query is None:
+        return Response(status=409)
+    db.session.delete(user_query)
+    db.session.commit()
+    return Response(status=200)
 
 @app.errorhandler(500)
 def server_error(e):
