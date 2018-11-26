@@ -3,6 +3,23 @@
     <!-- App -->
     <string name="app_name">Robot Telepresence</string>
 
+    <!-- General String -->
+    <string name="do_you_really_want_to_exit">Do you really want to exit?</string>
+    <string name="do_you_really_want_to_logout">Do you really want to Logout?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="conflict">Conflict</string>
+    <string name="bad_request">Bad Request</string>
+    <string name="user_not_authorized_for_pep_id">User not authorized for Pepper id</string>
+    <string name="unauthorized">Unauthorized</string>
+    <string name="internal_server_error">Internal Server Error</string>
+    <string name="succeed">Succeed</string>
+    <string name="exception">Exception</string>
+    <string name="pep_id_not_found_in_database">Pepper id does not exist in database</string>
+    <string name="failed_to_connect_to_pepper">Failed to connect to pepper</string>
+    <string name="ask_check_failed_could_you_relogin">ASK check failed, Could you re-login?</string>
+    <string name="does_not_exist">Does not exist</string>
+
     <!-- Request Auth Activity-->
     <string name="please_register_your_pepper">Please Register Your Pepper</string>
     <string name="pepper_id">Pepper ID</string>
@@ -20,10 +37,9 @@
     <string name="password">Password</string>
     <string name="no_account_yet_create_one">No account yet? Create one</string>
     <string name="login">Login</string>
-    <string name="do_you_really_want_to_exit">Do you really want to exit?</string>
-    <string name="do_you_really_want_to_logout">Do you really want to Logout?</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="user_does_not_exist">User does not exist</string>
+    <string name="password_does_not_match">Password does not match</string>
+    <string name="could_you_check_your_input_data">Could you check your input data?</string>
 
     <!-- Signup Activity -->
     <string name="signup_failed">Signup failed</string>

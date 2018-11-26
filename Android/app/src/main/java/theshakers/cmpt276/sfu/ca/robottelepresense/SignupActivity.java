@@ -114,11 +114,12 @@ public class SignupActivity extends AppCompatActivity {
         requestUserAndAuthAsyncTask requestUserAndAuthAsyncTask = new requestUserAndAuthAsyncTask(this, "addUser", new StringResponseCallback() {
             @Override
             public void onResponseReceived(String result) {
-                if(result=="OK"){
+                if(result.equals(context.getString(R.string.succeed))){
                     Toast.makeText(getApplicationContext(), context.getString(R.string.account_is_created), Toast.LENGTH_SHORT).show();
                     onSignupSuccess();
                 } else {
                     progressDialog.cancel();
+                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
                     onSignupFailed();
                 }
             }

@@ -29,7 +29,7 @@ import java.util.HashMap;
 import theshakers.cmpt276.sfu.ca.robottelepresense.Model.Author;
 import theshakers.cmpt276.sfu.ca.robottelepresense.Model.Message;
 import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.StringResponseCallback;
-import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.SendAndReceiveJsonAsyncTask;
+import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.SendAndReceiveMsgAsyncTask;
 import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.UploadPhotoAsyncTask;
 
 /**
@@ -97,8 +97,6 @@ public class ChatActivity extends AppCompatActivity {
     private void checkPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, permissionList, REQUEST_PHOTOS_FOR_SENDING_TO_SERVER);
-        } else {
-            // Permission has already been granted
         }
     }
 
@@ -185,13 +183,13 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void sendAndReceiveJsonFromWebServer(String inputText) {
-        SendAndReceiveJsonAsyncTask sendAndReceiveJsonAsyncTask = new SendAndReceiveJsonAsyncTask(this, new StringResponseCallback() {
+        SendAndReceiveMsgAsyncTask sendAndReceiveMsgAsyncTask = new SendAndReceiveMsgAsyncTask(this, "message", new StringResponseCallback() {
             @Override
             public void onResponseReceived(String result) {
                 addMsgToAdapter("Pepper", result);
             }
         });
-        sendAndReceiveJsonAsyncTask.execute(inputText);
+        sendAndReceiveMsgAsyncTask.execute(inputText);
     }
 }
 

@@ -1,5 +1,6 @@
 package theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer;
 
+import android.content.Context;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -21,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.UploadPhotoProgressListener;
+import theshakers.cmpt276.sfu.ca.robottelepresense.R;
 
 /**
  * Created by baesubin on 2018-10-31.
@@ -29,6 +31,7 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.
 // This class is for creating packet string for sending photo in HTTP
 public class MultipartUpload {
     private final String TAG = "MultipartUpload";
+    private Context context = null;
     private final String boundary;
     private final String tail;
     private static final String LINE_END = "\r\n";
@@ -41,9 +44,9 @@ public class MultipartUpload {
     private UploadPhotoProgressListener uploadPhotoProgressListener;
     private long startTime = 0;
 
-    public MultipartUpload(String requestURL, String charset) throws IOException {
+    public MultipartUpload(String requestURL, Context context, String charset) throws IOException {
+        this.context = context;
         this.charset = charset;
-
         boundary = "===" + System.currentTimeMillis() + "===";
         tail = LINE_END + TWOHYPEN + boundary + TWOHYPEN + LINE_END;
         URL url = new URL(requestURL);
@@ -58,7 +61,7 @@ public class MultipartUpload {
         this.uploadPhotoProgressListener = uploadPhotoProgressListener;
     }
 
-    public JSONObject upload(HashMap<String, String> params, HashMap<String, String> files) throws IOException {
+    public String upload(HashMap<String, String> params, HashMap<String, String> files) throws IOException {
         String paramsPart = "";
         String fileHeader = "";
         String filePart = "";
@@ -135,24 +138,28 @@ public class MultipartUpload {
         writer.flush();
         writer.close();
 
-        JSONObject jObj = null;
-        String str = new String();
-        // checks server's status code first
+        String returnMsg = new String();
         int status = httpConn.getResponseCode();
-        Log.i(TAG, "status: "+status+ "HTTP_OK: "+HttpURLConnection.HTTP_OK);
-        if (status == HttpURLConnection.HTTP_OK) {
-            str = "{\"success\": 1 }";
-            httpConn.disconnect();
-        } else {
-            throw new IOException("Server returned non-OK status: " + status + " " + httpConn.getResponseMessage());
-        }
-        try {
-            jObj = new JSONObject(str);
-        } catch (JSONException | NullPointerException e) {
-            e.printStackTrace();
-        }
-        return jObj;
 
+        Log.i(TAG, "conn.getResponseCode(): "+status);
+        if (status == 400) {
+            returnMsg = context.getString(R.string.bad_request);
+        } else if (status == 401) {
+            returnMsg = context.getString(R.string.user_not_authorized_for_pep_id);
+        } else if (status == 403) {
+            returnMsg = context.getString(R.string.ask_check_failed_could_you_relogin);
+        } else if (status == 409) {
+            returnMsg = context.getString(R.string.user_does_not_exist);
+        } else if (status == 410) {
+            returnMsg = context.getString(R.string.failed_to_connect_to_pepper);
+        } else if (status == 500) {
+            returnMsg = context.getString(R.string.internal_server_error);
+        } else if (status == 200) {
+            returnMsg = context.getString(R.string.succeed);
+        }
+
+        httpConn.disconnect();
+        return returnMsg;
     }
 
 }

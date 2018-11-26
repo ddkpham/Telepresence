@@ -20,7 +20,7 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.
  */
 
 // This is AsyncTask used to upload photo to Flask Server
-public class UploadPhotoAsyncTask extends AsyncTask<Object, Integer, JSONObject> implements UploadPhotoProgressListener {
+public class UploadPhotoAsyncTask extends AsyncTask<Object, Integer, String> implements UploadPhotoProgressListener {
     private final String TAG = "UploadPhotoAsyncTask";
     private ProgressDialog progressDialog;
     private Context context;
@@ -47,17 +47,17 @@ public class UploadPhotoAsyncTask extends AsyncTask<Object, Integer, JSONObject>
     }
 
     @Override
-    protected JSONObject doInBackground(Object... params) {
-        JSONObject json = null;
+    protected String doInBackground(Object... params) {
+        String returnMsg = "";
         try {
             String url = App.httpAddress + "photo";
-            MultipartUpload multipartUpload = new MultipartUpload(url, "UTF-8");
+            MultipartUpload multipartUpload = new MultipartUpload(url, context, "UTF-8");
             multipartUpload.setUploadPhotoProgressListener(this);
-            json = multipartUpload.upload(param, files);
+            returnMsg = multipartUpload.upload(param, files);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return json;
+        return returnMsg;
 
     }
 
@@ -74,20 +74,14 @@ public class UploadPhotoAsyncTask extends AsyncTask<Object, Integer, JSONObject>
     }
 
     @Override
-    protected void onPostExecute(JSONObject result) {
+    protected void onPostExecute(String result) {
         super.onPostExecute(result);
         if (progressDialog.isShowing()) {
             progressDialog.dismiss();
         }
 
         if (result != null) {
-            try {
-                if (result.getInt("success") == 1) {
-                    Toast.makeText(context, context.getString(R.string.request_sent), Toast.LENGTH_SHORT).show();
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(context, context.getString(R.string.error_connection), Toast.LENGTH_SHORT).show();
         }
