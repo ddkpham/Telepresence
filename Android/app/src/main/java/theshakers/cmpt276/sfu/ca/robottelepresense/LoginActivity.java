@@ -79,32 +79,40 @@ public class LoginActivity extends AppCompatActivity {
     private void sendLoginRequest(String name, String password) {
         JSONObject jsonData = new JSONObject();
         try {
-            jsonData.put("username", nameText.getText().toString());
-            jsonData.put("password", passwordText.getText().toString());
+            jsonData.put("username", name);
+            jsonData.put("password", password);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         LoginAsyncTask loginAsyncTask= new LoginAsyncTask(this, "login", new StringResponseCallback() {
             @Override
             public void onResponseReceived(String result) {
-                if(result.equals("OK")) {
-                    startActivity();
-                } else if(result.equals("ACCOUNT_ERROR")) {
-                    onLoginFailed(context.getString(R.string.check_your_id_or_password));
-                } else {
-                    onLoginFailed(context.getString(R.string.login_failed));
+                switch (result) {
+                    case "Succeed":
+                        onLoginSuccess();
+                        break;
+                    case "Conflict":
+                        onLoginFailed(context.getString(R.string.user_does_not_exist));
+                        break;
+                    case "Bad_Request":
+                        onLoginFailed(context.getString(R.string.could_you_check_your_input_data));
+                        break;
+                    case "Unauthorized":
+                        onLoginFailed(context.getString(R.string.password_does_not_match));
+                        break;
+                    case "Internal_Server_Error":
+                        onLoginFailed(context.getString(R.string.internal_server_error));
+                        break;
+                    case "Exception":
+                        onLoginFailed(context.getString(R.string.exception));
+                        break;
+                    default:
+                        onLoginFailed(context.getString(R.string.error_wrong_attempt));
+                        break;
                 }
             }
         });
         loginAsyncTask.execute(jsonData);
-    }
-
-    private void startActivity() {
-        Intent intent = new Intent(this, PepperListActivity.class);
-        startActivity(intent);
-        progressDialog.cancel();
-        loginBtn.setEnabled(true);
-        this.finish();
     }
 
     public void login() {
@@ -131,9 +139,12 @@ public class LoginActivity extends AppCompatActivity {
         moveTaskToBack(true);
     }
 
-    public void onLoginSuccess() {
+    private void onLoginSuccess() {
+        Intent intent = new Intent(this, PepperListActivity.class);
+        startActivity(intent);
+        progressDialog.cancel();
         loginBtn.setEnabled(true);
-        finish();
+        this.finish();
     }
 
     public void onLoginFailed(String toastMsg) {

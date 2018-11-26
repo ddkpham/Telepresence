@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import theshakers.cmpt276.sfu.ca.robottelepresense.App;
@@ -21,25 +22,29 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.
  * Created by baesubin on 2018-11-04.
  */
 
-// This is AsyncTask used to send and receive Json data from Flask Server
-public class SendAndReceiveJsonAsyncTask extends AsyncTask<String, Void, String> {
-    private final String TAG = "SendAndReceiveJsonAT";
+// This is AsyncTask used to send and receive Message from Cloud Server
+public class SendAndReceiveMsgAsyncTask extends AsyncTask<String, Void, String> {
+    private final String TAG = "SendAndReceiveMsgAT";
     private HttpURLConnection conn = null;
     private String returnMsg = "";
     private Context context;
+    private URL url = null;
 
     private StringResponseCallback stringResponseCallback = null;
 
-    public SendAndReceiveJsonAsyncTask(Context context, StringResponseCallback stringResponseCallback) {
+    public SendAndReceiveMsgAsyncTask(Context context, String path, StringResponseCallback stringResponseCallback) {
         this.stringResponseCallback = stringResponseCallback;
         this.context = context;
+        try {
+            this.url = new URL(App.httpAddress + path);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     protected String doInBackground(String... params) {
         try {
-            URL url = new URL(App.httpAddress + "message");
-            //URL url = new URL("http://142.58.170.104:5000/echo");
             conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/json;charset=UTF-8");
@@ -61,34 +66,47 @@ public class SendAndReceiveJsonAsyncTask extends AsyncTask<String, Void, String>
             Log.i(TAG, "pep_id: " + sharedPreferences.getString("selected_pepper_id", ""));
 
             Log.i(TAG, "sent message: " + params[0]);
-            byte[] buf = jsonData.toString().getBytes();
+            //byte[] buf = jsonData.toString().getBytes();
 
-            DataOutputStream os = new DataOutputStream(conn.getOutputStream());
-            //os.writeBytes(URLEncoder.encode(jsonParam.toString(), "UTF-8"));
-            os.writeBytes(jsonData.toString());
+            DataOutputStream dataOutputStream = new DataOutputStream(conn.getOutputStream());
+            dataOutputStream.writeBytes(jsonData.toString());
 
-            BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
+            int status = conn.getResponseCode();
+            Log.i(TAG, "conn.getResponseCode(): "+status);
+            if (status == 400) {
+                returnMsg = context.getString(R.string.bad_request);
+            } else if (status == 401) {
+                returnMsg = context.getString(R.string.user_not_authorized_for_pep_id);
+            } else if (status == 403) {
+                returnMsg = context.getString(R.string.ask_check_failed_could_you_relogin);
+            } else if (status == 409) {
+                returnMsg = context.getString(R.string.user_does_not_exist);
+            } else if (status == 410) {
+                returnMsg = context.getString(R.string.failed_to_connect_to_pepper);
+            } else if (status == 500) {
+                returnMsg = context.getString(R.string.internal_server_error);
+            } else if (status == 200) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
 
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response.toString());
+                    returnMsg = jsonObject.getString("msg");
+                } catch (Throwable tx) {
+                    Log.i(TAG, "Could not parse malformed JSON: " + response.toString());
+                }
             }
-            in.close();
-
-            try {
-                JSONObject jsonObject = new JSONObject(response.toString());
-                returnMsg = jsonObject.getString("msg");
-                Log.i(TAG, "Parsed to JSON: " + jsonObject.getString("msg"));
-            } catch (Throwable tx) {
-                Log.i(TAG, "Could not parse malformed JSON: " + response.toString());
-            }
-
-            os.flush();
-            os.close();
+            dataOutputStream.flush();
+            dataOutputStream.close();
         } catch (Exception e) {
-            returnMsg = context.getResources().getString(R.string.error_connection);
-            Log.e(TAG, "SocketException, " + e);
+            returnMsg = context.getResources().getString(R.string.exception);
+            Log.e(TAG, "Exception, " + e);
         } finally {
             conn.disconnect();
         }
