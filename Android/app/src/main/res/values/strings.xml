@@ -87,6 +87,8 @@
     <string name="word">Word</string>
     <string name="send">Send</string>
 
+    <!-- Game Result Activity -->
+    <string name="do_you_want_to_finish_the_game">Do you want to finish the game?</string>
     <!-- List Pepper Can Do For Help Page -->
     <string-array name="simple_conversation">
         <item>Hello</item> 

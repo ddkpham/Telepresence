@@ -19,7 +19,6 @@
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -32,9 +31,14 @@
         <activity android:name=".PepperListActivity" />
         <activity
             android:name=".GameActivity"
-            android:screenOrientation="landscape" />
-        <activity android:name=".RequestGameActivity" />
-
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity android:name=".RequestGameActivity">
+        </activity>
+        <activity
+            android:name=".GameResultActivity"
+            android:screenOrientation="landscape">
+        </activity>
         <service android:name=".Firebase.MyFirebaseInstanceService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
