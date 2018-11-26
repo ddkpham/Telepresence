@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    android:background="@color/white"
+    android:background="#FFE4E1"
     android:padding="10dp"
     android:fitsSystemWindows="true">
 
@@ -38,6 +38,7 @@
             android:id="@+id/pepper_text"
             android:text="PepperId"
             android:textSize="15dp"
+            android:textColor="@color/colorAccent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"/>
@@ -45,13 +46,14 @@
             android:id="@+id/hint_text"
             android:text="Hint"
             android:textSize="20dp"
+            android:textColor="#FF69B4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/answer_text"
             android:text="_ _ _ _ _"
             android:textSize="45dp"
-            android:textColor="@color/green"
+            android:textColor="@color/lightpink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"/>
@@ -66,72 +68,63 @@
                 android:layout_height="wrap_content">
                 <Button
                     android:id="@+id/btnA"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
                     android:text="A"/>
                 <Button
                     android:id="@+id/btnB"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
                     android:text="B"/>
                 <Button
                     android:id="@+id/btnC"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
                     android:text="C"/>
                 <Button
                     android:id="@+id/btnD"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
                     android:text="D"/>
                 <Button
                     android:id="@+id/btnE"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
                     android:text="E"/>
                 <Button
                     android:id="@+id/btnF"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
                     android:text="F"/>
                 <Button
                     android:id="@+id/btnG"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
                     android:text="G"/>
                 <Button
                     android:id="@+id/btnH"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
                     android:text="H"/>
                 <Button
                     android:id="@+id/btnI"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
@@ -144,64 +137,56 @@
                 android:layout_gravity="center_horizontal">
                 <Button
                     android:id="@+id/btnJ"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
                     android:text="J"/>
                 <Button
                     android:id="@+id/btnK"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
                     android:text="K"/>
                 <Button
                     android:id="@+id/btnL"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
                     android:text="L"/>
                 <Button
                     android:id="@+id/btnM"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
                     android:text="M"/>
                 <Button
                     android:id="@+id/btnN"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
                     android:text="N"/>
                 <Button
                     android:id="@+id/btnO"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
                     android:text="O"/>
                 <Button
                     android:id="@+id/btnP"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
                     android:text="P"/>
                 <Button
                     android:id="@+id/btnQ"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
@@ -213,72 +198,63 @@
                 android:layout_height="wrap_content">
                 <Button
                     android:id="@+id/btnR"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
                     android:text="R"/>
                 <Button
                     android:id="@+id/btnS"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
                     android:text="S"/>
                 <Button
                     android:id="@+id/btnT"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
                     android:text="T"/>
                 <Button
                     android:id="@+id/btnU"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
                     android:text="U"/>
                 <Button
                     android:id="@+id/btnV"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
                     android:text="V"/>
                 <Button
                     android:id="@+id/btnW"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
                     android:text="W"/>
                 <Button
                     android:id="@+id/btnX"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
                     android:text="X"/>
                 <Button
                     android:id="@+id/btnY"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
                     android:text="Y"/>
                 <Button
                     android:id="@+id/btnZ"
-                    android:background="@color/green"
-                    android:textColor="@color/white"
+                    android:background="@color/lightpink"
                     android:layout_width="@dimen/keyboard_size"
                     android:layout_height="@dimen/keyboard_size"
                     android:layout_margin="@dimen/keyboard_margin"
