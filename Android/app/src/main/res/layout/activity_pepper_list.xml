@@ -55,7 +55,6 @@
             android:layout_height="110dp"
             android:layout_margin="10dp"
             android:layout_weight="1.5"
-            android:background="@color/white"
             android:choiceMode="singleChoice"
             android:textSize="15dp" />
 
@@ -64,14 +63,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
+
             <android.support.v7.widget.AppCompatButton
-                android:layout_margin="5dp"
-                android:layout_gravity="center"
-                style="@style/Widget.AppCompat.Button.Colored"
                 android:id="@+id/addBtn"
-                android:text="@string/add_pepper"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="5dp"
+                android:text="@string/add_pepper" />
         </LinearLayout>
     </LinearLayout>
 

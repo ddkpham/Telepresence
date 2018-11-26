@@ -67,12 +67,19 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_game);
 
         context = this;
+
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         pepperNameStr = bundle.getString("pepper_username");
         hintStr = bundle.getString("hint");
         answerStr = bundle.getString("word");
 
+        /*
+        // for local test
+        pepperNameStr = "salt";
+        hintStr = "Animal";
+        answerStr = "RABBIT";
+        */
 
         hangImage = (ImageView) findViewById(R.id.hang_img);
         pepperText = (TextView) findViewById(R.id.pepper_text);
@@ -166,7 +173,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         countForCorrect = 0;
         changeHangMan();
         hintText.setText(hintStr);
-        pepperText.setText("You are playing with" + pepperNameStr);
+        pepperText.setText("You are playing with " + pepperNameStr);
         count = "";
         for(int i=0; i<answerStr.length(); i++)
             count += "_ ";
@@ -272,106 +279,132 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnA:
                 checkResult('A');
                 aBtn.setEnabled(false);
+                aBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnB:
                 checkResult('B');
                 bBtn.setEnabled(false);
+                bBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnC:
                 checkResult('C');
                 cBtn.setEnabled(false);
+                cBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnD:
                 checkResult('D');
                 dBtn.setEnabled(false);
+                dBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnE:
                 checkResult('E');
                 eBtn.setEnabled(false);
+                eBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnF:
                 checkResult('F');
                 fBtn.setEnabled(false);
+                fBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnG:
                 checkResult('G');
                 gBtn.setEnabled(false);
+                gBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnH:
                 checkResult('H');
                 hBtn.setEnabled(false);
+                hBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnI:
                 checkResult('I');
                 iBtn.setEnabled(false);
+                iBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnJ:
                 checkResult('J');
                 jBtn.setEnabled(false);
+                jBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnK:
                 checkResult('K');
                 kBtn.setEnabled(false);
+                kBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnL:
                 checkResult('L');
                 lBtn.setEnabled(false);
+                lBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnM:
                 checkResult('M');
                 mBtn.setEnabled(false);
+                mBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnN:
                 checkResult('N');
                 nBtn.setEnabled(false);
+                nBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnO:
                 checkResult('O');
                 oBtn.setEnabled(false);
+                oBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnP:
                 checkResult('P');
                 pBtn.setEnabled(false);
+                pBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnQ:
                 checkResult('Q');
                 qBtn.setEnabled(false);
+                qBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnR:
                 checkResult('R');
                 rBtn.setEnabled(false);
+                rBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnS:
                 checkResult('S');
                 sBtn.setEnabled(false);
+                sBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnT:
                 checkResult('T');
                 tBtn.setEnabled(false);
+                tBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnU:
                 checkResult('U');
                 uBtn.setEnabled(false);
+                uBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnV:
                 checkResult('V');
                 vBtn.setEnabled(false);
+                vBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnW:
                 checkResult('W');
                 wBtn.setEnabled(false);
+                wBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnX:
                 checkResult('X');
                 xBtn.setEnabled(false);
+                xBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnY:
                 checkResult('Y');
                 yBtn.setEnabled(false);
+                yBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.btnZ:
                 checkResult('Z');
                 zBtn.setEnabled(false);
+                zBtn.setBackgroundColor(getResources().getColor(R.color.green_darkest));
                 break;
             case R.id.sound_toggle:
                 //soundOnOff();
