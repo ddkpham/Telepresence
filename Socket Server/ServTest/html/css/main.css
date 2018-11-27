@@ -196,6 +196,7 @@ p{
   text-overflow: clip !important;
 }
 
+
 .active:hover{
   @include fade;
   @include opacity !important;

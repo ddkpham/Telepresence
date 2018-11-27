@@ -233,7 +233,7 @@ window.onload = function () {
 
   
   
-    // Displays the placeholder for guesses
+    // Displays the placeholder for gue
     var result = function () {
       wordHolder = document.getElementById('hold');
       correct = document.createElement('ul');
@@ -284,18 +284,19 @@ window.onload = function () {
     // startgame
     start = function () {
       get_game_info();
-
-      RobotUtils.subscribeToALMemoryEvent("app/hangman_hint_for_pepper", function(value) {
-        console.log("hint = " + value)
-        hint = value
-      });
-
-      RobotUtils.subscribeToALMemoryEvent("app/hangman_word_for_pepper", function(value) {
-        console.log("word = " + value)
-        word = value
+      //set game info 
+      RobotUtils.subscribeToALMemoryEvent("app/hangman_game_info", function(value) {
+        game_info = value.toString();
+        game_info = game_info.split('/');
+        console.log(game_info)
+        hint = game_info[0]
+        word = game_info[1]
+        android_username = game_info[2]
+        console.log(typeof(word))
         word = word.replace(/\s/g, "-");
         word = word.toLowerCase(word)
         buttons();
+        //set initial values
         numOfIncorrectGuesses = 0;
         numOfCorrectGuesses = 0;
         lives = 6;
@@ -306,16 +307,11 @@ window.onload = function () {
         geusses = [ ];
         space = 0;
         result();
+        startTime = new Date();
+        numOfLivesDisplay();
+        timer();
       });
-
-      //grabs android username 
-      RobotUtils.subscribeToALMemoryEvent("app/hangman_android_user", function(value) {
-        console.log("android user = " + value)
-        android_username = value
-      });
-      startTime = new Date();
-      numOfLivesDisplay();
-      timer();
+      
     }
   
     start();  //starts the hangman game 

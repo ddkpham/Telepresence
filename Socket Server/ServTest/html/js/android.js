@@ -14,6 +14,7 @@ function submit(){
         ALMemory.raiseEvent("app/hangman_android_hint", hint)
         ALMemory.raiseEvent("app/hangman_android_word", word)
         ALTextToSpeech.say("sending android info!");
+        ALMemory.raiseEvent("app/hangman_start_game", "testing")
         console.log("app/hangman event was raised with word: " + word);
       });
 }

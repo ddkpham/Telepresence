@@ -7,8 +7,8 @@ window.onload = function(){
 function accept(){
     console.log("accepted!")
     RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
-        
-        ALMemory.raiseEvent("app/incoming_game_request", "1")
+        //look into this
+        ALMemory.raiseEvent("app/hangman_word", "1")
         ALTextToSpeech.say("lets play a game!");
         console.log("app/username event was raised with value: 1 ");
       });
