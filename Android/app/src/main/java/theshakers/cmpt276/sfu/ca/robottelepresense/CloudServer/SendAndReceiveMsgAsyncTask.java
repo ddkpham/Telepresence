@@ -80,7 +80,7 @@ public class SendAndReceiveMsgAsyncTask extends AsyncTask<String, Void, String> 
             } else if (status == 403) {
                 returnMsg = context.getString(R.string.ask_check_failed_could_you_relogin);
             } else if (status == 409) {
-                returnMsg = context.getString(R.string.user_does_not_exist);
+                returnMsg = context.getString(R.string.pepper_does_not_exist);
             } else if (status == 410) {
                 returnMsg = context.getString(R.string.failed_to_connect_to_pepper);
             } else if (status == 500) {
@@ -97,7 +97,7 @@ public class SendAndReceiveMsgAsyncTask extends AsyncTask<String, Void, String> 
 
                 try {
                     JSONObject jsonObject = new JSONObject(response.toString());
-                    returnMsg = jsonObject.getString("msg");
+                    returnMsg = jsonObject.getString("res");
                 } catch (Throwable tx) {
                     Log.i(TAG, "Could not parse malformed JSON: " + response.toString());
                 }
@@ -116,9 +116,8 @@ public class SendAndReceiveMsgAsyncTask extends AsyncTask<String, Void, String> 
     @Override
     protected void onPostExecute(String result) {
         Log.i(TAG, "result:  " + result);
-        if(result.equals("")) {
+        if(result.equals(""))
             result = context.getResources().getString(R.string.error_wrong_attempt);
-        }
         stringResponseCallback.onResponseReceived(result);
     }
 }

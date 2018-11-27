@@ -2,7 +2,11 @@ package theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.AsyncTask;
+import android.util.Base64;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -14,6 +18,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import theshakers.cmpt276.sfu.ca.robottelepresense.App;
 import theshakers.cmpt276.sfu.ca.robottelepresense.R;
@@ -62,14 +68,12 @@ public class LoginAsyncTask extends AsyncTask<JSONObject, Void, String> {
 
             int status = conn.getResponseCode();
             Log.i(TAG, "conn.getResponseCode(): "+status);
-            if(status == 409) {
-                returnMsg = "Conflict";
-            } else if (status == 400) {
+            if (status == 400) {
                 returnMsg = "Bad_Request";
             } else if (status == 401) {
                 returnMsg = "Unauthorized";
             } else if (status == 409) {
-                returnMsg = "pep_id not found in database";
+                returnMsg = "Conflict";
             } else if (status == 500) {
                 returnMsg = "Internal_Server_Error";
             } else if (status == 200) {
@@ -91,6 +95,9 @@ public class LoginAsyncTask extends AsyncTask<JSONObject, Void, String> {
                     edit.putString("username", jsonData.getString("username"));
                     edit.putString("email", jsonObject.getString("email"));
                     edit.putString("ASK", jsonObject.getString("ASK"));
+                    Log.i(TAG, "ASK: " + jsonObject.getString("ASK"));
+                    //Hash Key
+
                     edit.putString("pepper_list", authorizedPepperJsonArr.toString());
                     edit.putString("request_list", requestedPepperJsonArr.toString());
                     edit.apply();

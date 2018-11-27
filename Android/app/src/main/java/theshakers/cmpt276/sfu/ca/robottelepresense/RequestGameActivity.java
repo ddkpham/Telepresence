@@ -5,10 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -16,10 +13,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -27,8 +21,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.LoginAsyncTask;
-import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.RequestGameStartAsyncTask;
+import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.HangmanGameAsyncTask;
 import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.StringResponseCallback;
 
 /**
@@ -46,6 +39,10 @@ public class RequestGameActivity extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_request_game);
 
         context = this;
@@ -65,12 +62,6 @@ public class RequestGameActivity extends AppCompatActivity implements View.OnCli
         }
     }
 
-    private void startActivity() {
-        Intent intent = new Intent(this, GameActivity.class);
-        startActivity(intent);
-        this.finish();
-    }
-
     private void sendHintAndWordToServer(String hint, String word) {
         JSONObject jsonData = new JSONObject();
         SharedPreferences sharedPreferences = context.getSharedPreferences("userdetails", context.MODE_PRIVATE);
@@ -85,22 +76,15 @@ public class RequestGameActivity extends AppCompatActivity implements View.OnCli
             e.printStackTrace();
         }
 
-        RequestGameStartAsyncTask requestGameStartAsyncTask= new RequestGameStartAsyncTask(this, "startgame", new StringResponseCallback() {
+        HangmanGameAsyncTask hangmanGameAsyncTask = new HangmanGameAsyncTask(this, "startgame", new StringResponseCallback() {
             @Override
             public void onResponseReceived(String result) {
-                if(result.equals("OK")) {
-                    Toast.makeText(getApplicationContext(), "SENT", Toast.LENGTH_SHORT).show();
-                    //startActivity();
-                } else if(result.equals("ACCOUNT_ERROR")) {
-                    Toast.makeText(getApplicationContext(), "ACCOUNT_ERROR", Toast.LENGTH_SHORT).show();
-                    //onLoginFailed(context.getString(R.string.check_your_id_or_password));
-                } else {
-                    Toast.makeText(getApplicationContext(), "ERROR", Toast.LENGTH_SHORT).show();
-                    //onLoginFailed(context.getString(R.string.login_failed));
-                }
+                if(result.equals(context.getString(R.string.succeed)))
+                    sendBtn.setEnabled(false);
+                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
             }
         });
-        requestGameStartAsyncTask.execute(jsonData);
+        hangmanGameAsyncTask.execute(jsonData);
     }
 
     @Override

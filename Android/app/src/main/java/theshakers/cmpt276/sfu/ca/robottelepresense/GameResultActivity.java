@@ -1,34 +1,16 @@
 package theshakers.cmpt276.sfu.ca.robottelepresense;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.RequestGameStartAsyncTask;
-import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.StringResponseCallback;
-import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.SendGameResultAsyncTask;
 
 /**
  * Created by baesubin on 2018-11-07.
@@ -38,9 +20,8 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.SendGameResultAsy
 public class GameResultActivity extends AppCompatActivity {
     private final String TAG = "GameResultActivity";
     private Context context = null;
-    private TextView resultText = null;
     private ImageView resultImage = null;
-    private int victory = 2;
+    private String victory = "";
     private MediaPlayer soundForTieTheGame = null;
     private MediaPlayer soundForWinTheGame = null;
     private MediaPlayer soundForLoseTheGame = null;
@@ -55,33 +36,27 @@ public class GameResultActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_game_result);
 
-        /*
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
-        victory = bundle.getInt("victory");
-        */
+        victory = bundle.getString("victory");
 
         soundForTieTheGame = MediaPlayer.create(getApplicationContext(), R.raw.end_game);
         soundForWinTheGame = MediaPlayer.create(getApplicationContext(), R.raw.winnerbell);
         soundForLoseTheGame = MediaPlayer.create(getApplicationContext(), R.raw.loserbell);
 
 
-        resultText = (TextView) findViewById(R.id.result_text);
         resultImage = (ImageView) findViewById(R.id.result_image);
 
         switch (victory) {
-            case 2: // win
-                resultText.setText("Won");
+            case "2": // win
                 resultImage.setImageDrawable(context.getDrawable(R.drawable.happy_android));
                 soundForWinTheGame.start();
                 break;
-            case 1: // tie
-                resultText.setText("Tie");
-                resultImage.setImageDrawable(context.getDrawable(R.drawable.tie_android));
+            case "1": // tie
+                resultImage.setImageDrawable(context.getDrawable(R.drawable.tied_android));
                 soundForTieTheGame.start();
                 break;
-            case 0: //lose
-                resultText.setText("Lost");
+            case "0": //lose
                 resultImage.setImageDrawable(context.getDrawable(R.drawable.sad_android));
                 soundForLoseTheGame.start();
                 break;
