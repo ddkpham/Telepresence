@@ -38,6 +38,7 @@
     <string name="no_account_yet_create_one">No account yet? Create one</string>
     <string name="login">Login</string>
     <string name="user_does_not_exist">User does not exist</string>
+    <string name="pepper_does_not_exist">Pepper does not exist</string>
     <string name="password_does_not_match">Password does not match</string>
     <string name="could_you_check_your_input_data">Could you check your input data?</string>
 
@@ -52,6 +53,8 @@
     <string name="reenter_password">Re-enter Password</string>
     <string name="create_account">Create Account</string>
     <string name="already_a_member_login">Already a member? Login</string>
+    <string name="creating_account">Creating Account...</string>
+    <string name="username_or_email_already_used">Username or Email already used</string>
 
     <!-- Menu Activity -->
     <string name="title_chat">Chat Mode</string>
@@ -89,6 +92,7 @@
 
     <!-- Game Result Activity -->
     <string name="do_you_want_to_finish_the_game">Do you want to finish the game?</string>
+
     <!-- List Pepper Can Do For Help Page -->
     <string-array name="simple_conversation">
         <item>Hello</item> 

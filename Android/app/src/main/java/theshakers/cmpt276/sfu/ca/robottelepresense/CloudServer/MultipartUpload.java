@@ -3,9 +3,6 @@ package theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer;
 import android.content.Context;
 import android.util.Log;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -36,7 +33,7 @@ public class MultipartUpload {
     private final String tail;
     private static final String LINE_END = "\r\n";
     private static final String TWOHYPEN = "--";
-    private HttpURLConnection httpConn;
+    private HttpURLConnection conn;
     private String charset;
     private PrintWriter writer;
     private OutputStream outputStream;
@@ -50,11 +47,11 @@ public class MultipartUpload {
         boundary = "===" + System.currentTimeMillis() + "===";
         tail = LINE_END + TWOHYPEN + boundary + TWOHYPEN + LINE_END;
         URL url = new URL(requestURL);
-        httpConn = (HttpURLConnection) url.openConnection();
-        httpConn.setDoOutput(true);
-        httpConn.setDoInput(true);
-        httpConn.setRequestMethod("POST");
-        httpConn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+        conn = (HttpURLConnection) url.openConnection();
+        conn.setDoOutput(true);
+        conn.setDoInput(true);
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
     }
 
     public void setUploadPhotoProgressListener(UploadPhotoProgressListener uploadPhotoProgressListener) {
@@ -101,11 +98,11 @@ public class MultipartUpload {
         String partData = paramsPart + filePart;
 
         long requestLength = partData.getBytes(charset).length + fileLength + tail.getBytes(charset).length;
-        httpConn.setRequestProperty("Content-length", "" + requestLength);
-        httpConn.setFixedLengthStreamingMode((int) requestLength);
-        httpConn.connect();
+        conn.setRequestProperty("Content-length", "" + requestLength);
+        conn.setFixedLengthStreamingMode((int) requestLength);
+        conn.connect();
 
-        outputStream = new BufferedOutputStream(httpConn.getOutputStream());
+        outputStream = new BufferedOutputStream(conn.getOutputStream());
         writer = new PrintWriter(new OutputStreamWriter(outputStream, charset), true);
 
         for (int i = 0; i < paramHeaders.size(); i++) {
@@ -139,7 +136,7 @@ public class MultipartUpload {
         writer.close();
 
         String returnMsg = new String();
-        int status = httpConn.getResponseCode();
+        int status = conn.getResponseCode();
 
         Log.i(TAG, "conn.getResponseCode(): "+status);
         if (status == 400) {
@@ -149,7 +146,7 @@ public class MultipartUpload {
         } else if (status == 403) {
             returnMsg = context.getString(R.string.ask_check_failed_could_you_relogin);
         } else if (status == 409) {
-            returnMsg = context.getString(R.string.user_does_not_exist);
+            returnMsg = context.getString(R.string.pepper_does_not_exist);
         } else if (status == 410) {
             returnMsg = context.getString(R.string.failed_to_connect_to_pepper);
         } else if (status == 500) {
@@ -158,7 +155,7 @@ public class MultipartUpload {
             returnMsg = context.getString(R.string.succeed);
         }
 
-        httpConn.disconnect();
+        conn.disconnect();
         return returnMsg;
     }
 

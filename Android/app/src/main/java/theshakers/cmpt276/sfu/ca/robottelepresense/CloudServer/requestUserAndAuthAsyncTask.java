@@ -63,8 +63,10 @@ public class requestUserAndAuthAsyncTask extends AsyncTask<JSONObject, Void, Str
             Log.i(TAG, "conn.getResponseCode(): "+status);
             if (status == 400) {
                 returnMsg = context.getString(R.string.bad_request);
-            } else if (status == 409) {
+            } else if (status == 406) {
                 returnMsg = context.getString(R.string.does_not_exist);
+            } else if (status == 409) {
+                returnMsg = context.getString(R.string.pepper_does_not_exist);
             } else if (status == 410) {
                 returnMsg = context.getString(R.string.failed_to_connect_to_pepper);
             } else if (status == 500) {

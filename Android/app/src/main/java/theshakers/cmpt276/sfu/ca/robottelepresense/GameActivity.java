@@ -6,12 +6,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -25,9 +23,8 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.RequestGameStartAsyncTask;
+import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.HangmanGameAsyncTask;
 import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.StringResponseCallback;
-import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.SendGameResultAsyncTask;
 
 /**
  * Created by baesubin on 2018-11-07.
@@ -57,7 +54,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private MediaPlayer soundForEndTheGame = null;
     private MediaPlayer soundForWrongAnswer = null;
     private MediaPlayer soundForCorrectAnswer = null;
-    private boolean isSoundOn = false;
     private ProgressDialog waitingForResultDialog = null;
 
     @Override
@@ -71,20 +67,20 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         context = this;
 
-        /*
+
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         pepperNameStr = bundle.getString("pepper_username");
         hintStr = bundle.getString("hint");
         answerStr = bundle.getString("word");
-        */
 
 
+        /*
         // for local test
         pepperNameStr = "salt";
         hintStr = "Animal";
         answerStr = "RABBIT";
-
+        */
 
         hangImage = (ImageView) findViewById(R.id.hang_img);
         pepperText = (TextView) findViewById(R.id.pepper_text);
@@ -401,28 +397,11 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 zBtn.setEnabled(false);
                 break;
             case R.id.sound_toggle:
-                //soundOnOff();
                 sendDistractionToPepper("Test");
                 break;
         }
     }
 
-    private void soundOnOff() {
-        isSoundOn = !isSoundOn;
-        AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        int time = (int)(SystemClock.elapsedRealtime() - stopWatch.getBase()) / 1000;
-        Log.i(TAG, "systemclock is " + SystemClock.elapsedRealtime() + "base: " + stopWatch.getBase());
-        Log.i(TAG, "current time is " + time);
-        /*
-        deprecated
-        AudioManager amanager=(AudioManager)getSystemService(Context.AUDIO_SERVICE);
-        amanager.setStreamMute(AudioManager.STREAM_NOTIFICATION, isSoundOn);
-        amanager.setStreamMute(AudioManager.STREAM_ALARM, isSoundOn);
-        amanager.setStreamMute(AudioManager.STREAM_MUSIC, isSoundOn);
-        amanager.setStreamMute(AudioManager.STREAM_RING, isSoundOn);
-        amanager.setStreamMute(AudioManager.STREAM_SYSTEM, isSoundOn);
-        */
-    }
 
     private void sendDistractionToPepper(String animation) {
         JSONObject jsonData = new JSONObject();
@@ -434,21 +413,13 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             e.printStackTrace();
         }
 
-        RequestGameStartAsyncTask requestGameStartAsyncTask= new RequestGameStartAsyncTask(this, "pepperanimation", new StringResponseCallback() {
+        HangmanGameAsyncTask hangmanGameAsyncTask = new HangmanGameAsyncTask(this, "pepperanimation", new StringResponseCallback() {
             @Override
             public void onResponseReceived(String result) {
-                if(result.equals("OK")) {
-                    Toast.makeText(getApplicationContext(), "SUCEED", Toast.LENGTH_SHORT).show();
-                } else if(result.equals("ACCOUNT_ERROR")) {
-                    Toast.makeText(getApplicationContext(), "ACCOUNT_ERROR", Toast.LENGTH_SHORT).show();
-                    //onLoginFailed(context.getString(R.string.check_your_id_or_password));
-                } else {
-                    Toast.makeText(getApplicationContext(), "ERROR", Toast.LENGTH_SHORT).show();
-                    //onLoginFailed(context.getString(R.string.login_failed));
-                }
+                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
             }
         });
-        requestGameStartAsyncTask.execute(jsonData);
+        hangmanGameAsyncTask.execute(jsonData);
     }
 
     private void sendGameResultToServer() {
@@ -462,21 +433,16 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             e.printStackTrace();
         }
 
-        SendGameResultAsyncTask sendGameResultAsyncTask= new SendGameResultAsyncTask(this, "sendresults", new StringResponseCallback() {
+        HangmanGameAsyncTask hangmanGameAsyncTask= new HangmanGameAsyncTask(this, "sendresults", new StringResponseCallback() {
             @Override
             public void onResponseReceived(String result) {
-                if(result.equals("OK")) {
-                    Toast.makeText(getApplicationContext(), "SUCEED", Toast.LENGTH_SHORT).show();
-                } else if(result.equals("ACCOUNT_ERROR")) {
-                    Toast.makeText(getApplicationContext(), "ACCOUNT_ERROR", Toast.LENGTH_SHORT).show();
-                    //onLoginFailed(context.getString(R.string.check_your_id_or_password));
-                } else {
-                    Toast.makeText(getApplicationContext(), "ERROR", Toast.LENGTH_SHORT).show();
-                    //onLoginFailed(context.getString(R.string.login_failed));
-                }
+                if(!result.equals(context.getString(R.string.succeed)))
+                    if(waitingForResultDialog.isShowing())
+                        waitingForResultDialog.dismiss();
+                Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
             }
         });
-        sendGameResultAsyncTask.execute(jsonData);
+        hangmanGameAsyncTask.execute(jsonData);
     }
 
     @Override

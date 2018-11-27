@@ -1,7 +1,9 @@
 package theshakers.cmpt276.sfu.ca.robottelepresense;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -14,6 +16,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -141,7 +144,7 @@ public class ChatActivity extends AppCompatActivity {
         param.put("pep_id", sharedPreferences.getString("selected_pepper_id", ""));
 
         Log.i(TAG, "username: " + sharedPreferences.getString("username", ""));
-        Log.i(TAG, "ASK: " + sharedPreferences.getString("username", ""));
+        Log.i(TAG, "ASK: " + sharedPreferences.getString("ASK", ""));
         Log.i(TAG, "pep_id: " + sharedPreferences.getString("selected_pepper_id", ""));
         new UploadPhotoAsyncTask(this, param, files).execute();
     }
@@ -190,6 +193,36 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
         sendAndReceiveMsgAsyncTask.execute(inputText);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            showDialog();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void showDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ChatActivity.this);
+        dialogBuilder.setMessage(context.getString(R.string.do_you_want_to_go_back));
+        dialogBuilder.setPositiveButton(context.getString(R.string.yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(ChatActivity.this, MenuActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        dialogBuilder.setNegativeButton(context.getString(R.string.no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
     }
 }
 

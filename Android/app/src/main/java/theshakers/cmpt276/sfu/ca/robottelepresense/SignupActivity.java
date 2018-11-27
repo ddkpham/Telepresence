@@ -86,7 +86,8 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(SignupActivity.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Creating Account...");
+        progressDialog.setMessage(context.getString(R.string.creating_account));
+
         progressDialog.show();
 
 
@@ -95,7 +96,6 @@ public class SignupActivity extends AppCompatActivity {
         String lastName = lastnameText.getText().toString();
         String email = emailText.getText().toString();
         String password = passwordText.getText().toString();
-        String reEnterPassword = reEnterPasswordText.getText().toString();
 
         sendSignUpRequest(name, firstName, lastName, email, password);
     }
@@ -119,6 +119,8 @@ public class SignupActivity extends AppCompatActivity {
                     onSignupSuccess();
                 } else {
                     progressDialog.cancel();
+                    if(result.equals(context.getString(R.string.pepper_does_not_exist)))
+                        result = context.getString(R.string.username_or_email_already_used);
                     Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
                     onSignupFailed();
                 }
