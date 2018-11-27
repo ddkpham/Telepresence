@@ -15,7 +15,9 @@ window.onload = function () {
     var hint;
     var lives = 6;
     var android_username;
-    var pepper_time = 10;
+    pepper_time = 0;
+    startTime = new Date();
+    stillPlaying = 'true';
 
     // Get elements
     var showLives = document.getElementById("mylives");
@@ -27,7 +29,7 @@ window.onload = function () {
       letters = document.createElement('ul');
       //sets up buttons and text
       //console.log("this is length of alphabet = " + alphabet.length)
-      for (var i = 0; i < alphabet.length; i++) {
+      for (var i = 0; i < (alphabet.length); i++) {
         letters.id = 'alphabet';
         list = document.createElement('li');
         list.id = 'letter';
@@ -68,6 +70,7 @@ window.onload = function () {
             drawHangman();
           }
         }
+        //add buttons to screen
         myButtons.appendChild(letters);
         letters.appendChild(list);
       }
@@ -97,17 +100,20 @@ window.onload = function () {
     //once android user has finished, pepper will calculate results 
     function result_check(){
       //grab android user lives and time
-      RobotUtils.subscribeToALMemoryEvent("app/hangman_android_user_lives", function(value) {
-        console.log("android lives = " + value)
-        var android_lives = value
-        RobotUtils.subscribeToALMemoryEvent("app/hangman_android_user_time", function(value) {
-          console.log("anroid time = " + value)
-          var android_time = value
-        });
-        //case 1: both users lose
-        if((android_lives == 0) && (lives==0)){
-          console.log("both users died")
-          RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
+        RobotUtils.subscribeToALMemoryEvent("app/hangman_android_final_result", function(value) {
+          console.log("android time = " + value)
+          //var android_time = value
+          value = value.toString();
+          result = value.split(' ');
+          var android_lives = parseInt(result[0])
+          var android_time = parseInt(result[1])
+          //case 1: both users lose
+          console.log("android_lives = " + android_lives)
+          console.log("android_time = " + android_time)
+
+          if((android_lives == 0) && (lives==0)){
+            console.log("both users died")
+            RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
             ALMemory.raiseEvent("app/hangman_victory", "tie")
             ALTextToSpeech.say("YOU BOTH DIED NOOOOOOOOOOOOO try again ")
             document.getElementById("waiting").innerHTML = "YOU TIED"
@@ -119,7 +125,7 @@ window.onload = function () {
           console.log("pepper wins ")
           RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
             ALMemory.raiseEvent("app/hangman_victory", "pepper")
-            //ALTextToSpeech.say("YOU WON GOOD JOB")
+            ALTextToSpeech.say("YOU WON GOOD JOB")
             document.getElementById("waiting").innerHTML = "YOU WIN"
           });
           
@@ -137,6 +143,8 @@ window.onload = function () {
         else if(android_lives == lives){
           if (android_time > pepper_time){
             console.log("pepper wins with a time tiebreaker!")
+            console.log("android_time = " + android_time);
+            console.log("pepper_time = " + pepper_time);
             RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
               ALMemory.raiseEvent("app/hangman_victory", "pepper")
               ALTextToSpeech.say("YOU WON GOOD JOB. That was close tho")
@@ -144,6 +152,8 @@ window.onload = function () {
             });
           }
           else if (pepper_time > android_time){
+            console.log("android_time = " + android_time);
+            console.log("pepper_time = " + pepper_time);
             console.log("android wins with a time tiebreaker!")
             RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
               ALMemory.raiseEvent("app/hangman_victory", "android")
@@ -159,8 +169,10 @@ window.onload = function () {
               document.getElementById("waiting").innerHTML = "YOU TIED"
             });
           }
-        }
-      });
+          }
+        });
+      
+        
     }
 
 
@@ -169,9 +181,12 @@ window.onload = function () {
     var winCheck = function(){
       if((numOfCorrectGuesses + space) == word.length){
         alert("YOU GUESSED THE WORD!")
+        pepper_time = getTime(pepper_time)
+        console.log(pepper_time)
         //check if android has finished
         clear_display();
         check_android_finish_status();
+        stopTimer();
         //check to see who has won game
         var waiting = document.getElementById("waiting")
         waiting.innerHTML = "Please wait for Android. Feel Free to Annoy Android while you wait!"
@@ -187,6 +202,9 @@ window.onload = function () {
         alert("YOU LOSE")
         //add code to connect to pepper
         //check if android has finished
+        stopTimer();
+        pepper_time = getTime(pepper_time)
+        console.log(pepper_time)
         clear_display();
         check_android_finish_status();
         //check to see who has won game
@@ -215,7 +233,7 @@ window.onload = function () {
 
   
   
-    // Create geusses ul
+    // Displays the placeholder for guesses
     var result = function () {
       wordHolder = document.getElementById('hold');
       correct = document.createElement('ul');
@@ -250,6 +268,7 @@ window.onload = function () {
       }
     }
   
+    //grabs info from android user from ALMemory
     function get_game_info(){
       RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
         console.log
@@ -294,12 +313,12 @@ window.onload = function () {
         console.log("android user = " + value)
         android_username = value
       });
- 
+      startTime = new Date();
       numOfLivesDisplay();
       timer();
     }
   
-    start();
+    start();  //starts the hangman game 
     
     // // Hint
   
@@ -317,12 +336,14 @@ window.onload = function () {
       start();
     };
 
+    //clears discription when game is over
     var clear_display = function (){
       correct.parentNode.removeChild(correct);
       letters.parentNode.removeChild(letters);
       showClue.innerHTML = "";
     }
 
+    //restarts game 
     var restart = function(){
       correct.parentNode.removeChild(correct);
       letters.parentNode.removeChild(letters);
@@ -366,14 +387,61 @@ window.onload = function () {
     });
   }
 
+  //sets timer for game 
   function timer(){
-    console.log("starting timer")
-    var time = new Date()
+    //console.log("starting timer")
+    var currentTime = new Date()
     //get current time then display time elapsed since then. 
-    var seconds_passed = time.getSeconds();
-    var ms_passed = time.getMilliseconds();
-    console.log(seconds_passed)
-    console.log(ms_passed)
-    //document.getElementById("timer").innerHTML = seconds_passed + ms_passed;
+    var timeDiff = startTime - currentTime;
+    //strip off milliseconds
+    timeDiff /= 1000;
+
+    //get seconds
+    var total_seconds = Math.round(timeDiff);
+    //console.log("seconds = " + total_seconds)
+    if(total_seconds < 0){
+      total_seconds = total_seconds * (-1)
+    }
+    
+    var min = total_seconds / 60;
+    var seconds = total_seconds % 60;
+    min = Math.floor(min)
+    min = checkTime(min);
+    seconds = checkTime(seconds);
+    var milliseconds = currentTime.getMilliseconds();
+    //console.log(min)
+    //console.log(seconds)
+    document.getElementById('timer').innerHTML = min + ':' + seconds + ":" + milliseconds;
+    if(stillPlaying == 'true'){
+      var t = setTimeout(timer,200)
+    }
+   
+  }
+
+  //adds 0 to numbers <10
+  function checkTime(i){
+    if (i<10){
+      i = "0" + i
+    }
+    return i;
   }
   
+  //stops timer 
+  function stopTimer(){
+    stillPlaying = 'false'
+  }
+  
+  //calculates total time played
+  function getTime(time){
+    //console.log("starting timer")
+    var currentTime = new Date()
+    //get current time then display time elapsed since then. 
+    var timeDiff = startTime - currentTime;
+    //strip off milliseconds
+    timeDiff /= 1000;
+
+    //get seconds
+    var total_seconds = Math.round(timeDiff);
+    time = total_seconds * (-1)
+    return time
+  }

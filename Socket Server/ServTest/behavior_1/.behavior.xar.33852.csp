@@ -524,9 +524,11 @@ class MyClass(GeneratedClass):
         #Check to see whether android game status
         self.memory.raiseEvent("app/hangman_android_check_status", "none")
         self.memory.raiseEvent("app/hangman_android_finish_status", "none")
-
+        #Sends final results
+        self.memory.raiseEvent("app/hangman_android_final_result", "none")
         #Sends victory status to android
         self.memory.raiseEvent("app/hangman_victory", "none")
+
 
 
 
