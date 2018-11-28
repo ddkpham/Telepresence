@@ -22,17 +22,24 @@ function grabInput() {
     console.log("username is : " + username.value);
     console.log("password is : " + password.value);
     console.log("email is : " + email.value);
-    
-    RobotUtils.onServices(function(ALMemory, ALTextToSpeech){
-        console.log("entered Event raising ")
-        //ALTextToSpeech.say("Inputing sign up info into ALmemory");
-        ALMemory.raiseEvent("app/signup_firstname", firstname.value);
-        ALMemory.raiseEvent("app/signup_lastname", lastname.value);
-        ALMemory.raiseEvent("app/signup_username", username.value);
-        ALMemory.raiseEvent("app/signup_password", password.value);
-        ALMemory.raiseEvent("app/signup_email", email.value);
-        //ALTextToSpeech.say("Sign up Events have been raised");
-    });
+
+    if(firstname.value =="" || lastname.value=="" ||
+        email.value=="" || username.value=="" || password.value==""){
+            alert("Check that all fields are filled!")
+    }
+    else{
+        RobotUtils.onServices(function(ALMemory, ALTextToSpeech){
+            console.log("entered Event raising ")
+            //ALTextToSpeech.say("Inputing sign up info into ALmemory");
+            ALMemory.raiseEvent("app/signup_firstname", firstname.value);
+            ALMemory.raiseEvent("app/signup_lastname", lastname.value);
+            ALMemory.raiseEvent("app/signup_username", username.value);
+            ALMemory.raiseEvent("app/signup_password", password.value);
+            ALMemory.raiseEvent("app/signup_email", email.value);
+            //ALTextToSpeech.say("Sign up Events have been raised");
+        });
+        
+    }
     
 }
 

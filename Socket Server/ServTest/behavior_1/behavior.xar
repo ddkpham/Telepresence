@@ -3,6 +3,7 @@ import json
 import urlparse
 import os
 import urllib2
+import hashlib
 
 
 class MyClass(GeneratedClass):
@@ -14,6 +15,16 @@ class MyClass(GeneratedClass):
         self.pckman = ALProxy('PackageManager')
         self.last_output = ""
         self.last_valid_output = ""
+
+        def generatePSK(self):
+           letters = string.ascii_lowercase
+           return ''.join(random.choice(letters) for i in range(15))
+
+        def hashPSK(self, psk):
+            salt = 'HcU8jhcPFG'
+            psk = psk + salt
+            hashed_psk = hashlib.sha256(psk).hexdigest()
+            return hashed_psk
 
 
 
@@ -67,11 +78,13 @@ class MyClass(GeneratedClass):
                     hint = game_info['hint']
                     word = game_info['word']
                     android_username = game_info['android_username']
+                    #save info in ALmemory
                     self.logger.info('hint = ' + str(hint))
                     self.memory.raiseEvent("app/incoming_game_request", "1")
                     self.memory.raiseEvent("app/hangman_android_user", str(android_username))
                     self.memory.raiseEvent("app/hangman_hint_for_pepper", str(hint))
                     self.memory.raiseEvent("app/hangman_word_for_pepper", str(word))
+                    #PSK check
                     s.send_response(200)
                     s.end_headers()
                     return (file_content)
@@ -134,7 +147,7 @@ class MyClass(GeneratedClass):
 
 
 
-        port = 8127
+        port = 8129
         self.server = HTTPServer(('10.0.0.3',port),handleHTTPRequest)
         self.server.serve_forever()
         #server.shutdown
@@ -538,6 +551,9 @@ class MyClass(GeneratedClass):
         self.memory.raiseEvent("app/html_path", "/home/nao/.local/share/PackageManager/apps/.lastUploadedChoregrapheBehavior/behavior_1/")
         #PepperSecurityKey
         self.memory.raiseEvent("app/pepper_security_key", "42")
+
+        #Deauthorize
+        self.memory.raiseEvent("app/deauth_user", "none")
 
         #CurrentPepperID
         self.memory.raiseEvent("app/current_pepper_id", "salt")
