@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7da67c9f-891b-4cf9-8460-7043f962e7eb" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -136,7 +137,7 @@
     <session id="-912024399">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="10" />
+          <entry key="project.closed" value="11" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.16" value="1" />
@@ -144,36 +145,38 @@
           <entry key="project.open.time.19" value="1" />
           <entry key="project.open.time.20" value="2" />
           <entry key="project.open.time.22" value="1" />
+          <entry key="project.open.time.23" value="1" />
           <entry key="project.open.time.24" value="2" />
           <entry key="project.open.time.29" value="1" />
           <entry key="project.open.time.30" value="1" />
           <entry key="project.open.time.34" value="1" />
+          <entry key="project.open.time.41" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="14" />
+          <entry key="project.opened" value="16" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="12423" />
+          <entry key="py" value="15981" />
           <entry key="txt" value="1072" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="1072" />
-          <entry key="Python" value="12423" />
+          <entry key="Python" value="15981" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="Local" value="2" />
-          <entry key="py" value="9" />
+          <entry key="py" value="11" />
           <entry key="yaml" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="9" />
+          <entry key="Python" value="11" />
           <entry key="Terminal Session" value="2" />
           <entry key="YAML" value="2" />
         </counts>
@@ -221,8 +224,13 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="10047">
-              <caret line="601" lean-forward="true" selection-start-line="601" selection-end-line="601" />
+            <state relative-caret-position="-51">
+              <caret line="598" column="32" lean-forward="true" selection-start-line="598" selection-start-column="32" selection-end-line="598" selection-end-column="32" />
+              <folding>
+                <element signature="e#0#51#0" expanded="true" />
+                <marker date="1543358438422" expanded="true" signature="15387:16493" ph="..." />
+                <marker date="1543358438422" expanded="true" signature="25907:26014" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -256,36 +264,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>get</find>
-      <find>add</find>
-      <find>generate</find>
-      <find>#Check ASK</find>
-      <find>ASK</find>
-      <find>access_ro</find>
-      <find>authre</find>
-      <find>sendToIP</find>
-      <find>request.me</find>
-      <find>start</find>
-      <find>reg_token</find>
-      <find>addUser</find>
-      <find>first()</find>
-      <find>user_query = UserAuth.query.filter_by(username=uname).first()</find>
-      <find>/login</find>
-      <find>/showd</find>
-      <find>check_sk('A', ASK, username)</find>
-      <find>testset</find>
-      <find>addPepper</find>
-      <find>showDB</find>
-      <find>bob</find>
-      <find>adduser</find>
-      <find>showdb</find>
-      <find>wiped</find>
       <find>authreq</find>
       <find>deauth</find>
-      <find>check_sk</find>
       <find>uname</find>
       <find>login</find>
       <find>content</find>
+      <find>message</find>
+      <find>startgame</find>
+      <find>save</find>
+      <find>relay</find>
+      <find>re</find>
+      <find>photo</find>
+      <find>endgame</find>
+      <find>check_sk</find>
+      <find>check_psk</find>
+      <find>et</find>
+      <find>get</find>
+      <find>Use</find>
+      <find>UserAuth</find>
+      <find>addpepper</find>
+      <find>Userauth</find>
+      <find>all()</find>
+      <find>delete</find>
+      <find>addPEpper</find>
+      <find>addPepper</find>
+      <find>/message</find>
+      <find>no</find>
+      <find>notif</find>
+      <find>check psk</find>
+      <find>print</find>
+      <find>proacti</find>
     </findStrings>
     <replaceStrings>
       <replace>h3</replace>
@@ -319,9 +327,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="833" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
     <option name="width" value="854" />
-    <option name="height" value="1017" />
+    <option name="height" value="920" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -329,6 +338,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -340,7 +350,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -467,10 +476,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
+    <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.09352078" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.095758356" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -486,7 +495,7 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Terminal" order="3" weight="0.7141058" />
+      <window_info active="true" anchor="right" id="Terminal" order="3" visible="true" weight="0.3251928" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -536,10 +545,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/diag_routes.py" />
     <entry file="file://$PROJECT_DIR$/model_sqlalchemy.py" />
-    <entry file="file://$PROJECT_DIR$/main.py">
+    <entry file="file://$PROJECT_DIR$/CloudServTester/CloudServTest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="10047">
-          <caret line="601" lean-forward="true" selection-start-line="601" selection-end-line="601" />
+        <state relative-caret-position="425">
+          <caret line="27" selection-start-line="27" selection-end-line="27" />
         </state>
       </provider>
     </entry>
@@ -550,10 +559,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CloudServTester/CloudServTest.py">
+    <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="27" selection-start-line="27" selection-end-line="27" />
+        <state relative-caret-position="-51">
+          <caret line="598" column="32" lean-forward="true" selection-start-line="598" selection-start-column="32" selection-end-line="598" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+            <marker date="1543358438422" expanded="true" signature="15387:16493" ph="..." />
+            <marker date="1543358438422" expanded="true" signature="25907:26014" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>

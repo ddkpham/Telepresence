@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify, Response
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
+import hashlib, binascii
+
 import requests as r
 
 import os, config, json, random, string
@@ -10,11 +12,7 @@ import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import messaging
 
-# import model_sqlalchemy
-
-# User = model_sqlalchemy.User
-# Pepper = model_sqlalchemy.Pepper
-# UserAuth = model_sqlalchemy.UserAuth
+#TODO: uncomment check PSK
 
 app = Flask(__name__)
 
@@ -26,7 +24,7 @@ db = SQLAlchemy(app)
 TEST_BOOL = True
 
 #TODO: Delete before Production
-cred = credentials.Certificate('C:/Users/antho/Desktop/python-server-221001-firebase-adminsdk-zfrb5-8ee102d34a.json')
+cred = credentials.Certificate('C:/Users/Atho/Desktop/python-server-221001-firebase-adminsdk-zfrb5-8ee102d34a.json')
 default_app = firebase_admin.initialize_app(cred)
 #default_app = firebase_admin.initialize_app()
 
@@ -73,11 +71,11 @@ class UserAuth(db.Model):
     email = db.Column(db.String(100))
     authorized = db.Column(db.Boolean)
 
-    def __init__(self, pep_id, username, email):
+    def __init__(self, pep_id, username, email, authorized):
         self.pep_id = pep_id
         self.username = username
         self.email = email
-        self.authorized = False
+        self.authorized = authorized
 
 
 class User(db.Model):
@@ -171,15 +169,15 @@ def message():
         content = request.json
         username = content['username']
         pep_id = content['pep_id']
-        ASK = content['ASK']
+        # ASK = content['ASK']
         message = content['message']
     except:
         print ("Missing Data")
         return Response(status=400)
 
-    # Check ASK
-    if check_sk(ASK, username) is False:
-        return Response(status=403)
+    # # Check ASK
+    # if check_sk(ASK, username) is False:
+    #     return Response(status=403)
 
     # Check Authorization
     uauth_query = UserAuth.query.get((pep_id, username))
@@ -201,18 +199,24 @@ def message():
     relay_ip = "http://" + pepper.ip_address + ":8080/message"
     print("Relay ip: " + relay_ip)
 
-    if TEST_BOOL:
-        return Response(status=200)
+    #Hash PSK from database
+    new_PSK = hash_PSK(pepper.PSK)
 
     try:
-        req = r.post(relay_ip, data=json.dumps({'msg': message}))
+        #TODO: Change this back
+        # req = r.post(relay_ip, data=json.dumps({'msg': message,'PSK':new_PSK}))
+        req = r.post('http://10.0.0.3:8101/message', data=json.dumps({'msg': message,'PSK':new_PSK}))
     except r.exceptions.ConnectionError:
+        #Set database Pepper as "not active"
         pepper.ip_address = ''
         db.session.commit()
         return Response(status=410)
 
     print(req.text)
     if req.status_code == 200:
+        #Update PSK in database
+        pepper.PSK = new_PSK
+        db.session.commit()
         return req.text
     else:
         return Response(status=req.status_code)
@@ -231,40 +235,52 @@ def photo():
         print ("Missing Data")
         return Response(status=400)
 
-    # Check ASK
-    if check_sk(ASK, username) is False:
-        return Response(status=403)
+    print(content)
+    print('Photo: ')
+    print(photo)
 
-    # Check Authorization
-    uauth_query = UserAuth.query.get((pep_id, username))
-    if uauth_query is None:
-        return Response(status=401)
-    else:
-        if not uauth_query.authorized:
-            return Response(status=401)
+    photo.save('C:/Users/Atho/Desktop/test.png')
 
-    # Get Pepper Entity
-    pepper = Pepper.query.filter_by(pep_id=pep_id).first()
-    if pepper is None:
-        return Response(status=409)
+    #TODO: uncomment
+    # # Check ASK   #Update
+    # if check_sk(ASK, username) is False:
+    #     return Response(status=403)
+    #
+    # # Check Authorization
+    # uauth_query = UserAuth.query.get((pep_id, username))
+    # if uauth_query is None:
+    #     return Response(status=401)
+    # else:
+    #     if not uauth_query.authorized:
+    #         return Response(status=401)
+    #
+    # # Get Pepper Entity
+    # pepper = Pepper.query.filter_by(pep_id=pep_id).first()
+    # if pepper is None:
+    #     return Response(status=409)
+    #
+    # # Check if Pepper Active
+    # if pepper.ip_address == '':
+    #     return Response(status=410)
 
-    # Check if Pepper Active
-    if pepper.ip_address == '':
-        return Response(status=410)
+    # relay_ip = "http://" + pepper.ip_address + "/photo"
+    # print("Relay ip: " + relay_ip)
 
-    relay_ip = "http://" + pepper.ip_address + "/message"
-    print("Relay ip: " + relay_ip)
+    # if TEST_BOOL:
+    #     return Response(status=200)
 
-    if TEST_BOOL:
-        return Response(status=200)
+    new_PSK = hash_PSK(pepper.PSK)
 
     try:
-        req = r.post(relay_ip, files=photo)
+        # req = r.post(relay_ip, files=photo)
+        req = r.post('http://10.0.0.4:8080/',files=photo, json={'PSK':new_PSK})
     except r.exceptions.ConnectionError:
-        pepper.ip_address = ''
-        db.session.commit()
+        # pepper.ip_address = ''
+        # db.session.commit()
         return Response(status=410)
 
+    pepper.PSK = new_PSK
+    db.session.commit()
     return Response(status=req.status_code)
 
 
@@ -281,9 +297,9 @@ def request_auth():
         print ("Missing Data")
         return Response(status=400)
 
-    # Check ASK
-    if check_sk(ASK, username) is False:
-        return Response(status=403)
+    # # Check ASK
+    # if check_sk(ASK, username) is False:
+    #     return Response(status=403)
 
     # Check Pepper Exists
     pepper = Pepper.query.filter_by(pep_id=pep_id).first()
@@ -291,7 +307,7 @@ def request_auth():
         return Response(status=409)
 
     # continue:
-    new_request = UserAuth(pep_id=pep_id, username=username, email=email)
+    new_request = UserAuth(pep_id=pep_id, username=username, email=email, authorized=False)
     db.session.add(new_request)
     db.session.commit()
     return Response(status=200)
@@ -309,7 +325,12 @@ def deauthorize():
         print ("Missing Data")
         return Response(status=400)
 
-    # Check PSK return 403 if not matched
+    # Check PSK
+    # check = check_PSK(PSK, pep_id)
+    # if check is None:
+    #     return Response(status=409)
+    # elif check is False:
+    #     return Response(status=403)
 
     uauth_req = UserAuth.query.get((pep_id, username))
     if uauth_req is None:
@@ -371,7 +392,13 @@ def getAuthRequests():
         print ("Missing Data")
         return Response(status=400)
 
-    # Check PSK return 403 if not matched
+    # Check PSK
+    # check = check_PSK(PSK, pep_id)
+    # if check is None:
+    #     return Response(status=409)
+    # elif check is False:
+    #     return Response(status=403)
+
 
     authreq_query = UserAuth.query.filter_by(pep_id=pep_id).all()
     print(authreq_query)
@@ -396,7 +423,12 @@ def getAuthUsers():
         print ("Missing Data")
         return Response(status=400)
 
-    # Check PSK return 403 if not matched
+    # Check PSK
+    # check = check_PSK(PSK, pep_id)
+    # if check is None:
+    #     return Response(status=409)
+    # elif check is False:
+    #     return Response(status=403)
 
     authreq_query = UserAuth.query.filter_by(pep_id=pep_id).all()
     print(authreq_query)
@@ -422,7 +454,12 @@ def authorizeUser():
         print ("Missing Data")
         return Response(status=400)
 
-    # Check PSK return 403 if not matched
+    # Check PSK
+    # check = check_PSK( PSK, pep_id)
+    # if check is None:
+    #     return Response(status=409)
+    # elif check is False:
+    #     return Response(status=403)
 
     uauth = UserAuth.query.get((pep_id, username))
     if uauth is None:
@@ -436,49 +473,132 @@ def authorizeUser():
     return Response(status=200)
 
 
-@app.route('/setPepperActive', methods=['POST'])
-def setPepperActive():
+@app.route('/addPepper', methods=['POST'])
+def add_update_Pepper():
     try:
         content = request.json
         pep_id = content['pep_id']
         ip = request.access_route[0]
         PSK = content['PSK']
+        username = content['username']
     except:
         print ("Missing Data")
         return Response(status=400)
+
+    print (content)
+
+    #TODO: update this func
+    #if username == '':
+    #don't check user stuff, update pepper info in database
+
+    #Check if user exists
+    user_query = User.query.filter_by(username=username).first()
+    if user_query is None:
+        return Response(status=409)
 
     pepper = Pepper.query.filter_by(pep_id=pep_id).first()
     if pepper is None:
-        return Response(status=409)
-        # new_pepper = Pepper(pep_id=pep_id, ip_address=ip, PSK='')
-        # db.session.add(new_pepper)
-        # db.session.commit()
-        # return Response(status=200)
-    else:
-        pepper.ip_address = ip
+        #Add new pepper
+        new_pepper = Pepper(pep_id=pep_id, ip_address=ip, PSK=PSK)
+        db.session.add(new_pepper)
+
+        #Make sure database is clean to guarantee correct authorization
+        uauth_query = UserAuth.query.get((pep_id, username))
+        while uauth_query is not None:
+            db.session.delete(uauth_query)
+            uauth_query = UserAuth.query.get((pep_id, username))
+
+        #Add new authorized user
+        new_userAuth = UserAuth(pep_id=pep_id, username=username, email=user_query.email, authorized=True)
+        db.session.add(new_userAuth)
+
         db.session.commit()
+        return Response(status=200)
+    else:
+        #Pepper already exists so update info
+        pepper.ip_address = ip
+        pepper.PSK = PSK
+        db.session.commit()
+
+        #Get all userAuth entities for pep_id
+        uauth_query = UserAuth.query.filter_by(pep_id=pep_id).all()
+
+        #Make sure at least one authorized user
+        for uauth in uauth_query:
+            if uauth.authorized:
+                return Response(status=200)
+
+        #If no authorized users add the User provided from input
+        new_userAuth = UserAuth(pep_id=pep_id, username=username, email=user_query.email, authorized=True)
+        db.session.add(new_userAuth)
+        db.session.commit()
+
     return Response(status=200)
 
-
-@app.route('/addPepper', methods=['POST'])
-def addPepper():
+@app.route('/proactive', methods=['POST'])
+def proactive():
     try:
         content = request.json
-        pep_id = content['pep_id']
-        PSK = content['PSK']
-        ip = request.access_route[0]
+        message = content['msg']
+        PSK = content.pop('PSK')
+        username = content.pop('android_username')
+        pep_id = content.pop('pep_id')
     except:
         print ("Missing Data")
         return Response(status=400)
 
-    pepper = Pepper.query.filter_by(pep_id=pep_id).first()
-    if pepper is not None:
+    print('Content: ' + str(content))
+
+    #add path to content
+    content.update({'path': request.path[1:]})
+
+    #Check PSK
+    # check = check_PSK(PSK, pep_id)
+    # if check is None:
+    #     return Response(status=409)
+    # elif check is False:
+    #     return Response(status=403)
+
+    #Find User from Database
+    user_query = User.query.filter_by(username=username).first()
+    if user_query is None:
         return Response(status=409)
 
-    new_pepper = Pepper(pep_id=pep_id, ip_address=ip, PSK='')
-    db.session.add(new_pepper)
-    db.session.commit()
+    notif = messaging.Notification("Proactive Response", message)
+
+    fb_message = messaging.Message(
+        # data=content,
+        notification=notif,
+        token=user_query.FBToken,
+    )
+
+    # try:
+    response = messaging.send(fb_message)
+    # except:
+    #     print ("Message failed to send.")
+    #     return Response(status=410)
     return Response(status=200)
+
+
+# @app.route('/addPepper', methods=['POST'])
+# def addPepper():
+#     try:
+#         content = request.json
+#         pep_id = content['pep_id']
+#         PSK = content['PSK']
+#         ip = request.access_route[0]
+#     except:
+#         print ("Missing Data")
+#         return Response(status=400)
+#
+#     pepper = Pepper.query.filter_by(pep_id=pep_id).first()
+#     if pepper is not None:
+#         return Response(status=409)
+#
+#     new_pepper = Pepper(pep_id=pep_id, ip_address=ip, PSK='')
+#     db.session.add(new_pepper)
+#     db.session.commit()
+#     return Response(status=200)
 
 @app.errorhandler(500)
 def server_error(e):
@@ -498,6 +618,7 @@ def relay_to_pepper():
     print (content)
 
     if request.path == '/startgame':
+        #Update FBToken for User in Database
         try:
             username = content['android_username']
             FBToken = content.pop('FBToken')
@@ -512,29 +633,33 @@ def relay_to_pepper():
         user_query.FBToken = FBToken
         db.session.commit()
 
+    print('Content: ' + str(content))
+
+    #TODO: uncomment this part
     #Get IP Address from Database
-    pepper = Pepper.query.filter_by(pep_id=pep_id).first()
-    if pepper is None:
-        return Response(status=406)
+    # pepper = Pepper.query.filter_by(pep_id=pep_id).first()
+    # if pepper is None:
+    #     return Response(status=406)
 
     # Check if Pepper Active
-    if pepper.ip_address == '':
-        return Response(status=410)
+    # if pepper.ip_address == '':
+    #     return Response(status=410)
 
-    relay_ip = "http://" + pepper.ip_address + ":8080"
-    print("Relay ip: " + relay_ip)
+    # relay_ip = "http://" + pepper.ip_address + ":8080"
+    # print("Relay ip: " + relay_ip)
 
-    if TEST_BOOL:
-        return Response(status=200)
+    # if TEST_BOOL:
+    #     return Response(status=200)
 
     #Send to Pepper
     try:
         # TODO: change this back to relay_ip before Production
-        req = r.post('http://10.0.0.3:8082' + request.path, json=content)  # Local Test
+        print('Point Ar')
+        req = r.post('http://10.0.0.3:8127' + request.path, json=content)  # Local Test
         # req = r.post(relay_ip + request.path, json=content) #TODO: or data=json.dumps(content)
     except r.exceptions.ConnectionError:
-        pepper.ip_address = ''
-        db.session.commit()
+        # pepper.ip_address = ''
+        # db.session.commit()
         return Response(status=410)
 
     return Response(status=req.status_code)
@@ -555,6 +680,9 @@ def relay_to_android():
         print ("Missing Data")
         return Response(status=400)
 
+    print('Content: ' + str(content))
+    print('Username: ' + username)
+
     content.update({'path': request.path[1:]})
 
     #Find User from Database
@@ -562,19 +690,15 @@ def relay_to_android():
     if user_query is None:
         return Response(status=409)
 
-    #TODO: Delete Test Notification
-    notif = messaging.Notification("RTA Test Notif", "Relay To Android")
-
     fb_message = messaging.Message(
         data=content,
-        notification=notif,
-        token=atho_token, #TODO: Replace with user_query.FBToken
+        token=user_query.FBToken,
     )
     try:
         response = messaging.send(fb_message)
     except:
+        print ("Message failed to send.")
         return Response(status=410)
-    # if TEST_BOOL:
     return Response(status=200)
 
 
@@ -634,10 +758,10 @@ def create_TestSet():
     david = User(username='david', email='david@example.com', name='D', password='subin', ASK='', FBToken='')
     kass = User(username='kass', email='kass@example.com', name='K', password='subin', ASK='', FBToken='')
 
-    adminSalt = UserAuth(pep_id='salt', username='admin', email='admin@example.com')
-    adminFraser = UserAuth(pep_id='fraser', username='admin', email='admin@example.com')
-    subinSalt = UserAuth(pep_id='salt', username='subin', email='subin@example.com')
-    davidSalt = UserAuth(pep_id='salt', username='david', email='david@example.com')
+    adminSalt = UserAuth(pep_id='salt', username='admin', email='admin@example.com', authorized=True)
+    adminFraser = UserAuth(pep_id='fraser', username='admin', email='admin@example.com', authorized=True)
+    subinSalt = UserAuth(pep_id='salt', username='subin', email='subin@example.com', authorized=True)
+    davidSalt = UserAuth(pep_id='salt', username='david', email='david@example.com', authorized=False)
 
     salt = Pepper(pep_id='Salt', ip_address='10.0.0.3', PSK='')
     fraser = Pepper(pep_id='fraser', ip_address='10.0.0.4', PSK='')
@@ -650,11 +774,11 @@ def create_TestSet():
     db.session.add_all([salt, fraser, simon, fan, window])
     db.session.commit()
 
-    saltauth = UserAuth.query.get(('salt', 'admin'))
-    fraserauth = UserAuth.query.get(('fraser', 'admin'))
-    saltauth.authorized = True
-    fraserauth.authorized = True
-    db.session.commit()
+    # saltauth = UserAuth.query.get(('salt', 'admin'))
+    # fraserauth = UserAuth.query.get(('fraser', 'admin'))
+    # saltauth.authorized = True
+    # fraserauth.authorized = True
+    # db.session.commit()
 
     return 'Database Wiped and replaced with Test Set'
 
@@ -686,7 +810,7 @@ def showDB():
             uauth.authorized) + '<br><br>'
     result += '<h3> Peppers: </h3><br>'
     for pepper in peppers:
-        result = result + 'pep_id: ' + pepper.pep_id + '| ip_address: ' + pepper.ip_address + '<br><br>'
+        result = result + 'pep_id: ' + pepper.pep_id + '| ip_address: ' + pepper.ip_address + '<br>| PSK: '+ pepper.PSK + '<br><br>'
 
     return result
 
@@ -711,13 +835,44 @@ def echo():
 
 # -----------------Functions--------------------------
 
-def check_sk(key, id):
-    query = Pepper.query.filter_by(pep_id=id).first()
+#TODO:Use this to check passwords
+# def check_sk(key, id):
+#     query = User.query.filter_by(username=id).first()
+#     if query is None:
+#         return False
+#     cloud_key = query.ASK
+#
+#     return check_password_hash(key, cloud_key)
+
+#
+def check_PSK(key,id):
+    #Find Pepper Entity
+    query = Pepper.query.filter_by(username=id).first()
     if query is None:
-        return False
+        return None
     cloud_key = query.PSK
 
-    return check_password_hash(key, cloud_key)
+    # derived_key = hashlib.pbkdf2_hmac('sha256', cloud_key, 'HcU8jhcPFG', 1000)
+    # result = binascii.hexlify(derived_key)
+
+    # hash database PSK and check with input key
+    next_cloud_key = hash_key(cloud_key)
+
+    if next_cloud_key == key:
+        #Update Database
+        query.PSK = next_cloud_key
+        db.session.commit()
+        return True
+    else:
+        return False
+
+def hash_PSK(key):
+
+    salt = 'HcU8jhcPFG'
+    key += salt
+    result = hashlib.sha256(key).hexdigest()
+    return result
+
 
 
 def generate_random_string():
