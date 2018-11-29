@@ -13,6 +13,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import theshakers.cmpt276.sfu.ca.robottelepresense.App;
 import theshakers.cmpt276.sfu.ca.robottelepresense.R;
@@ -58,15 +60,23 @@ public class SendAndReceiveMsgAsyncTask extends AsyncTask<String, Void, String> 
 
             jsonData.put("message", params[0]);
             jsonData.put("username", sharedPreferences.getString("username", ""));
-            jsonData.put("ASK", sharedPreferences.getString("ASK", ""));
             jsonData.put("pep_id", sharedPreferences.getString("selected_pepper_id", ""));
 
+            String previousASK = sharedPreferences.getString("ASK", "");
+            //Log.i(TAG, "Old ASK: " + sharedPreferences.getString("ASK", ""));
+            String newASK = hashASKUsingMD5(previousASK + App.hashKey);
+
+            SharedPreferences.Editor edit = sharedPreferences.edit();
+            edit.putString("ASK", newASK);
+            edit.apply();
+
+            jsonData.put("ASK", sharedPreferences.getString("ASK", ""));
+
             Log.i(TAG, "username: " + sharedPreferences.getString("username", ""));
-            Log.i(TAG, "ASK: " + sharedPreferences.getString("ASK", ""));
+            Log.i(TAG, "New ASK: " + sharedPreferences.getString("ASK", ""));
             Log.i(TAG, "pep_id: " + sharedPreferences.getString("selected_pepper_id", ""));
 
             Log.i(TAG, "sent message: " + params[0]);
-            //byte[] buf = jsonData.toString().getBytes();
 
             DataOutputStream dataOutputStream = new DataOutputStream(conn.getOutputStream());
             dataOutputStream.writeBytes(jsonData.toString());
@@ -111,6 +121,28 @@ public class SendAndReceiveMsgAsyncTask extends AsyncTask<String, Void, String> 
             conn.disconnect();
         }
         return returnMsg;
+    }
+
+    public String hashASKUsingMD5(String ASK) {
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
+            digest.update(ASK.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuffer hexString = new StringBuffer();
+            for (byte aMessageDigest : messageDigest) {
+                String h = Integer.toHexString(0xFF & aMessageDigest);
+                while (h.length() < 2)
+                    h = "0" + h;
+                hexString.append(h);
+            }
+            return hexString.toString();
+        }catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     @Override

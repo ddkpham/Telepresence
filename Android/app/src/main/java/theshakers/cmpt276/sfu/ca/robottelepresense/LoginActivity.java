@@ -24,6 +24,9 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.LoginAsyncTask;
@@ -80,7 +83,9 @@ public class LoginActivity extends AppCompatActivity {
         JSONObject jsonData = new JSONObject();
         try {
             jsonData.put("username", name);
+            //jsonData.put("password", password);
             jsonData.put("password", password);
+            jsonData.put("FBToken", FirebaseInstanceId.getInstance().getToken());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -204,5 +209,4 @@ public class LoginActivity extends AppCompatActivity {
         AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
     }
-
 }

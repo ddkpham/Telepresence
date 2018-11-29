@@ -2,11 +2,7 @@ package theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.AsyncTask;
-import android.util.Base64;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -22,7 +18,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import theshakers.cmpt276.sfu.ca.robottelepresense.App;
-import theshakers.cmpt276.sfu.ca.robottelepresense.R;
 import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.StringResponseCallback;
 
 /**
@@ -98,6 +93,10 @@ public class LoginAsyncTask extends AsyncTask<JSONObject, Void, String> {
                     Log.i(TAG, "ASK: " + jsonObject.getString("ASK"));
                     //Hash Key
 
+                    String string_to_be_converted_to_MD5 = jsonObject.getString("ASK");
+                    String MD5_Hash_String = hashASKUsingMD5("asdf" + "HcU8jhcPFG");
+                    Log.i(TAG, "MD5 Hash String: " + MD5_Hash_String);
+
                     edit.putString("pepper_list", authorizedPepperJsonArr.toString());
                     edit.putString("request_list", requestedPepperJsonArr.toString());
                     edit.apply();
@@ -115,6 +114,28 @@ public class LoginAsyncTask extends AsyncTask<JSONObject, Void, String> {
             conn.disconnect();
         }
         return returnMsg;
+    }
+
+    public String hashASKUsingMD5(String ASK) {
+        try {
+            // Create MD5 Hash
+            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
+            digest.update(ASK.getBytes());
+            byte messageDigest[] = digest.digest();
+
+            // Create Hex String
+            StringBuffer hexString = new StringBuffer();
+            for (byte aMessageDigest : messageDigest) {
+                String h = Integer.toHexString(0xFF & aMessageDigest);
+                while (h.length() < 2)
+                    h = "0" + h;
+                hexString.append(h);
+            }
+            return hexString.toString();
+        }catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     @Override
