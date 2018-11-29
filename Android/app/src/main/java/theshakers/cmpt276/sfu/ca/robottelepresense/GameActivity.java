@@ -1,11 +1,13 @@
 package theshakers.cmpt276.sfu.ca.robottelepresense;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -65,13 +67,24 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
         context = this;
 
-
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         pepperNameStr = bundle.getString("pepper_username");
         hintStr = bundle.getString("hint");
         answerStr = bundle.getString("word");
 
+
+        AudioManager audioManager  = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        switch(audioManager.getRingerMode() ){
+            case AudioManager.RINGER_MODE_NORMAL:
+                break;
+            case AudioManager.RINGER_MODE_SILENT:
+                Toast.makeText(context, context.getString(R.string.turn_up_the_volume_to_play_the_game_well), Toast.LENGTH_SHORT).show();
+                break;
+            case AudioManager.RINGER_MODE_VIBRATE:
+                Toast.makeText(context, context.getString(R.string.turn_up_the_volume_to_play_the_game_well), Toast.LENGTH_SHORT).show();
+                break;
+        }
 
         /*
         // for local test
@@ -146,13 +159,15 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         soundForCorrectAnswer = MediaPlayer.create(getApplicationContext(), R.raw.correct_answer);
         soundForWrongAnswer = MediaPlayer.create(getApplicationContext(), R.raw.wrong_answer);
         soundForEndTheGame = MediaPlayer.create(getApplicationContext(), R.raw.end_game);
+        stopWatch.start();
     }
 
 
     @Override
     protected void onResume() {
         super.onResume();
-        stopWatch.start();
+        if(waitingForResultDialog!=null && !waitingForResultDialog.isShowing())
+            stopWatch.start();
     }
 
     @Override
@@ -161,16 +176,14 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         if(soundForEndTheGame.isPlaying())
             soundForEndTheGame.stop();
         stopWatch.stop();
-        if(waitingForResultDialog.isShowing())
-            waitingForResultDialog.dismiss();
     }
 
     private void initGame() {
         countForWrong = 0;
         countForCorrect = 0;
         changeHangMan();
-        hintText.setText("HINT: " + hintStr.toUpperCase());
-        pepperText.setText("YOU ARE PLAYING WITH " + pepperNameStr.toUpperCase());
+        hintText.setText(context.getString(R.string.hint) +": " + hintStr.toUpperCase());
+        pepperText.setText(context.getString(R.string.you_are_playing_with) + pepperNameStr.toUpperCase());
         count = "";
         for(int i=0; i<answerStr.length(); i++)
             count += "_ ";
@@ -238,20 +251,30 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
     private void wonTheGame() {
-        endTheGame("You are winner");
+        endTheGame();
     }
 
     private void lostTheGame() {
-        endTheGame("You are loser");
+        endTheGame();
     }
 
-    private void endTheGame(String string) {
+    private void endTheGame() {
         disableAllButtons();
         soundForEndTheGame.start();
         sendGameResultToServer();
         stopWatch.stop();
         waitingForResultDialog = ProgressDialog.show(GameActivity.this, "",
-                "Waiting for the result from Pepper", true);
+                context.getString(R.string.waiting_for_the_result_from_pepper), true);
+        waitingForResultDialog.setOnKeyListener(new Dialog.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface arg0, int keyCode,
+                                 KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    Toast.makeText(context, context.getString(R.string.please_wait), Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            }
+        });
     }
 
     private void disableAllButtons() {
@@ -446,7 +469,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private void showDialog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(GameActivity.this);
-        dialogBuilder.setMessage(context.getString(R.string.do_you_want_to_go_back));
+        dialogBuilder.setMessage(context.getString(R.string.are_you_sure_you_want_to_go_back));
         dialogBuilder.setPositiveButton(context.getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

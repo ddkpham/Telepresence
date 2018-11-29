@@ -83,17 +83,13 @@ public class MyFirebaseInstanceService extends FirebaseMessagingService {
     }
 
     private  void song() {
-        MediaPlayer soundForWrong = MediaPlayer.create(getApplicationContext(), R.raw.loserbell);
-        soundForWrong.start();
+        MediaPlayer soundForDistraction = MediaPlayer.create(getApplicationContext(), R.raw.distract_song);
+        soundForDistraction.start();
     }
 
     private void vibrate() {
         Vibrator v = (Vibrator) getSystemService(getApplicationContext().VIBRATOR_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            v.vibrate(VibrationEffect.createOneShot(35000, VibrationEffect.DEFAULT_AMPLITUDE));
-        } else {
-            v.vibrate(35000);
-        }
+        v.vibrate(new long[]{0,1000,500,1000}, -1);
     }
 
     private void endGame(String victory) {

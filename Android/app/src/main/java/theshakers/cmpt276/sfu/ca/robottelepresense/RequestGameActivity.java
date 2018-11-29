@@ -97,7 +97,10 @@ public class RequestGameActivity extends AppCompatActivity implements View.OnCli
 
     private void showDialog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(RequestGameActivity.this);
-        dialogBuilder.setMessage(context.getString(R.string.do_you_want_to_go_back));
+        if(sendBtn.isEnabled())
+            dialogBuilder.setMessage(context.getString(R.string.do_you_want_to_go_back));
+        else
+            dialogBuilder.setMessage(context.getString(R.string.you_already_sent_game_request_to_pepper));
         dialogBuilder.setPositiveButton(context.getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

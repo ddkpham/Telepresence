@@ -89,9 +89,15 @@
     <string name="game_help_3">- you can send and receive distractions such as vibration and song while playing the game</string>
     <string name="chat_help_intro">You can have a conversation with Pepper. Here are some messages you can send to Pepper. </string>
 
-    <!-- Request Game Activity -->
+    <!-- String for Hangman Game -->
+    <string name="are_you_sure_you_want_to_go_back">Are you sure you want to go back?</string>
+    <string name="you_already_sent_game_request_to_pepper">You already sent game request to Pepper. Are you sure you want to cancel the game?</string>
     <string name="please_enter_the_word_and_hint_for_pepper_to_start_the_game">Please enter the word and hint for Pepper to start the game</string>
+    <string name="waiting_for_the_result_from_pepper">Waiting for the result from Pepper, Please do not exit the Application"</string>
+    <string name="turn_up_the_volume_to_play_the_game_well">Turn up the volume to play the game well</string>
+    <string name="please_wait">Please wait</string>
     <string name="hint">Hint</string>
+    <string name="you_are_playing_with">YOU ARE PLAYING WITH </string>
     <string name="word">Word</string>
     <string name="send">Send</string>
 
