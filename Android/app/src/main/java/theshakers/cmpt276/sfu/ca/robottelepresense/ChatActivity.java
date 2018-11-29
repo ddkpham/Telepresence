@@ -208,7 +208,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private void showDialog() {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ChatActivity.this);
-        dialogBuilder.setMessage(context.getString(R.string.do_you_want_to_go_back));
+        dialogBuilder.setMessage(context.getString(R.string.are_you_sure_you_want_to_go_back));
         dialogBuilder.setPositiveButton(context.getString(R.string.yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
