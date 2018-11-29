@@ -4,12 +4,10 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -23,9 +21,6 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,7 +65,6 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                // Start the Signup activity
                 Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
                 startActivityForResult(intent, REQUEST_SIGNUP);
                 finish();
@@ -83,7 +77,6 @@ public class LoginActivity extends AppCompatActivity {
         JSONObject jsonData = new JSONObject();
         try {
             jsonData.put("username", name);
-            //jsonData.put("password", password);
             jsonData.put("password", password);
             jsonData.put("FBToken", FirebaseInstanceId.getInstance().getToken());
         } catch (JSONException e) {
@@ -122,7 +115,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void login() {
         if (!validateInput()) {
-            onLoginFailed(context.getString(R.string.login_failed));
+            onLoginFailed("");
             return;
         }
 
@@ -146,6 +139,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void onLoginSuccess() {
         Intent intent = new Intent(this, PepperListActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(intent);
         progressDialog.cancel();
         loginBtn.setEnabled(true);
@@ -155,7 +149,8 @@ public class LoginActivity extends AppCompatActivity {
     public void onLoginFailed(String toastMsg) {
         if(progressDialog!=null)
             progressDialog.cancel();
-        Toast.makeText(getBaseContext(), toastMsg, Toast.LENGTH_LONG).show();
+        if(toastMsg!= "")
+            Toast.makeText(getBaseContext(), toastMsg, Toast.LENGTH_LONG).show();
         loginBtn.setEnabled(true);
     }
 

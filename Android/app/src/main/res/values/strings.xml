@@ -17,11 +17,12 @@
     <string name="exception">Exception</string>
     <string name="pep_id_not_found_in_database">Pepper id does not exist in database</string>
     <string name="failed_to_connect_to_pepper">Failed to connect to pepper</string>
-    <string name="ask_check_failed_could_you_relogin">ASK check failed, Could you re-login?</string>
+    <string name="ask_check_failed_could_you_relogin">Authorization failed, Could you re-login?</string>
     <string name="does_not_exist">Does not exist</string>
+    <string name="default_string">Default String</string>
 
     <!-- Request Auth Activity-->
-    <string name="please_register_your_pepper">Please Register Your Pepper</string>
+    <string name="request_pepper_authorization">Request Pepper Authorization</string>
     <string name="pepper_id">Pepper ID</string>
     <string name="register">Register</string>
     <string name="request_sent">Request sent</string>
@@ -45,7 +46,7 @@
     <!-- Signup Activity -->
     <string name="signup_failed">Signup failed</string>
     <string name="at_least_3_characters">"at least 3 characters"</string>
-    <string name="enter_a_valid_email_address">enter a valid email address</string>
+    <string name="enter_a_valid_email">enter a valid email</string>
     <string name="password_do_not_match">"Password Do not match"</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>

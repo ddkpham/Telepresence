@@ -50,7 +50,6 @@ public class RequestGameActivity extends AppCompatActivity implements View.OnCli
         wordEdit = (EditText) findViewById(R.id.word_edit);
         sendBtn = (Button) findViewById(R.id.sendBtn);
         sendBtn.setOnClickListener(this);
-
     }
 
     @Override
@@ -103,6 +102,7 @@ public class RequestGameActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(RequestGameActivity.this, MenuActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
                 finish();
             }

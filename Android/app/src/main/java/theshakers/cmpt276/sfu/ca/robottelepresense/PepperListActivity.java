@@ -215,6 +215,7 @@ public class PepperListActivity extends Activity implements View.OnClickListener
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.clear().commit();
                 Intent intent = new Intent(PepperListActivity.this, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
                 finish();
             }

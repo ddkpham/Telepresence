@@ -127,6 +127,7 @@ public class RequestAuthActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(RequestAuthActivity.this, PepperListActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
                 finish();
             }

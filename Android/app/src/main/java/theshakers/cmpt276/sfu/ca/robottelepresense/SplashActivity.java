@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
+// This SplashActivity shows the logo and team name when user starts the app
 public class SplashActivity extends AppCompatActivity {
 
     @Override

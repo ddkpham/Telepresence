@@ -9,7 +9,7 @@
     <TextView
         android:textColor="@color/green"
         android:textSize="18dp"
-        android:text="@string/please_register_your_pepper"
+        android:text="@string/request_pepper_authorization"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
