@@ -2,16 +2,56 @@
 import json
 import urlparse
 import os
+import urllib2
+import hashlib
+
 
 class MyClass(GeneratedClass):
     def __init__(self):
         GeneratedClass.__init__(self)
+        self.tts = ALProxy('ALTextToSpeech')
+        self.dialog = ALProxy('ALDialog')
+        self.memory = ALProxy('ALMemory')
+        self.pckman = ALProxy('PackageManager')
+        self.last_output = ""
+        self.last_valid_output = ""
+
+        def generatePSK(self):
+           letters = string.ascii_lowercase
+           return ''.join(random.choice(letters) for i in range(15))
+
+        def hashPSK(self, psk):
+            salt = 'HcU8jhcPFG'
+            psk = psk + salt
+            hashed_psk = hashlib.sha256(psk).hexdigest()
+            return hashed_psk
+
+
+
+        #get packageinfolist and get name for each package
+        packagelist = self.pckman.packages2()
+        self.logger.debug(packagelist[7])
+        self.packagenames = []
+        for package in packagelist:
+            for item in package:
+                if item[0] == 'elems':
+                    for elems in item:
+                        for elemitem in elems:
+                            if elemitem[0] == 'names':
+                                inneritem = elemitem[1]
+                                for nameselem in inneritem:
+                                    if nameselem[0] == 'en_US':
+                                        self.packagenames.append(nameselem[1])
+        self.logger.debug(self.packagenames)
+        self.memory.insertData('InstalledPackages',self.packagenames)
 
     def onLoad(self):
         #put initialization code here
         pass
 
     def onUnload(self):
+        #server.shutdown
+        #self.server.socket.close()
         #put clean-up code here
         pass
 
@@ -20,74 +60,101 @@ class MyClass(GeneratedClass):
 
         class handleHTTPRequest(BaseHTTPRequestHandler):
 
+
             def do_POST(s):
+                self.logger.info('David')
                 request_path = s.path
                 request_headers = s.headers
                 path = urlparse.urlparse(request_path).path
-                content_length = request_headers.getheaders('content-length')
-                length = int(content_length[0]) if content_length else 0
-                content = s.rfile.read(length)
-                #content = json.dumps(content)
-                self.logger.info(content)
-                content = json.loads(content)
-                #self.logger.info(content['msg'])
-                self.dialog = ALProxy('ALDialog')
-                msg = content['msg']
-                self.logger.info("msg= " + str(msg))
-                self.dialog.forceInput(str(msg))
+                content_length = int(s.headers.getheader('content-length',0))
+                file_content = s.rfile.read(content_length)
+                self.logger.info(file_content)
+                #response = urllib2.Request(answer)
+                if path == '/startgame':
 
-                if path == '/message':
-                    #self.logger.debug("request_headers : %s" % request_headers)
-                    #self.logger.debug("content : %s" % s.rfile.read(length))
-                    self.logger.debug("OUTPUT %s" % content)
+                    self.logger.info(file_content)
+                    game_info = json.loads(file_content)
+                    self.logger.info(game_info)
+                    hint = game_info['hint']
+                    word = game_info['word']
+                    android_username = game_info['android_username']
+                    #save info in ALmemory
+                    self.logger.info('hint = ' + str(hint))
+                    self.memory.raiseEvent("app/incoming_game_request", "1")
+                    self.memory.raiseEvent("app/hangman_android_user", str(android_username))
+                    self.memory.raiseEvent("app/hangman_hint_for_pepper", str(hint))
+                    self.memory.raiseEvent("app/hangman_word_for_pepper", str(word))
+                    #PSK check
                     s.send_response(200)
-                    #s.send_header("Set-Cookie", "foo=bar")
-                    s.send_header()
                     s.end_headers()
-                    s.wfile.write(json.dumps({'received'}))
-                    self.memory = ALProxy('ALMemory')
-                    answer = self.memory.getData("Dialog/Answered")
-                    response = urllib2.Request(answer)
-                elif path == '/photo':
-                    filedata = urllib2.urlopen(request_path)
+                    return (file_content)
+                elif path == '/sendresults':
                     s.send_response(200)
-                    s.send_header()
                     s.end_headers()
-                    datatowrite = filedata.read()
-                    with open(s.grabPath(),'wb') as s:
-                        s.write(datatowrite)
+                    self.logger.info(file_content)
+
+                    result = json.loads(file_content)
+                    self.logger.info(result)
+                    time = result['time_taken']
+                    self.logger.info("time = " + str(time))
+                    lives = result['lives_left']
+                    self.logger.info("lives = " + str(lives))
+
+                    self.memory.raiseEvent("app/hangman_android_finish_status", 'finish')
+                    self.memory.raiseEvent("app/hangman_android_user_time", str(time))
+                    self.memory.raiseEvent("app/hangman_android_user_lives", str(lives))
+                    self.logger.info("successfully raised events and grabbed android input")
+                    return (file_content)
+                elif path =='/pepperanimation':
+                    s.send_response(200)
+                    s.end_headers()
+                    self.logger.info(file_content)
+                    return (file_content)
+                elif path == '/message':
+                    content = json.loads(file_content)
+                    msg = content['msg']
+                    self.logger.info("msg= " + str(msg))
+                    self.memory.insertData("ActualLastMessage",self.memory.getData("Dialog/LastInput"))
+
+                    self.dialog.forceInput(str(msg))
+
+                    response = self.memory.getData("Dialog/Answered")
+                    self.logger.info('Response: ' + str(response))
+
+                    if(self.last_output == response or response == ""):
+                        self.logger.info('Sa')
+                        if(self.last_output != str(msg)):
+                            self.logger.info('Mw')
+                            self.last_output = response
+                            response = "Sorry, I did not understand you."
+                            self.tts.say(response)
+                    else:
+                        self.logger.info('Op')
+                        self.last_output = response
+                        self.last_valid_input = msg
+
+                    self.logger.info('Point A')
+                    self.logger.info(file_content)
+
+                    s.send_response(200)
+                    s.send_header('Content-Type','application/json')
+                    s.end_headers()
+                    s.wfile.write(json.dumps({'res':response}))
+                    self.logger.info('Point B')
+                    return (file_content)
 
 
 
-            def grabPath():
-                #BehvaiorPath BP: grabs the absolute path and normalizes it
-                behaviorPath = os.path.normpath(self.frameManager.getBehaviorPath(self.behaviorId))
-                self.logger.info("behaviour path is "+ behaviorPath)
-                #BP: checks if the directory is valid
-                if os.path.isdir(behaviorPath):
-                    behaviorPath = os.path.join(behaviorPath, "")
-            #BP: creates path PackageManager/apps which we can use to grab part of path that we want
-            #appsFolderFragment = os.path.join("PackageManager", "apps")
-            #Change if we change our behaviour name
-                endOfPath = "behavior_1"
-                if not (endOfPath in behaviorPath):
-                    self.logger.error("behaviour1 is not in behaviorPath")
-                    return None
-            #BP splits path via PackageManager/apps and grabs the second half which is our desired path
-                fragment = behaviorPath.split(endOfPath, 1)[0]
-                self.logger.info("This should be the beggining of the path: " + fragment)
-                fragment = os.path.join(fragment, "html/images")
-                fragment = fragment.split("/")[1]
-                self.logger.info("This is the path that we grabbed: " + fragment)
-                return fragment.lstrip("\\/")
+
+
+        port = 8132
+        self.server = HTTPServer(('10.0.0.3',port),handleHTTPRequest)
+        self.server.serve_forever()
+        #server.shutdown
+       ## self.server.socket.close()
 
 
 
-
-
-        port = 8082
-        server = HTTPServer(('0.0.0.0',port),handleHTTPRequest)
-        server.serve_forever()
 
 
 
@@ -362,6 +429,7 @@ class MyClass(GeneratedClass):
     def __init__(self):
         GeneratedClass.__init__(self)
         self.memory = ALProxy("ALMemory")
+        self.prefmanager = ALProxy("ALPreferenceManager")
 
     def onLoad(self):
         self.isRunning = False
@@ -409,10 +477,21 @@ class MyClass(GeneratedClass):
         if self.isRunning:
             return # already running, nothing to do
         self.isRunning = True
+
         # We create TabletService here in order to avoid
         # problems with connections and disconnections of the tablet during the life of the application
         tabletService = self._getTabletService()
-        appName = self._getAppName()+"/"+self.getParameter("HTML")
+        #Check to see if PepperID is registered
+        #appName = self._getAppName()+"/"+self.getParameter("HTML")
+        pep_id = self.prefmanager.getValue("telepresence.DASK", "pepper_id2")
+        if pep_id is None:
+            self.logger.info("There is no PepperID registered = " + str(pep_id))
+            html = 'register.html'
+        else:
+            self.logger.info("There is a PepperID registerd = " + str(pep_id))
+            html = 'login.html'
+
+        appName = self._getAppName()+"/"+ html
         state = False
         if appName:
             if tabletService:
@@ -485,6 +564,9 @@ class MyClass(GeneratedClass):
         #PepperSecurityKey
         self.memory.raiseEvent("app/pepper_security_key", "42")
 
+        #Deauthorize
+        self.memory.raiseEvent("app/deauth_user", "none")
+
         #CurrentPepperID
         self.memory.raiseEvent("app/current_pepper_id", "salt")
 
@@ -495,6 +577,42 @@ class MyClass(GeneratedClass):
         #request process
         self.memory.raiseEvent("app/auth_username_reply", "accept")
         self.memory.raiseEvent("app/auth_reply", "accept")
+
+        ###################### HANGMAN GAME EVENTS ##############################################
+        #Annoying messages to Android user
+        self.memory.raiseEvent("app/annoy_android", "dance")
+
+        #Incoming game request
+        self.memory.raiseEvent("app/incoming_game_request", "0")
+
+        #Game info to be sent to android
+        #self.memory.raiseEvent("app/hangman_android_hint", "hint")
+        #self.memory.raiseEvent("app/hangman_android_word", "word")
+        self.memory.raiseEvent("app/hangman_android_user", "wall-ee")
+        self.memory.raiseEvent("app/hangman_start_game", "nope")
+
+        #store android_user's game stats
+        self.memory.raiseEvent("app/hangman_android_user_lives" , "none")
+        self.memory.raiseEvent("app/hangman_android_user_time", "none")
+
+        #to track pepper's game info
+        self.memory.raiseEvent("app/hangman_hint_for_pepper", "best song ever")
+        self.memory.raiseEvent("app/hangman_word_for_pepper", "say my name")
+        self.memory.raiseEvent("app/hangman_pepper_lives", "6")
+
+        #Initiate game events!
+        self.memory.raiseEvent("app/hangman_initiate", "start")
+
+        #Check to see whether android game status
+        self.memory.raiseEvent("app/hangman_android_check_status", "none")
+        self.memory.raiseEvent("app/hangman_android_finish_status", "none")
+        #Sends final results
+        self.memory.raiseEvent("app/hangman_android_final_result", "none")
+        #Sends victory status to android
+        self.memory.raiseEvent("app/hangman_victory", "none")
+
+
+
 
 
         self.onStopped()
