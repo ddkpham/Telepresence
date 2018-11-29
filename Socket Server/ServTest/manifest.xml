@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<package version="0.0.0" uuid="servtest-afdae3">
+<package uuid="servtest-afdae3" version="0.0.0">
  <names>
   <name lang="en_US">PepChat</name>
  </names>
@@ -16,16 +16,16 @@
    <permissions/>
   </behaviorContent>
   <dialogContent topicName="PerformAction" typeVersion="1.0">
-   <topic path="PerformAction/PerformAction_enu.top" language="en_US"/>
+   <topic language="en_US" path="PerformAction/PerformAction_enu.top"/>
   </dialogContent>
   <dialogContent topicName="Introduction" typeVersion="1.0">
-   <topic path="Introduction/Introduction_enu.top" language="en_US"/>
+   <topic language="en_US" path="Introduction/Introduction_enu.top"/>
   </dialogContent>
   <dialogContent topicName="Data_Responses" typeVersion="1.0">
-   <topic path="Data_Responses/Data_Responses_enu.top" language="en_US"/>
+   <topic language="en_US" path="Data_Responses/Data_Responses_enu.top"/>
   </dialogContent>
   <dialogContent topicName="Conversation" typeVersion="1.0">
-   <topic path="Conversation/Conversation_enu.top" language="en_US"/>
+   <topic language="en_US" path="Conversation/Conversation_enu.top"/>
   </dialogContent>
  </contents>
 </package>

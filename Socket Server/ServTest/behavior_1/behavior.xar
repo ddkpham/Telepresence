@@ -147,7 +147,7 @@ class MyClass(GeneratedClass):
 
 
 
-        port = 8129
+        port = 8132
         self.server = HTTPServer(('10.0.0.3',port),handleHTTPRequest)
         self.server.serve_forever()
         #server.shutdown
@@ -429,6 +429,7 @@ class MyClass(GeneratedClass):
     def __init__(self):
         GeneratedClass.__init__(self)
         self.memory = ALProxy("ALMemory")
+        self.prefmanager = ALProxy("ALPreferenceManager")
 
     def onLoad(self):
         self.isRunning = False
@@ -476,10 +477,21 @@ class MyClass(GeneratedClass):
         if self.isRunning:
             return # already running, nothing to do
         self.isRunning = True
+
         # We create TabletService here in order to avoid
         # problems with connections and disconnections of the tablet during the life of the application
         tabletService = self._getTabletService()
-        appName = self._getAppName()+"/"+self.getParameter("HTML")
+        #Check to see if PepperID is registered
+        #appName = self._getAppName()+"/"+self.getParameter("HTML")
+        pep_id = self.prefmanager.getValue("telepresence.DASK", "pepper_id2")
+        if pep_id is None:
+            self.logger.info("There is no PepperID registered = " + str(pep_id))
+            html = 'register.html'
+        else:
+            self.logger.info("There is a PepperID registerd = " + str(pep_id))
+            html = 'login.html'
+
+        appName = self._getAppName()+"/"+ html
         state = False
         if appName:
             if tabletService:
