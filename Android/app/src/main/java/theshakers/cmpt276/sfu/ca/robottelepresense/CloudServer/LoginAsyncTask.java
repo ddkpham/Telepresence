@@ -91,11 +91,6 @@ public class LoginAsyncTask extends AsyncTask<JSONObject, Void, String> {
                     edit.putString("email", jsonObject.getString("email"));
                     edit.putString("ASK", jsonObject.getString("ASK"));
                     Log.i(TAG, "ASK: " + jsonObject.getString("ASK"));
-                    //Hash Key
-
-                    String string_to_be_converted_to_MD5 = jsonObject.getString("ASK");
-                    String MD5_Hash_String = hashASKUsingMD5("asdf" + "HcU8jhcPFG");
-                    Log.i(TAG, "MD5 Hash String: " + MD5_Hash_String);
 
                     edit.putString("pepper_list", authorizedPepperJsonArr.toString());
                     edit.putString("request_list", requestedPepperJsonArr.toString());

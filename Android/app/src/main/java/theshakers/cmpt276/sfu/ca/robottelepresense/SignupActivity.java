@@ -20,9 +20,6 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.StringResponseCallback;
@@ -176,7 +173,7 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailText.setError(context.getString(R.string.enter_a_valid_username));
+            emailText.setError(context.getString(R.string.enter_a_valid_email));
             valid = false;
         } else {
             emailText.setError(null);

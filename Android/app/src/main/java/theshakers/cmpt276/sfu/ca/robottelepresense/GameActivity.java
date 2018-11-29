@@ -30,7 +30,7 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.
  * Created by baesubin on 2018-11-07.
  */
 
-// This Activity is for Hangman Game with Pepper
+// This Activity is for playing Hangman Game with Pepper
 public class GameActivity extends AppCompatActivity implements View.OnClickListener{
     private final String TAG = "GameActivity";
     private Context context = null;
@@ -38,9 +38,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private TextView pepperText = null;
     private TextView answerText = null;
     private TextView hintText = null;
-    private TextView resultText = null;
     private Chronometer stopWatch = null;
-    private Button soundToggleBtn = null;
 
     private Button aBtn = null, bBtn = null, cBtn = null, dBtn = null, eBtn = null, fBtn = null, gBtn = null, hBtn = null, iBtn = null,
         jBtn = null, kBtn = null, lBtn = null, mBtn = null, nBtn = null, oBtn = null, pBtn = null, qBtn = null, rBtn = null, sBtn = null,
@@ -86,9 +84,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         pepperText = (TextView) findViewById(R.id.pepper_text);
         answerText = (TextView) findViewById(R.id.answer_text);
         hintText = (TextView) findViewById(R.id.hint_text);
-        resultText = (TextView) findViewById(R.id.result_text);
-        soundToggleBtn = (Button) findViewById(R.id.sound_toggle);
-        soundToggleBtn.setOnClickListener(this);
         stopWatch = (Chronometer) findViewById(R.id.stopwatch);
 
         aBtn = (Button) findViewById(R.id.btnA);
@@ -252,7 +247,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
 
     private void endTheGame(String string) {
         disableAllButtons();
-        resultText.setText(string);
         soundForEndTheGame.start();
         sendGameResultToServer();
         stopWatch.stop();
@@ -396,12 +390,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 checkResult('Z');
                 zBtn.setEnabled(false);
                 break;
-            case R.id.sound_toggle:
-                sendDistractionToPepper("Test");
-                break;
         }
     }
-
 
     private void sendDistractionToPepper(String animation) {
         JSONObject jsonData = new JSONObject();
@@ -461,6 +451,7 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(GameActivity.this, MenuActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
                 finish();
             }
