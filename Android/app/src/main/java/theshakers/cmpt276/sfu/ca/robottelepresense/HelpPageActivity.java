@@ -27,7 +27,6 @@ import theshakers.cmpt276.sfu.ca.robottelepresense.Utility.ExpandableListDataPum
 public class HelpPageActivity extends AppCompatActivity {
     private final String TAG = "HelpPageActivity";
     private Context context  = null;
-    private Button goBackBtn = null;
     private ExpandableListView expandableListView = null;
     private ExpandableListAdapter expandableListAdapter = null;
     private List<String> expandableListTitle = null;
@@ -37,19 +36,12 @@ public class HelpPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_help);
-
         context = this;
 
-        expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
-        goBackBtn = (Button) findViewById(R.id.mainMenu);
+        getSupportActionBar().setTitle(context.getString(R.string.title_help));
+        setContentView(R.layout.activity_help);
 
-        goBackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        expandableListView = (ExpandableListView) findViewById(R.id.expandableListView);
 
         expandableListDataPump = new ExpandableListDataPump(this);
         expandableListDetail = expandableListDataPump.getData();
