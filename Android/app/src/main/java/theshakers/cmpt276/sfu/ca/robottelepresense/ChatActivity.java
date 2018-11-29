@@ -59,6 +59,8 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
         context = this;
 
+        getSupportActionBar().setTitle(context.getString(R.string.title_chat));
+
         permissionList = new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE};
         checkPermission();

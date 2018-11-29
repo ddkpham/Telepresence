@@ -83,7 +83,11 @@
 
     <!-- Help Page Activity -->
     <string name="title_activity_help_page">HelpPageActivity</string>
-    <string name="help_intro">You can have a conversation with Pepper. Here are some messages you can send to Pepper. </string>
+    <string name="main_help_intro">This app allows you to communicate with and control the robot Pepper at a distance</string>
+    <string name="game_help_1">- android should request game first by sending hint and word to start the game</string>
+    <string name="game_help_2">- after pepper accept the request, android can start to play the game</string>
+    <string name="game_help_3">- you can send and receive distractions such as vibration and song while playing the game</string>
+    <string name="chat_help_intro">You can have a conversation with Pepper. Here are some messages you can send to Pepper. </string>
 
     <!-- Request Game Activity -->
     <string name="please_enter_the_word_and_hint_for_pepper_to_start_the_game">Please enter the word and hint for Pepper to start the game</string>

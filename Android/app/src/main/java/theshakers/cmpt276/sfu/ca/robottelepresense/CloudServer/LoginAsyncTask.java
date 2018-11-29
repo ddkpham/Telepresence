@@ -111,28 +111,6 @@ public class LoginAsyncTask extends AsyncTask<JSONObject, Void, String> {
         return returnMsg;
     }
 
-    public String hashASKUsingMD5(String ASK) {
-        try {
-            // Create MD5 Hash
-            MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
-            digest.update(ASK.getBytes());
-            byte messageDigest[] = digest.digest();
-
-            // Create Hex String
-            StringBuffer hexString = new StringBuffer();
-            for (byte aMessageDigest : messageDigest) {
-                String h = Integer.toHexString(0xFF & aMessageDigest);
-                while (h.length() < 2)
-                    h = "0" + h;
-                hexString.append(h);
-            }
-            return hexString.toString();
-        }catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-
     @Override
     protected void onPostExecute(String result) {
         Log.i(TAG, "on PostExecute() result:  " + result);
