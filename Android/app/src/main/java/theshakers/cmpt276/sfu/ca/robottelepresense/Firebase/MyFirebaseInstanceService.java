@@ -69,7 +69,7 @@ public class MyFirebaseInstanceService extends FirebaseMessagingService {
                             song();
                     } else if (path.equals("endgame"))
                         endGame(jsonObject.getString("victory"));
-                } else if (getForegroundActivity().equals("heshakers.cmpt276.sfu.ca.robottelepresense.ChatActivity")) {
+                } else if (getForegroundActivity().equals("theshakers.cmpt276.sfu.ca.robottelepresense.ChatActivity")) {
                     if (path.equals("proactive")) {
                         String msg = jsonObject.getString("msg");
                         showNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
@@ -127,18 +127,15 @@ public class MyFirebaseInstanceService extends FirebaseMessagingService {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
             NotificationChannel notificationChannel = new NotificationChannel(NOTIFICATION_CHANNEL_ID,"Notification",
                     NotificationManager.IMPORTANCE_DEFAULT);
-
             notificationChannel.setDescription("TELE Channel");
             notificationChannel.enableLights(true);
             notificationChannel.setLightColor(Color.BLUE);
             notificationChannel.setVibrationPattern(new long[]{0,1000,500,1000});
             notificationChannel.enableLights(true);
             notificationManager.createNotificationChannel(notificationChannel);
-
         }
 
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this,NOTIFICATION_CHANNEL_ID);
-
         notificationBuilder.setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
@@ -146,7 +143,6 @@ public class MyFirebaseInstanceService extends FirebaseMessagingService {
                 .setContentTitle(title)
                 .setContentText(body)
                 .setContentInfo("Info");
-
         notificationManager.notify(new Random().nextInt(),notificationBuilder.build());
     }
 
