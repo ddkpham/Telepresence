@@ -27,21 +27,17 @@
         <activity android:name=".LoginActivity"></activity>
         <activity android:name=".SignupActivity" />
         <activity android:name=".ChatActivity" />
-        <activity android:name=".HelpPageActivity" >
-        </activity>
+        <activity android:name=".HelpPageActivity" />
         <activity android:name=".MenuActivity" />
         <activity android:name=".RequestAuthActivity" />
         <activity android:name=".PepperListActivity" />
         <activity
             android:name=".GameActivity"
-            android:screenOrientation="landscape" >
-        </activity>
-        <activity android:name=".RequestGameActivity">
-        </activity>
+            android:screenOrientation="landscape" />
+        <activity android:name=".RequestGameActivity"/>
         <activity
             android:name=".GameResultActivity"
-            android:screenOrientation="landscape">
-        </activity>
+            android:screenOrientation="landscape"/>
         <service android:name=".Firebase.MyFirebaseInstanceService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />

@@ -40,7 +40,7 @@
     <string name="login">Login</string>
     <string name="user_does_not_exist">User does not exist</string>
     <string name="pepper_does_not_exist">Pepper does not exist</string>
-    <string name="password_does_not_match">Password does not match</string>
+    <string name="username_or_password_does_not_match">Username or Password does not match</string>
     <string name="could_you_check_your_input_data">Could you check your input data?</string>
 
     <!-- Signup Activity -->
@@ -100,6 +100,9 @@
     <string name="you_are_playing_with">YOU ARE PLAYING WITH </string>
     <string name="word">Word</string>
     <string name="send">Send</string>
+    <string name="pepper_denied_the_request">Pepper denied the request. Do you want to request the game again or exit?</string>
+    <string name="request">Request</string>
+    <string name="exit">Exit</string>
 
     <!-- Game Result Activity -->
     <string name="do_you_want_to_finish_the_game">Do you want to finish the game?</string>

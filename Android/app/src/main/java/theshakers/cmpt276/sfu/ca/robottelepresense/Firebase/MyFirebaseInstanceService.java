@@ -4,18 +4,13 @@ import android.app.ActivityManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.Service;
-import android.app.usage.UsageStats;
-import android.app.usage.UsageStatsManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -27,15 +22,12 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.List;
 import java.util.Random;
-import java.util.SortedMap;
-import java.util.TreeMap;
-
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import theshakers.cmpt276.sfu.ca.robottelepresense.GameActivity;
 import theshakers.cmpt276.sfu.ca.robottelepresense.GameResultActivity;
 import theshakers.cmpt276.sfu.ca.robottelepresense.R;
+import theshakers.cmpt276.sfu.ca.robottelepresense.RequestGameActivity;
 
 //This class is for receiving notification or message from CloudServer using FCM
 public class MyFirebaseInstanceService extends FirebaseMessagingService {
@@ -49,7 +41,6 @@ public class MyFirebaseInstanceService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        //Log.d(TAG,"From: " + remoteMessage.getFrom());
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "remoteMessage " + remoteMessage.getData());
             try {
@@ -59,6 +50,8 @@ public class MyFirebaseInstanceService extends FirebaseMessagingService {
                 if(getForegroundActivity().equals("theshakers.cmpt276.sfu.ca.robottelepresense.RequestGameActivity")) {
                     if (path.equals("acceptgame")) {
                         acceptGame(jsonObject.getString("pepper_username"), jsonObject.getString("hint"), jsonObject.getString("word"));
+                    } else if (path.equals("deny")) {
+                        denyGame();
                     }
                 } else if(getForegroundActivity().equals("theshakers.cmpt276.sfu.ca.robottelepresense.GameActivity")) {
                     if (path.equals("androidanimation")) {
@@ -98,6 +91,16 @@ public class MyFirebaseInstanceService extends FirebaseMessagingService {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_SINGLE_TOP);
         Bundle bundle = new Bundle();
         bundle.putString("victory", victory);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    private void denyGame() {
+        Log.d(TAG, "denied game");
+        Intent intent = new Intent(getApplicationContext(), RequestGameActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("isDenied", true);
         intent.putExtras(bundle);
         startActivity(intent);
     }
