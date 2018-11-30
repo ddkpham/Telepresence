@@ -13,12 +13,7 @@ Java (Android Studio)
 * [Butterknife](http://jakewharton.github.io/butterknife/) - Field and method binding for Android views
 
 ### screenshot 
-![layer 0-8](https://user-images.githubusercontent.com/34588197/48456692-d294f480-e774-11e8-9fe6-8483908d95ca.png)
-![layer 0-10](https://user-images.githubusercontent.com/34588197/48456694-d32d8b00-e774-11e8-8e98-603b4ec23e15.png)
-![layer 0-11](https://user-images.githubusercontent.com/34588197/48456695-d32d8b00-e774-11e8-8a45-784ad2a7eb14.png) 
-![layer 0-12](https://user-images.githubusercontent.com/34588197/48456696-d32d8b00-e774-11e8-96a3-9a2c32bc248a.png)
-![layer 0-13](https://user-images.githubusercontent.com/34588197/48456697-d32d8b00-e774-11e8-8bec-0a46b1468285.png)
-![layer 0-14](https://user-images.githubusercontent.com/34588197/48456698-d32d8b00-e774-11e8-8f0a-8ac685c273c9.png)
+<img width="831" alt="screen shot 2018-11-30 at 6 57 43 am" src="https://user-images.githubusercontent.com/34588197/49296499-4b7e9680-f46d-11e8-949f-a2dba756c2a3.png">
 
 ## Cloud Server
 ### Prerequisites and Installation
