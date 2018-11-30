@@ -5,6 +5,7 @@
     android:orientation="horizontal"
     android:background="#FFE4E1"
     android:padding="10dp"
+    android:gravity="center"
     android:fitsSystemWindows="true">
 
     <LinearLayout
@@ -28,7 +29,6 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
-        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -268,7 +268,7 @@
             android:layout_height="wrap_content">
             <Button
                 android:background="@drawable/bell_btn"
-                android:id="@+id/vibrationBtn"
+                android:id="@+id/danceBtn"
                 android:layout_marginLeft="20dp"
                 android:layout_width="45dp"
                 android:layout_height="45dp" />

@@ -50,6 +50,50 @@ public class RequestGameActivity extends AppCompatActivity implements View.OnCli
         wordEdit = (EditText) findViewById(R.id.word_edit);
         sendBtn = (Button) findViewById(R.id.sendBtn);
         sendBtn.setOnClickListener(this);
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        onNewIntent(getIntent());
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        Log.i(TAG, "onNewIntent ");
+        super.onNewIntent(intent);
+        Bundle bundle = intent.getExtras();
+        if(bundle != null) {
+        Boolean isDenied = bundle.getBoolean("isDenied");
+        Log.i(TAG, "isDenied: " + isDenied);
+        if (isDenied)
+            showDeniedDialog();
+        }
+
+    }
+
+    private void showDeniedDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(RequestGameActivity.this);
+        dialogBuilder.setMessage(context.getString(R.string.pepper_denied_the_request));
+        dialogBuilder.setPositiveButton(context.getString(R.string.request), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                sendBtn.setEnabled(true);
+            }
+        });
+
+        dialogBuilder.setNegativeButton(context.getString(R.string.exit), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(RequestGameActivity.this, MenuActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                finish();
+            }
+        });
+        AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
     }
 
     @Override

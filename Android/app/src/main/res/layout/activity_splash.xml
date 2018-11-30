@@ -7,12 +7,11 @@
     android:background="@color/green"
     tools:context="theshakers.cmpt276.sfu.ca.robottelepresense.SplashActivity">
     <LinearLayout
-        android:paddingTop="56dp"
         android:orientation="vertical"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageView
-            android:layout_marginTop="100dp"
             android:layout_gravity="center"
             android:src="@drawable/logo_white"
             android:layout_width="120dp"

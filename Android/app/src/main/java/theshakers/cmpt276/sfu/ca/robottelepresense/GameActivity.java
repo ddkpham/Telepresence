@@ -41,6 +41,8 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
     private TextView answerText = null;
     private TextView hintText = null;
     private Chronometer stopWatch = null;
+    private Button musicBtn = null;
+    private Button danceBtn = null;
 
     private Button aBtn = null, bBtn = null, cBtn = null, dBtn = null, eBtn = null, fBtn = null, gBtn = null, hBtn = null, iBtn = null,
         jBtn = null, kBtn = null, lBtn = null, mBtn = null, nBtn = null, oBtn = null, pBtn = null, qBtn = null, rBtn = null, sBtn = null,
@@ -73,7 +75,6 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
         hintStr = bundle.getString("hint");
         answerStr = bundle.getString("word");
 
-
         AudioManager audioManager  = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
         switch(audioManager.getRingerMode() ){
             case AudioManager.RINGER_MODE_NORMAL:
@@ -86,18 +87,17 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
 
-        /*
-        // for local test
-        pepperNameStr = "salt";
-        hintStr = "Animal";
-        answerStr = "RABBIT";
-        */
 
         hangImage = (ImageView) findViewById(R.id.hang_img);
         pepperText = (TextView) findViewById(R.id.pepper_text);
         answerText = (TextView) findViewById(R.id.answer_text);
         hintText = (TextView) findViewById(R.id.hint_text);
         stopWatch = (Chronometer) findViewById(R.id.stopwatch);
+
+        musicBtn = (Button) findViewById(R.id.musicBtn);
+        danceBtn = (Button) findViewById(R.id.danceBtn);
+        musicBtn.setOnClickListener(this);
+        danceBtn.setOnClickListener(this);
 
         aBtn = (Button) findViewById(R.id.btnA);
         bBtn = (Button) findViewById(R.id.btnB);
@@ -412,6 +412,12 @@ public class GameActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnZ:
                 checkResult('Z');
                 zBtn.setEnabled(false);
+                break;
+            case R.id.musicBtn:
+                sendDistractionToPepper("music");
+                break;
+            case R.id.danceBtn:
+                sendDistractionToPepper("dance");
                 break;
         }
     }

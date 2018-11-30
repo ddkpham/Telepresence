@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
                         onLoginFailed(context.getString(R.string.could_you_check_your_input_data));
                         break;
                     case "Unauthorized":
-                        onLoginFailed(context.getString(R.string.password_does_not_match));
+                        onLoginFailed(context.getString(R.string.username_or_password_does_not_match));
                         break;
                     case "Internal_Server_Error":
                         onLoginFailed(context.getString(R.string.internal_server_error));
