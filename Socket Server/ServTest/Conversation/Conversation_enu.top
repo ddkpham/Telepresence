@@ -18,5 +18,85 @@ u:(dance for me) ^start(animations/Stand/Gestures/Hey_1) Nice to meet you ^wait(
 proposal: %action would you like to see what kinds of actions that I can do? 
     u1: (~yes) that's great! ^topicTag(PerformAction, random)
     u1: (~no) well you are no fun.
+    
+
+
+u:(e:onStart) 
+%script
+memory = ALProxy('ALMemory')
+
+memory.insertData("TopicToLearn", "")
+memory.insertData("TopicInfo", "")
+%script
+
+u:(say hi) Hello everyone, I am Salt. Please do not use me to make your meals more savory.
+
+u:(goto Login) Please open the Android app and login or sign up if you don't have an account!
+u:(goto AuthReq) Now request to be authorized for me Salt! So you can talk to me!
+u:(goto Chat) Good job so far! Now lets go to the chat view so you can message me!
+
+u:(Let me teach you about _*) Okay, what about $1 ? $TopicToLearn=$1
+    u1:(I don't know) Okay, that is too bad.
+    u1:(_*) Thanks for telling me $1 I will never forget this. $TopicInfo=$1 
+%script
+memory = ALProxy('ALMemory')
+prefmanager = ALProxy('ALPreferenceManager')
+
+TTL = ALMemory.getData('TopicToLearn')
+#print ("TTL = " + TTL)
+TInfo = ALMemory.getData("TopicInfo")
+#print ("TI = " + TInfo)
+
+tmp = ''
+for letter in TTL:
+#    print ('letter = ' + letter)
+    if letter.isalpha():
+        tmp += letter
+
+#print ('tmp = ' + tmp)
+prefmanager.setValue('TelePres',tmp,TInfo)
+%script
+
+u:(What do you know about _*) $TopicQuery=$1
+%script
+memory = ALProxy('ALMemory')
+prefmanager = ALProxy('ALPreferenceManager')
+
+TQ = memory.getData("TopicQuery")
+
+tmp = ''
+for letter in TQ:
+#    print ('letter = ' + letter)
+    if letter.isalpha():
+        tmp += letter
+
+value = prefmanager.getValue('TelePres',tmp)
+
+if value is None: 
+    print("Sorry I do not know anything about " + TQ)
+else: 
+    print value
+%script
+
+u:(Forget everything you have learned) Are you sure?
+    u1:(yes) Sadface
+%script
+prefmanager = ALProxy('ALPreferenceManager')
+prefmanager.removeDomainValues('TelePres')
+%script
+    u1:(no) Okay, phewwww that was a close one.
+
+u:(What have you learned?) 
+%script
+prefmanager = ALProxy('ALPreferenceManager')
+vallist= prefmanager.getValueList('TelePres')
+if vallist == []:
+    print ("I have learned nothing.")
+else:
+    print ("I have learned about ")
+    for val in vallist:
+        print (val[0] + ',')
+
+%script
 
      

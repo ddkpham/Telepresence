@@ -22,7 +22,13 @@ function submit(){
             ALMemory.raiseEvent("app/hangman_start_game", "testing")
             console.log("app/hangman event was raised with word: " + word);
           });
-        window.location.href = "game.html"
+        //window.location.href = "game.html"
+        window.setTimeout(changePage, 5000)   
+
     }
     
+}
+
+function changePage(){
+    window.location.href = 'game.html'
 }

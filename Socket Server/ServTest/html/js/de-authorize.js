@@ -1,101 +1,68 @@
-RobotUtils.onServices(function(ALLeds, ALTextToSpeech) {
-    ALLeds.randomEyes(2.0);
-    ALTextToSpeech.say("At De-Authorization page");
+
+RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
+   
+    ALTextToSpeech.say("At currently_authorized page");
+    ALMemory.raiseEvent("app/currently_authorized_request","request")
     console.log("Connected to services");
+
+
+
   });
 
-  var PepperID = "PepperID : 42424242424242424"
-  function setPep(){
-    console.log("setting header!")
-    var header = document.getElementById("header")
-    header.innerHTML= PepperID
+  RobotUtils.subscribeToALMemoryEvent("app/authorized_users", function(value) {
+    console.log("grabbing currently authorized users")
+    console.log(value)
+    createTable(value);
+    
+});
+
+function createTable(value){
+    console.log("creating table")
+    console.log(typeof value)
+    AuthUsers = JSON.parse(value)
+    console.log(typeof AuthUsers)
+    //console.log(AuthUsers.AuthUsers[0][0])
+    console.log("creating rows")
+    for(var i = 0; i< AuthUsers.AuthUsers.length; i++){
+        //create rows
+        var table = document.getElementById('authTable')
+        var row = table.insertRow(0)
+        var username = row.insertCell(0);
+        var email = row.insertCell(1);
+        var button = row.insertCell(2);
+
+        //create buttons
+        var unfriendBtn = document.createElement("BUTTON")
+        unfriendBtn.className="button2"
+        unfriendBtn.id = AuthUsers.AuthUsers[i][0];
+        unfriendBtn.onclick = function(){
+            unfriend_id = this.id
+            console.log("username = " + unfriend_id)
+            unfriend(unfriend_id)
+        }
+        button.appendChild(unfriendBtn)
+
+        unfriendBtn.innerHTML = 'UNFRIEND'
+        username.innerHTML = AuthUsers.AuthUsers[i][0] + "  "
+        email.innerHTML = AuthUsers.AuthUsers[i][1] + "  "
+    }
+    createheaders();
+    
 }
 
-
-
-var jsonTest = [
-    {
-      username:"ddkpham",
-      email: "ddkpham@gmail.com"
-    },
-    {
-      username:"fionaR",
-      email:"fionacroome@gmail.com"
-    },
-    {
-        username: "Johnny",
-        email:"Jpop@gmail.com"
-    }
-]
-  var authorize=["ddkpham", "ddkpham@gmail.com"]
-  var headers = ["username", "email", "request response"]
-
-  var authUsers = {
-    "AuthUsers": [
-      [
-        "admin",
-        "admin@example.com"
-      ],
-      [
-        "admin2",
-        "admin@example.com"
-      ]
-    ]
-  }
-  console.log(authUsers)
-  console.log(authUsers)
-  console.log(authUsers.AuthUsers.length)
-  //console.log(jsonTest[1].username)
-  function createTable() {
-    setPep();
-    for(var i=0; i< authUsers.AuthUsers.length; i++ ){
-      //create row
-      var table = document.getElementById("deauthTable");
-      var row = table.insertRow(0);
-      var username = row.insertCell(0);
-      var email = row.insertCell(1);
-      var deny = row.insertCell(2);
-      //create buttons
-      var denyBtn = document.createElement("BUTTON")
-      denyBtn.className="button2"
-      //set attributes
-      denyBtn.innerHTML = "UNFRIEND"
-      denyBtn.id = String(authUsers.AuthUsers[i][0])
-      denyBtn.onclick = function(){
-        alert("unfriended!")
-        username = String(this.id)
-        RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
-        ALMemory.raiseEvent("app/deauth_user", username)
-        ALTextToSpeech.say("Good riddance!");
-        console.log("Connected to services");
-    });
-      };
-      deny.appendChild(denyBtn)
-      //set text for username // email
-      username_text = authUsers.AuthUsers[i][0] + "    "
-      email_text = authUsers.AuthUsers[i][1] + "    "
-      username.innerHTML = username_text;
-      email.innerHTML = email_text;
-
-  }
-    //Create headers
-    createheaders();
-
-  }
-  //handles unfriending request 
-  function unfriend() {
-    alert("unfriended!")
+function unfriend(username){
     RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
-      ALMemory.raiseEvent("app/deauth_user", "test")
-      ALTextToSpeech.say("Good riddance!");
-      console.log(index)
-      console.log("Connected to services");
-    });
-  }
-
-  function createheaders() {
+   
+        ALTextToSpeech.say("Unfriending!");
+        ALMemory.raiseEvent("app/deauth_user", username)
+        console.log("Connected to services");
+        //reset page
+        window.location.reload()
+      });
+}
+function createheaders() {
     console.log("in create header")
-    var table = document.getElementById("deauthTable");
+    var table = document.getElementById("authTable");
     var row = table.insertRow(0);
     var username = row.insertCell(0);
     var email = row.insertCell(1);

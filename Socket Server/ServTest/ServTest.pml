@@ -9,6 +9,7 @@
         <Dialog name="Introduction" src="Introduction/Introduction.dlg" />
         <Dialog name="Data_Responses" src="Data_Responses/Data_Responses.dlg" />
         <Dialog name="Conversation" src="Conversation/Conversation.dlg" />
+        <Dialog name="Game_Animation" src="Game_Animation/Game_Animation.dlg" />
     </Dialogs>
     <Resources>
         <File name="johnmayer" src="johnmayer.wav" />
@@ -20,7 +21,6 @@
         <File name="index" src="DisplayImage/html/index.html" />
         <File name="manifest" src="DisplayImage/manifest.xml" />
         <File name="authorize" src="html/authorize.html" />
-        <File name="currently_authorized" src="html/currently_authorized.html" />
         <File name="de-authorize" src="html/de-authorize.html" />
         <File name="index" src="html/index.html" />
         <File name="login" src="html/login.html" />
@@ -500,6 +500,19 @@
         <File name="hang6" src="html/images/hang6.png" />
         <File name="hang7" src="html/images/hang7.png" />
         <File name="man" src="html/images/man.png" />
+        <File name="current_test" src="html/current_test.html" />
+        <File name="pephang1" src="html/images/pephang1.png" />
+        <File name="pephang2" src="html/images/pephang2.png" />
+        <File name="pephang3" src="html/images/pephang3.png" />
+        <File name="pephang4" src="html/images/pephang4.png" />
+        <File name="pephang5" src="html/images/pephang5.png" />
+        <File name="pephang6" src="html/images/pephang6.png" />
+        <File name="current_test" src="html/js/current_test.js" />
+        <File name="photo" src="html/js/photo.js" />
+        <File name="photo" src="html/photo.html" />
+        <File name="ticktock" src="ticktock.mp3" />
+        <File name="deathwoo" src="deathwoo.wav" />
+        <File name="elephant" src="behavior_1/elephant.ogg" />
     </Resources>
     <Topics>
         <Topic name="PerformAction_enu" src="PerformAction/PerformAction_enu.top" topicName="PerformAction" language="en_US" />
@@ -510,37 +523,38 @@
         <Topic name="Data_Responses_enu" src="ServTest/Data_Responses/Data_Responses_enu.top" topicName="Data_Responses" language="en_US" />
         <Topic name="Conversation_enu" src="ServTest/ServTest/Conversation/Conversation_enu.top" topicName="Conversation" language="en_US" />
         <Topic name="Data_Responses_enu" src="ServTest/ServTest/Data_Responses/Data_Responses_enu.top" topicName="Data_Responses" language="en_US" />
+        <Topic name="Game_Animation_enu" src="Game_Animation/Game_Animation_enu.top" topicName="Game_Animation" language="en_US" />
     </Topics>
     <IgnoredPaths>
-        <Path src="johnmayer.wav" />
-        <Path src="ServTest/behavior_1/behavior.xar" />
         <Path src="ServTest/Introduction/Introduction_enu.top" />
-        <Path src="DisplayImage/behavior_1/behavior.xar" />
-        <Path src="ServTest/translations/translation_en_US.ts" />
-        <Path src="ServTest/PerformAction" />
-        <Path src="PerformAction/PerformAction_enu.top" />
-        <Path src="Introduction/Introduction.dlg" />
-        <Path src="Introduction/Introduction_enu.top" />
-        <Path src="ServTest/brickhouse.wav" />
-        <Path src="ServTest/johnmayer.wav" />
-        <Path src="Introduction" />
-        <Path src="ServTest/Introduction" />
-        <Path src="Flask-1.0.2/tests/test_apps/.flaskenv" />
-        <Path src="behavior_1/behavior.xar" />
-        <Path src="brickhouse.wav" />
-        <Path src="DisplayImage/translations/translation_en_US.ts" />
-        <Path src="translations/translation_en_US.ts" />
-        <Path src="ServTest/PerformAction/PerformAction.dlg" />
         <Path src="lovesong.wav" />
-        <Path src="Flask-1.0.2/examples/tutorial/.gitignore" />
-        <Path src="ServTest/PerformAction/PerformAction_enu.top" />
-        <Path src="PerformAction" />
-        <Path src="PerformAction/PerformAction.dlg" />
-        <Path src="ServTest/lovesong.wav" />
-        <Path src="ServTest/Introduction/Introduction.dlg" />
-        <Path src="Flask-1.0.2/examples/javascript/.gitignore" />
-        <Path src="ServTest/Conversation/Conversation.dlg" />
+        <Path src="DisplayImage/behavior_1/behavior.xar" />
+        <Path src="ServTest/PerformAction/PerformAction.dlg" />
+        <Path src="Flask-1.0.2/tests/test_apps/.flaskenv" />
         <Path src="ServTest/Data_Responses/Data_Responses.dlg" />
+        <Path src="ServTest/PerformAction" />
+        <Path src="ServTest/translations/translation_en_US.ts" />
+        <Path src="Flask-1.0.2/examples/tutorial/.gitignore" />
+        <Path src="ServTest/behavior_1/behavior.xar" />
+        <Path src="DisplayImage/translations/translation_en_US.ts" />
+        <Path src="ServTest/Introduction/Introduction.dlg" />
+        <Path src="ServTest/PerformAction/PerformAction_enu.top" />
+        <Path src="Introduction/Introduction.dlg" />
+        <Path src="ServTest/brickhouse.wav" />
+        <Path src="PerformAction/PerformAction.dlg" />
+        <Path src="ServTest/johnmayer.wav" />
+        <Path src="ServTest/Conversation/Conversation.dlg" />
+        <Path src="behavior_1/behavior.xar" />
+        <Path src="PerformAction/PerformAction_enu.top" />
+        <Path src="PerformAction" />
+        <Path src="brickhouse.wav" />
+        <Path src="Introduction/Introduction_enu.top" />
+        <Path src="translations/translation_en_US.ts" />
+        <Path src="Flask-1.0.2/examples/javascript/.gitignore" />
+        <Path src="ServTest/Introduction" />
+        <Path src="johnmayer.wav" />
+        <Path src="Introduction" />
+        <Path src="ServTest/lovesong.wav" />
     </IgnoredPaths>
     <Translations auto-fill="en_US">
         <Translation name="translation_en_US" src="translations/translation_en_US.ts" language="en_US" />

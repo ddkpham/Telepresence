@@ -1,0 +1,10 @@
+topic: ~Game_Animation()
+language: enu
+
+u:(game_dance) $discoAction = 1
+u:(game_headbang) $headbang = 1
+u:(game_elephant) $elephant = 1
+
+u:(game_tick) $ticktock = 1
+u:(game_dwoo) $deathwoo = 1
+u:(game_song) $lovesong = 1

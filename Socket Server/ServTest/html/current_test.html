@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Theme Made By www.w3schools.com - No Copyright -->
   <title>Telepresence</title>
@@ -12,7 +13,7 @@
 <script src="js/jquery.min.js"></script>
 <script src="/libs/qimessaging/2/qimessaging.js"></script>
 <script src="js/robotutils.js"></script>
-<script type="text/javascript" src="js/currently_authorized.js"></script>
+<script type="text/javascript" src="js/de-authorize.js"></script>
 
 
 
@@ -88,11 +89,16 @@
     height:100%;
   }
   table {
+    border-width: 1px;
+   border-style: solid;
+   border-collapse: separate;
+   border-spacing: 15px;
+   width: 400px; 
     margin: 0 auto; /* or margin: 0 auto 0 auto */
   }
   </style>
 </head>
-<body>
+<body onload="createTable()">
 
 <!-- Navbar -->
 <nav class="navbar navbar-default">
@@ -103,13 +109,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="index.html">Home</a>
+      <a class="navbar-brand" href="home.html">Home</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="authorize.html">Auth</a></li>
         <li><a href="de-authorize.html">De-Auth</a></li>
-        <li><a href="authorize.html">Register</a></li>
+        <li><a href="register.html">Register</a></li>
         <li><a href="index.html">Log-Out</a></li>
       </ul>
     </div>
@@ -118,16 +124,16 @@
 
 <!-- First Container -->
 <div class="container-fluid bg-1 text-center">
-  <h3 class="margin">PepperID: XXXXXXXXXXXXXXXXXXXX</h3>
-  <img src="images/pepperbotphoto1.jpg" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="500" height="500">
+  <h3 class="margin" id="header">PepperID: XXXXXXXXXXXXXXXXXXXX</h3>
+  <img src="images/pepper_waving_bye.png" class="img-responsive img-circle margin" style="display:inline" alt="Bird" width="500" height="500">
   <h3>Current Authorized User Page</h3>
 </div>
 
 <!-- Second Container -->
 <div class="container-fluid bg-2 text-center">
   <h3 class="margin"> Pepper's authorized Users </h3>
-  <table>
-    <tr>
+  <table id="deauthTable">
+    <!--<tr>
       <th>      Username</th>
       <th>      Email</th>
       <th></th>
@@ -152,6 +158,16 @@
       <td>Alfreds Futterkiste@gmail.com</td>
       <td><a href="#" class="button2">Unfriend</a></td>
     </tr>
+    <tr>
+      <td>Laughing Bacchus Winecellars</td>
+      <td>Alfreds Futterkiste@gmail.com</td>
+      <td><a href="#" class="button2">Unfriend</a></td>
+    </tr>
+    <tr>
+      <td>Magazzini Alimentari Riuniti</td>
+      <td>Alfreds Futterkiste@gmail.com</td>
+      <td><a href="#" class="button2">Unfriend</a></td>
+    </tr>-->
   </table>
 </div>
 

@@ -216,6 +216,11 @@ p{
   background-color: #87A8EE; /* blue */
   color: #ffffff;
 }
+.hidden{
+  background: transparent;
+  border: none !important;
+  font-size:0;
+}
 
 button{
   @include corners (5px);
