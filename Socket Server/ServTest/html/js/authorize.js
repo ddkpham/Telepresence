@@ -9,11 +9,11 @@ console.log("Hello")
 
 var PepperID = "PepperID : Salt"  
 
-  function setPep(){
-      console.log("setting header!")
-      var header = document.getElementById("header")
-      header.innerHTML= PepperID
-  }
+function setPep(){
+    console.log("setting header!")
+    var header = document.getElementById("header")
+    header.innerHTML= PepperID
+}
 
   console.log(test.AuthReqs[1][0])
   console.log(test.AuthReqs.length)
@@ -119,6 +119,7 @@ function denyRequest(pusername){
       });
 }
 
+
 function createheaders() {
     console.log("in create header")
     var table = document.getElementById("authTable");
@@ -127,7 +128,6 @@ function createheaders() {
     var email = row.insertCell(1);
     var accept = row.insertCell(2);
     var deny = row.insertCell(3);
-
     username.innerHTML= "USERNAME"
     email.innerHTML = "EMAIL"
     accept.innerHTML = "ACCEPT"

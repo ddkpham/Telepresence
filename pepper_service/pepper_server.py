@@ -43,6 +43,56 @@ class handleHTTPRequest(BaseHTTPRequestHandler):
 
 	
 
+	# Sprint 3
+	#ON SUCCESS: 200
+	#ON FAILURE: 500 INTERNAL ERROR, 409 DATA IS WRONG
+	@staticmethod
+	def send_accept(word,hint,username,pepper_username):
+		try:
+			# url = "http://python-server-221001.appspot.com/acceptgame"
+			url= 'http://10.0.0.4:8080/startgame'
+			data = {'word':word, 'hint':hint, 'android_username': username,'pepper_username':pepper_username}
+			data = json.dumps(data)
+			req = urllib2.Request(url,data,{'Content-Type': 'application/json'})
+			response = urllib2.urlopen(req)
+			html = response.read()
+			# return html
+		except urllib2.HTTPError, e:
+			return str(e.code)
+			
+	#ON SUCCESS: 200
+	#ON FAILURE: 500 INTERNAL ERROR, 409 DATA IS WRONG
+	@staticmethod
+	def send_android_animation(animation,android_username):
+		### complete it
+		try:
+			# url = 'http://python-server-221001.appspot.com/androidanimation'
+			url= 'http://10.0.0.4:8080/pepperanimation'
+			data = 	{'animation':animation, 'android_username': android_username}
+			data = json.dumps(data)
+			req = urllib2.Request(url,data,{'Content-Type': 'application/json'})
+			response = urllib2.urlopen(req)
+			html =response.read()
+			# return html
+		except urllib2.HTTPError, e:
+			return str(e.code)
+
+	#ON SUCCESS: 200
+	#ON FAILURE: 500 INTERNAL ERROR, 409 DATA IS WRONG
+	@staticmethod		
+	def send_endgame(victory,android_username):
+		try: 
+			# url = 'http://python-server-221001.appspot.com/endgame'
+			url= 'http://10.0.0.4:8080/sendresults'
+			data = {'victory':victory,'android_username':android_username}
+			data = json.dumps(data)
+			req = urllib2.Request(url,data,{'Content-Type':'application/json'})
+			response = urllib2.urlopen(req)
+			html = response.read()
+			# return html
+		except urllib2.HTTPError, e:
+			return str(e.code)
+
 		# Pepper to cloud post requests
 		# not WORKING 
 		# ON SUCCESS: returns nothing
@@ -72,6 +122,7 @@ class handleHTTPRequest(BaseHTTPRequestHandler):
 
 	#test = deAuth('admin', 'bob')
 	#deAuthResponseProcess(test)
+	
 		#WORKING 
 		#RETURN TYPE: JSON 
 		# ON SUCCESS: RETURNS ASK.  Doesn't allow to enter the same email and username twice. 
@@ -215,6 +266,7 @@ class handleHTTPRequest(BaseHTTPRequestHandler):
 			return html
 		except urllib2.HTTPError, e:
 			return str(e.code)
+
 	@staticmethod
 	def getAuthRequestsResponseProcess(server_response):
 		if isinstance(server_response, str):

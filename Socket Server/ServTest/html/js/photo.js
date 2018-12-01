@@ -5,7 +5,7 @@ RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
     console.log("Connected to services");
   });
 
-//Set photo to tablet 
+//Sets photo on  tablet 
 RobotUtils.subscribeToALMemoryEvent("photo", function(value) {
     console.log("grabbing photo")
     console.log(value);
@@ -14,7 +14,7 @@ RobotUtils.subscribeToALMemoryEvent("photo", function(value) {
     //create blob object
     var blob = new Blob([decoded_string],  {type: 'image/png'});
     console.log(blob);
-
+    //open file and read as stream
     var fr = new FileReader()
     fr.onload = function ( oFREvent ) {
         document.getElementById("photo").src = "data:image/png;base64," + btoa(oFREvent.target.result);

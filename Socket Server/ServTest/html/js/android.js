@@ -2,6 +2,7 @@ window.onload = function(){
     console.log("android user info page")
 
 }
+
 function submit(){
     console.log("submitted")
     var form = document.getElementById("form")

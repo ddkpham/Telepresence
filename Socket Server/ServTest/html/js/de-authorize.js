@@ -1,21 +1,19 @@
-
+//Send a request to telepresence service for currently authorized users
 RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
-   
     ALTextToSpeech.say("At currently_authorized page");
     ALMemory.raiseEvent("app/currently_authorized_request","request")
     console.log("Connected to services");
-
-
-
   });
 
-  RobotUtils.subscribeToALMemoryEvent("app/authorized_users", function(value) {
+  //Waits for response from Cloud Server
+RobotUtils.subscribeToALMemoryEvent("app/authorized_users", function(value) {
     console.log("grabbing currently authorized users")
     console.log(value)
     createTable(value);
     
 });
 
+//Creates table for authorized users 
 function createTable(value){
     console.log("creating table")
     console.log(typeof value)
@@ -31,7 +29,7 @@ function createTable(value){
         var email = row.insertCell(1);
         var button = row.insertCell(2);
 
-        //create buttons
+        //create buttons and attach to Table DOM
         var unfriendBtn = document.createElement("BUTTON")
         unfriendBtn.className="button2"
         unfriendBtn.id = AuthUsers.AuthUsers[i][0];
@@ -50,6 +48,7 @@ function createTable(value){
     
 }
 
+//Send unfriend request
 function unfriend(username){
     RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
    
@@ -60,6 +59,8 @@ function unfriend(username){
         window.location.reload()
       });
 }
+
+//Create Headers for table 
 function createheaders() {
     console.log("in create header")
     var table = document.getElementById("authTable");

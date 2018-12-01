@@ -1,10 +1,14 @@
+//THIS IS AN INCOMPLETE JS FILE 
+
+
 RobotUtils.onServices(function(ALLeds, ALTextToSpeech) {
     ALLeds.randomEyes(2.0);
     ALTextToSpeech.say("At De-Authorization page");
     console.log("Connected to services");
   });
 
-  var PepperID = "PepperID : 42424242424242424"
+  var PepperID = "PepperID : SALT"
+
   function setPep(){
     console.log("setting header!")
     var header = document.getElementById("header")
@@ -46,6 +50,8 @@ var jsonTest = [
   console.log(authUsers)
   console.log(authUsers.AuthUsers.length)
   //console.log(jsonTest[1].username)
+
+  //Creates authorization table 
   function createTable() {
     setPep();
     for(var i=0; i< authUsers.AuthUsers.length; i++ ){

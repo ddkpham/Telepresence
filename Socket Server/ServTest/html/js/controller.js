@@ -1,5 +1,6 @@
 window.onload = function () {
 
+
     var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
           'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
           't', 'u', 'v', 'w', 'x', 'y', 'z'];
@@ -8,15 +9,15 @@ window.onload = function () {
     var word ;              // Selected word
     var guess ;             // Geuss
     var geusses = [ ];      // Stored geusses
-    var space;
+    var space;              //number of spaces in word
     numOfCorrectGuesses = 0; // Count correct geusses               
-    numOfIncorrectGuesses = 0; 
-    var androidHint;
-    var hint;
+    numOfIncorrectGuesses = 0; //Count incorrect guesses
+    var androidHint;          //preprocessed androidhint
+    var hint;                 //processed hint
     var lives = 6;
     var android_username;
     pepper_time = 0;
-    startTime = new Date();
+    startTime = new Date();   //start time - compute total time elapsed
     stillPlaying = 'true';
 
     // Get elements
@@ -76,7 +77,7 @@ window.onload = function () {
       }
     }
 
-
+    //pepper says sad things :(
     var pepper_sad_remark = function(){
       //make pepper say something sad
       console.log("sad remark")
@@ -113,6 +114,7 @@ window.onload = function () {
       
     }
 
+    //Pepper says something when you get a correct answer!
     var pepper_happy_remark = function(){
       //make pepper say something happy
       console.log("happy remark")
@@ -265,14 +267,13 @@ window.onload = function () {
       }
     }
 
+    //Displays home button after pepper finishes hangman game
     var displayHomeBtn = function (){
       console.log("creating button!")
       var button = document.getElementById('home')
       
       button.classList.remove("hidden")
       //button.setAttribute('class', 'play_again')
-
-      
     }
 
     function changePage(){
@@ -380,12 +381,11 @@ window.onload = function () {
         word = word.replace(/\s/g, "-");
         word = word.toLowerCase(word)
         buttons();
-        //set initial values
+        //set game values to start
         numOfIncorrectGuesses = 0;
         numOfCorrectGuesses = 0;
         lives = 6;
         drawHangman();
-        //hard coded for now
         androidHint = hint
         showClue.innerHTML = "HINT:  " + androidHint;
         geusses = [ ];
@@ -400,23 +400,20 @@ window.onload = function () {
   
     start();  //starts the hangman game 
     
-    // // Hint
-  
-    //   hint.onclick = function() {
-    //   //alert("HINT")
-    //   showClue.innerHTML = "HINT:  " + androidHint;
-    // };
+   
   
 
-     // Reset
+     // takes user back to home page once game ends
     document.getElementById('home').onclick = function(){
       window.setTimeout(changePage, 1000)  
     };
 
+    //change to home page
     function changePage(){
       window.location.href = 'home.html'
 
     }
+
     //clears discription when game is over
     var clear_display = function (){
       correct.parentNode.removeChild(correct);
@@ -424,7 +421,7 @@ window.onload = function () {
       showClue.innerHTML = "";
     }
 
-    //restarts game 
+    //restarts game TESTING PURPOSES 
     var restart = function(){
       correct.parentNode.removeChild(correct);
       letters.parentNode.removeChild(letters);
