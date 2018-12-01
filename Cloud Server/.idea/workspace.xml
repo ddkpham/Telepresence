@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7da67c9f-891b-4cf9-8460-7043f962e7eb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="7da67c9f-891b-4cf9-8460-7043f962e7eb" name="Default Changelist" comment="Refactor for sprint 3 submission&#10;&#10;-Local_ip requests changed to relay_ip&#10;-User password hashing is active&#10;-Credentials changed to use Gcloud defaults&#10;&#10;-                ^_^">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Socket Server/ServTest/ServTest.pml" beforeDir="false" afterPath="$PROJECT_DIR$/../Socket Server/ServTest/ServTest.pml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Socket Server/ServTest/behavior_1/behavior.xar" beforeDir="false" afterPath="$PROJECT_DIR$/../Socket Server/ServTest/behavior_1/behavior.xar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Socket Server/ServTest/manifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Socket Server/ServTest/manifest.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -137,7 +139,7 @@
     <session id="-912024399">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="11" />
+          <entry key="project.closed" value="12" />
           <entry key="project.open.time.11" value="1" />
           <entry key="project.open.time.12" value="1" />
           <entry key="project.open.time.16" value="1" />
@@ -146,25 +148,25 @@
           <entry key="project.open.time.20" value="2" />
           <entry key="project.open.time.22" value="1" />
           <entry key="project.open.time.23" value="1" />
-          <entry key="project.open.time.24" value="2" />
+          <entry key="project.open.time.24" value="3" />
           <entry key="project.open.time.29" value="1" />
           <entry key="project.open.time.30" value="1" />
           <entry key="project.open.time.34" value="1" />
           <entry key="project.open.time.41" value="1" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="16" />
+          <entry key="project.opened" value="17" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="15981" />
-          <entry key="txt" value="1072" />
+          <entry key="py" value="17342" />
+          <entry key="txt" value="1355" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="PLAIN_TEXT" value="1072" />
-          <entry key="Python" value="15981" />
+          <entry key="PLAIN_TEXT" value="1355" />
+          <entry key="Python" value="17342" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -224,12 +226,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-51">
-              <caret line="598" column="32" lean-forward="true" selection-start-line="598" selection-start-column="32" selection-end-line="598" selection-end-column="32" />
+            <state relative-caret-position="-8551">
+              <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
               <folding>
                 <element signature="e#0#51#0" expanded="true" />
-                <marker date="1543358438422" expanded="true" signature="15387:16493" ph="..." />
-                <marker date="1543358438422" expanded="true" signature="25907:26014" ph="..." />
+                <marker date="1543622752228" expanded="true" signature="26141:26144" ph="..." />
               </folding>
             </state>
           </provider>
@@ -238,17 +239,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.yaml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="22" column="70" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="70" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CloudServTester/CloudServTest.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="27" selection-start-line="27" selection-end-line="27" />
+            <state relative-caret-position="238">
+              <caret line="14" selection-start-line="14" selection-end-line="14" />
             </state>
           </provider>
         </entry>
@@ -264,23 +256,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>authreq</find>
-      <find>deauth</find>
-      <find>uname</find>
-      <find>login</find>
-      <find>content</find>
-      <find>message</find>
-      <find>startgame</find>
-      <find>save</find>
-      <find>relay</find>
-      <find>re</find>
-      <find>photo</find>
-      <find>endgame</find>
-      <find>check_sk</find>
-      <find>check_psk</find>
-      <find>et</find>
-      <find>get</find>
-      <find>Use</find>
       <find>UserAuth</find>
       <find>addpepper</find>
       <find>Userauth</find>
@@ -294,6 +269,23 @@
       <find>check psk</find>
       <find>print</find>
       <find>proacti</find>
+      <find>photo</find>
+      <find>getauthus</find>
+      <find>testdb</find>
+      <find>deauth</find>
+      <find>startgame</find>
+      <find>atho_token</find>
+      <find>deny</find>
+      <find>proactive</find>
+      <find>message</find>
+      <find>error</find>
+      <find>pepperanimation</find>
+      <find>getAuthR</find>
+      <find>TEST_BOOL</find>
+      <find>atho</find>
+      <find>local</find>
+      <find>/login</find>
+      <find>adduser</find>
     </findStrings>
     <replaceStrings>
       <replace>h3</replace>
@@ -327,10 +319,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="854" />
-    <option name="height" value="920" />
+    <option name="x" value="793" />
+    <option name="width" value="814" />
+    <option name="height" value="867" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -338,7 +329,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -350,6 +340,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -479,7 +470,7 @@
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.095758356" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.0970437" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -495,7 +486,7 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info active="true" anchor="right" id="Terminal" order="3" visible="true" weight="0.3251928" />
+      <window_info active="true" anchor="right" id="Terminal" order="3" visible="true" weight="0.33226222" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -552,22 +543,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app.yaml">
+    <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="70" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="70" />
+        <state relative-caret-position="-8551">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+          <folding>
+            <element signature="e#0#51#0" expanded="true" />
+            <marker date="1543622752228" expanded="true" signature="26141:26144" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
+    <entry file="file://$PROJECT_DIR$/app.yaml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-51">
-          <caret line="598" column="32" lean-forward="true" selection-start-line="598" selection-start-column="32" selection-end-line="598" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#51#0" expanded="true" />
-            <marker date="1543358438422" expanded="true" signature="15387:16493" ph="..." />
-            <marker date="1543358438422" expanded="true" signature="25907:26014" ph="..." />
-          </folding>
+        <state relative-caret-position="238">
+          <caret line="14" selection-start-line="14" selection-end-line="14" />
         </state>
       </provider>
     </entry>

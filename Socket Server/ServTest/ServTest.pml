@@ -479,6 +479,27 @@
         <File name="test_user_error_handler" src="Flask-1.0.2/tests/test_user_error_handler.py" />
         <File name="test_views" src="Flask-1.0.2/tests/test_views.py" />
         <File name="tox" src="Flask-1.0.2/tox.ini" />
+        <File name="android" src="html/android.html" />
+        <File name="android" src="html/css/android.css" />
+        <File name="main" src="html/css/main.css" />
+        <File name="request" src="html/css/request.css" />
+        <File name="game" src="html/game.html" />
+        <File name="android" src="html/js/android.js" />
+        <File name="controller" src="html/js/controller.js" />
+        <File name="request" src="html/js/request.js" />
+        <File name="request" src="html/request.html" />
+        <File name="android-breakdancing1" src="html/images/android-breakdancing1.jpg" />
+        <File name="android_cheer" src="html/images/android_cheer.png" />
+        <File name="android_guitar" src="html/images/android_guitar.png" />
+        <File name="android_tool" src="html/images/android_tool.png" />
+        <File name="hang1" src="html/images/hang1.png" />
+        <File name="hang2" src="html/images/hang2.png" />
+        <File name="hang3" src="html/images/hang3.png" />
+        <File name="hang4" src="html/images/hang4.png" />
+        <File name="hang5" src="html/images/hang5.png" />
+        <File name="hang6" src="html/images/hang6.png" />
+        <File name="hang7" src="html/images/hang7.png" />
+        <File name="man" src="html/images/man.png" />
     </Resources>
     <Topics>
         <Topic name="PerformAction_enu" src="PerformAction/PerformAction_enu.top" topicName="PerformAction" language="en_US" />
@@ -491,36 +512,37 @@
         <Topic name="Data_Responses_enu" src="ServTest/ServTest/Data_Responses/Data_Responses_enu.top" topicName="Data_Responses" language="en_US" />
     </Topics>
     <IgnoredPaths>
-        <Path src="ServTest/PerformAction/PerformAction.dlg" />
-        <Path src="DisplayImage/behavior_1/behavior.xar" />
-        <Path src="brickhouse.wav" />
-        <Path src="PerformAction/PerformAction.dlg" />
-        <Path src="DisplayImage/translations/translation_en_US.ts" />
-        <Path src="ServTest/Data_Responses/Data_Responses.dlg" />
-        <Path src="Flask-1.0.2/examples/javascript/.gitignore" />
-        <Path src="ServTest/lovesong.wav" />
-        <Path src="lovesong.wav" />
-        <Path src="ServTest/brickhouse.wav" />
-        <Path src="translations/translation_en_US.ts" />
-        <Path src="Flask-1.0.2/tests/test_apps/.env" />
         <Path src="ServTest/Introduction/Introduction_enu.top" />
-        <Path src="behavior_1/behavior.xar" />
-        <Path src="Introduction" />
-        <Path src="PerformAction/PerformAction_enu.top" />
-        <Path src="ServTest/Introduction" />
-        <Path src="ServTest/behavior_1/behavior.xar" />
-        <Path src="Introduction/Introduction_enu.top" />
-        <Path src="ServTest/johnmayer.wav" />
-        <Path src="ServTest/Introduction/Introduction.dlg" />
-        <Path src="Introduction/Introduction.dlg" />
-        <Path src="PerformAction" />
-        <Path src="ServTest/translations/translation_en_US.ts" />
-        <Path src="ServTest/Conversation/Conversation.dlg" />
-        <Path src="johnmayer.wav" />
         <Path src="Flask-1.0.2/examples/tutorial/.gitignore" />
-        <Path src="Flask-1.0.2/tests/test_apps/.flaskenv" />
+        <Path src="DisplayImage/translations/translation_en_US.ts" />
+        <Path src="PerformAction/PerformAction.dlg" />
+        <Path src="brickhouse.wav" />
+        <Path src="ServTest/behavior_1/behavior.xar" />
+        <Path src="johnmayer.wav" />
         <Path src="ServTest/PerformAction/PerformAction_enu.top" />
         <Path src="ServTest/PerformAction" />
+        <Path src="lovesong.wav" />
+        <Path src="ServTest/Introduction/Introduction.dlg" />
+        <Path src="Flask-1.0.2/tests/test_apps/.flaskenv" />
+        <Path src="Introduction/Introduction.dlg" />
+        <Path src="Introduction" />
+        <Path src="ServTest/Conversation/Conversation.dlg" />
+        <Path src="ServTest/translations/translation_en_US.ts" />
+        <Path src="Flask-1.0.2/examples/javascript/.gitignore" />
+        <Path src="ServTest/PerformAction/PerformAction.dlg" />
+        <Path src="ServTest/lovesong.wav" />
+        <Path src="ServTest/brickhouse.wav" />
+        <Path src="PerformAction/PerformAction_enu.top" />
+        <Path src="ServTest/johnmayer.wav" />
+        <Path src="PerformAction" />
+        <Path src="DisplayImage/behavior_1/behavior.xar" />
+        <Path src="Introduction/Introduction_enu.top" />
+        <Path src="behavior_1/behavior.xar" />
+        <Path src="ServTest/Data_Responses/Data_Responses.dlg" />
+        <Path src="Flask-1.0.2/tests/test_apps/.env" />
+        <Path src="ServTest/Introduction" />
+        <Path src="translations/translation_en_US.ts" />
+        <Path src="html/js/currently_authorized.js" />
     </IgnoredPaths>
     <Translations auto-fill="en_US">
         <Translation name="translation_en_US" src="translations/translation_en_US.ts" language="en_US" />

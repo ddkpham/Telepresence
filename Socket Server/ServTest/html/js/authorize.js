@@ -15,42 +15,6 @@ var PepperID = "PepperID : Salt"
       header.innerHTML= PepperID
   }
 
-var jsonTest = [
-    {
-      username:"ddkpham",
-      email: "ddkpham@gmail.com"
-    },
-    {
-      username:"fionaR",
-      email:"fionacroome@gmail.com"
-    },
-    {
-        username: "Johnny",
-        email:"Jpop@gmail.com"
-    }
-]
-
-var test2 = {
-    "AuthReqs": [
-      [
-        "kassym",
-        "kassym@a.c"
-      ],
-      [
-        "paul",
-        "paul@a.com"
-      ],
-      [
-        "salt",
-        "salt@a.z"
-      ],
-      [
-        "testuser",
-        "test@a.b"
-      ]
-    ]
-  }
-
   console.log(test.AuthReqs[1][0])
   console.log(test.AuthReqs.length)
   for (var i = 0; i < test.length; i++){
@@ -67,7 +31,6 @@ var test2 = {
         ALMemory.raiseEvent("app/new_auth_requests", random_string)
         //console.log("app/username event was raised with value: " +username.value);
       });
-      
  } 
 
 

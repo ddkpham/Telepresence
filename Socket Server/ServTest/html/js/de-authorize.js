@@ -60,7 +60,16 @@ var jsonTest = [
       denyBtn.className="button2"
       //set attributes
       denyBtn.innerHTML = "UNFRIEND"
-      denyBtn.onclick = unfriend;
+      denyBtn.id = String(authUsers.AuthUsers[i][0])
+      denyBtn.onclick = function(){
+        alert("unfriended!")
+        username = String(this.id)
+        RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
+        ALMemory.raiseEvent("app/deauth_user", username)
+        ALTextToSpeech.say("Good riddance!");
+        console.log("Connected to services");
+    });
+      };
       deny.appendChild(denyBtn)
       //set text for username // email
       username_text = authUsers.AuthUsers[i][0] + "    "
@@ -76,9 +85,10 @@ var jsonTest = [
   //handles unfriending request 
   function unfriend() {
     alert("unfriended!")
-    RobotUtils.onServices(function(ALLeds, ALTextToSpeech) {
-      ALLeds.randomEyes(2.0);
+    RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
+      ALMemory.raiseEvent("app/deauth_user", "test")
       ALTextToSpeech.say("Good riddance!");
+      console.log(index)
       console.log("Connected to services");
     });
   }

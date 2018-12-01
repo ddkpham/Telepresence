@@ -8,14 +8,20 @@ RobotUtils.onServices(function(ALLeds, ALTextToSpeech) {
     console.log("got into register function!")
     var form = document.getElementById("form");
     var pepperid = form[0].value;
-    console.log("This is the value of " + pepperid)
-
-    RobotUtils.onServices(function(ALMemory, ALTextToSpeech){
-      console.log("raising registration event ")
-      ALMemory.raiseEvent("app/current_pepper_id", pepperid);
-      //ALTextToSpeech.say("Sign up Events have been raised");
-  });
-
+    var username = form[1].value;
+    console.log("This is the value of " + pepperid);
+    if(pepperid == "" || username == ""){
+      alert("Check all the required fields again!")
+    }
+    else{
+      RobotUtils.onServices(function(ALMemory, ALTextToSpeech){
+        console.log("raising registration event ")
+        ALMemory.raiseEvent("app/current_pepper_id", pepperid);
+        ALMemory.raiseEvent("app/username", username);
+        //ALTextToSpeech.say("Sign up Events have been raised");
+      });  
+    }
+    
   }
 
   function sendRegisterRequest(){
