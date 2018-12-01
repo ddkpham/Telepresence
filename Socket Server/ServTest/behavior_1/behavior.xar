@@ -26,7 +26,17 @@ class MyClass(GeneratedClass):
             hashed_psk = hashlib.sha256(psk).hexdigest()
             return hashed_psk
 
+        def check_PSK(key,id):
+            #Find Pepper Entity
+            base_key = self.memory.getData('app/peppersecuritykey')
 
+            next_base_key = hashPSK(base_key)
+
+            if next_cloud_key == key:
+                self.memory.insertData('app/peppersecuritykey',next_base_key)
+                return True
+            else:
+                return False
 
         #get packageinfolist and get name for each package
         packagelist = self.pckman.packages2()
