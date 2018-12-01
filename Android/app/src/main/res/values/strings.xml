@@ -3,8 +3,26 @@
     <!-- App -->
     <string name="app_name">Robot Telepresence</string>
 
+    <!-- General String -->
+    <string name="do_you_really_want_to_exit">Do you really want to exit?</string>
+    <string name="do_you_really_want_to_logout">Do you really want to Logout?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="conflict">Conflict</string>
+    <string name="bad_request">Bad Request</string>
+    <string name="user_not_authorized_for_pep_id">User not authorized for Pepper id</string>
+    <string name="unauthorized">Unauthorized</string>
+    <string name="internal_server_error">Internal Server Error</string>
+    <string name="succeed">Succeed</string>
+    <string name="exception">Exception</string>
+    <string name="pep_id_not_found_in_database">Pepper id does not exist in database</string>
+    <string name="failed_to_connect_to_pepper">Failed to connect to pepper</string>
+    <string name="ask_check_failed_could_you_relogin">Authorization failed, Could you re-login?</string>
+    <string name="does_not_exist">Does not exist</string>
+    <string name="default_string">Default String</string>
+
     <!-- Request Auth Activity-->
-    <string name="please_register_your_pepper">Please Register Your Pepper</string>
+    <string name="request_pepper_authorization">Request Pepper Authorization</string>
     <string name="pepper_id">Pepper ID</string>
     <string name="register">Register</string>
     <string name="request_sent">Request sent</string>
@@ -20,15 +38,15 @@
     <string name="password">Password</string>
     <string name="no_account_yet_create_one">No account yet? Create one</string>
     <string name="login">Login</string>
-    <string name="do_you_really_want_to_exit">Do you really want to exit?</string>
-    <string name="do_you_really_want_to_logout">Do you really want to Logout?</string>
-    <string name="yes">Yes</string>
-    <string name="no">No</string>
+    <string name="user_does_not_exist">User does not exist</string>
+    <string name="pepper_does_not_exist">Pepper does not exist</string>
+    <string name="username_or_password_does_not_match">Username or Password does not match</string>
+    <string name="could_you_check_your_input_data">Could you check your input data?</string>
 
     <!-- Signup Activity -->
     <string name="signup_failed">Signup failed</string>
     <string name="at_least_3_characters">"at least 3 characters"</string>
-    <string name="enter_a_valid_email_address">enter a valid email address</string>
+    <string name="enter_a_valid_email">enter a valid email</string>
     <string name="password_do_not_match">"Password Do not match"</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
@@ -36,6 +54,8 @@
     <string name="reenter_password">Re-enter Password</string>
     <string name="create_account">Create Account</string>
     <string name="already_a_member_login">Already a member? Login</string>
+    <string name="creating_account">Creating Account...</string>
+    <string name="username_or_email_already_used">Username or Email already used</string>
 
     <!-- Menu Activity -->
     <string name="title_chat">Chat Mode</string>
@@ -63,7 +83,29 @@
 
     <!-- Help Page Activity -->
     <string name="title_activity_help_page">HelpPageActivity</string>
-    <string name="help_intro">You can have a conversation with Pepper. Here are some messages you can send to Pepper. </string>
+    <string name="main_help_intro">This app allows you to communicate with and control the robot Pepper at a distance</string>
+    <string name="game_help_1">- android should request game first by sending hint and word to start the game</string>
+    <string name="game_help_2">- after pepper accept the request, android can start to play the game</string>
+    <string name="game_help_3">- you can send and receive distractions such as vibration and song while playing the game</string>
+    <string name="chat_help_intro">You can have a conversation with Pepper. Here are some messages you can send to Pepper. </string>
+
+    <!-- String for Hangman Game -->
+    <string name="are_you_sure_you_want_to_go_back">Are you sure you want to go back?</string>
+    <string name="you_already_sent_game_request_to_pepper">You already sent game request to Pepper. Are you sure you want to cancel the game?</string>
+    <string name="please_enter_the_word_and_hint_for_pepper_to_start_the_game">Please enter the word and hint for Pepper to start the game</string>
+    <string name="waiting_for_the_result_from_pepper">Waiting for the result from Pepper, Please do not exit the Application"</string>
+    <string name="turn_up_the_volume_to_play_the_game_well">Turn up the volume to play the game well</string>
+    <string name="please_wait">Please wait</string>
+    <string name="hint">Hint</string>
+    <string name="you_are_playing_with">YOU ARE PLAYING WITH </string>
+    <string name="word">Word</string>
+    <string name="send">Send</string>
+    <string name="pepper_denied_the_request">Pepper denied the request. Do you want to request the game again or exit?</string>
+    <string name="request">Request</string>
+    <string name="exit">Exit</string>
+
+    <!-- Game Result Activity -->
+    <string name="do_you_want_to_finish_the_game">Do you want to finish the game?</string>
 
     <!-- List Pepper Can Do For Help Page -->
     <string-array name="simple_conversation">

@@ -86,10 +86,9 @@ public class PepperListActivity extends Activity implements View.OnClickListener
         };
 
         authorizedPepperListView.setAdapter(authorizedPepperAdapter);
-        authorizedPepperListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        authorizedPepperListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selected_pepper_id = (String) parent.getItemAtPosition(position);
                 Log.i(TAG, "selected_pepper_id: "+selected_pepper_id);
 
@@ -111,8 +110,6 @@ public class PepperListActivity extends Activity implements View.OnClickListener
 
                 AlertDialog alertDialog = dialogBuilder.create();
                 alertDialog.show();
-
-                return true;
             }
         });
 
@@ -218,6 +215,7 @@ public class PepperListActivity extends Activity implements View.OnClickListener
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.clear().commit();
                 Intent intent = new Intent(PepperListActivity.this, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
                 finish();
             }

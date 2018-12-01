@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -41,6 +43,11 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_signup);
         context = this;
 
@@ -79,7 +86,8 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(SignupActivity.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Creating Account...");
+        progressDialog.setMessage(context.getString(R.string.creating_account));
+
         progressDialog.show();
 
 
@@ -88,7 +96,6 @@ public class SignupActivity extends AppCompatActivity {
         String lastName = lastnameText.getText().toString();
         String email = emailText.getText().toString();
         String password = passwordText.getText().toString();
-        String reEnterPassword = reEnterPasswordText.getText().toString();
 
         sendSignUpRequest(name, firstName, lastName, email, password);
     }
@@ -107,11 +114,14 @@ public class SignupActivity extends AppCompatActivity {
         requestUserAndAuthAsyncTask requestUserAndAuthAsyncTask = new requestUserAndAuthAsyncTask(this, "addUser", new StringResponseCallback() {
             @Override
             public void onResponseReceived(String result) {
-                if(result=="OK"){
+                if(result.equals(context.getString(R.string.succeed))){
                     Toast.makeText(getApplicationContext(), context.getString(R.string.account_is_created), Toast.LENGTH_SHORT).show();
                     onSignupSuccess();
                 } else {
                     progressDialog.cancel();
+                    if(result.equals(context.getString(R.string.pepper_does_not_exist)))
+                        result = context.getString(R.string.username_or_email_already_used);
+                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
                     onSignupFailed();
                 }
             }
@@ -163,7 +173,7 @@ public class SignupActivity extends AppCompatActivity {
         }
 
         if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            emailText.setError(context.getString(R.string.enter_a_valid_username));
+            emailText.setError(context.getString(R.string.enter_a_valid_email));
             valid = false;
         } else {
             emailText.setError(null);

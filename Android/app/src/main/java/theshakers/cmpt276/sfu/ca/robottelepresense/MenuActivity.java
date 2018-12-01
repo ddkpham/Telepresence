@@ -17,7 +17,7 @@ import me.relex.circleindicator.CircleIndicator;
 import theshakers.cmpt276.sfu.ca.robottelepresense.Utility.MenuCardFragment;
 import theshakers.cmpt276.sfu.ca.robottelepresense.Utility.MainActivityPagerAdapter;
 
-// Main activity contains three buttons: Connect button, Photo button, and Help Page button
+// Menu activity allows user to choose Chat Mode, Game Mode, Help Page
 public class MenuActivity extends AppCompatActivity implements MenuCardFragment.OnActionListener {
     private final String TAG = "MenuActivity";
     private Context context = null;
@@ -49,15 +49,21 @@ public class MenuActivity extends AppCompatActivity implements MenuCardFragment.
         switch (id) {
             case MainActivityPagerAdapter.ID_CHAT:
                 intent = new Intent(this, ChatActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
+                finish();
                 break;
             case MainActivityPagerAdapter.ID_HELP_PAGE:
                 intent = new Intent(this, HelpPageActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
+                finish();
                 break;
             case MainActivityPagerAdapter.ID_GAME:
-                intent = new Intent(this, GameActivity.class);
+                intent = new Intent(this, RequestGameActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
+                finish();
 
         }
     }
@@ -81,6 +87,7 @@ public class MenuActivity extends AppCompatActivity implements MenuCardFragment.
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.clear().commit();
                 Intent intent = new Intent(MenuActivity.this, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
                 finish();
             }

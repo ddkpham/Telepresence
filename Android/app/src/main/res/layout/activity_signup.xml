@@ -13,14 +13,13 @@
         android:paddingLeft="24dp"
         android:paddingRight="24dp">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="72dp"
-            android:layout_marginBottom="24dp"
-            android:textColor="@color/black"
-            android:text="@string/app_name"
-            android:textSize="28sp"
-            android:layout_gravity="center_horizontal" />
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="40dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/logo"
+            android:textColor="@color/black" />
 
         <!-- User Name (Unique) Label -->
         <android.support.design.widget.TextInputLayout

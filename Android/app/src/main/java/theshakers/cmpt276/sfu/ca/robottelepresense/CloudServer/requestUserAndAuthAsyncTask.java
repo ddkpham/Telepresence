@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -41,7 +42,6 @@ public class requestUserAndAuthAsyncTask extends AsyncTask<JSONObject, Void, Str
         }
     }
 
-    // Android socket client
     @Override
     protected String doInBackground(JSONObject... params) {
         try {
@@ -56,35 +56,37 @@ public class requestUserAndAuthAsyncTask extends AsyncTask<JSONObject, Void, Str
             Log.i(TAG, "sent message: " + params[0]);
             byte[] buf = jsonData.toString().getBytes();
 
-            DataOutputStream os = new DataOutputStream(conn.getOutputStream());
-            os.writeBytes(jsonData.toString());
+            DataOutputStream dataOutputStream = new DataOutputStream(conn.getOutputStream());
+            dataOutputStream.writeBytes(jsonData.toString());
 
             int status = conn.getResponseCode();
-            Log.i(TAG, "status: "+status+ "HTTP_OK: "+HttpURLConnection.HTTP_OK);
+            Log.i(TAG, "conn.getResponseCode(): "+status);
+            if (status == 400) {
+                returnMsg = context.getString(R.string.bad_request);
+            } else if (status == 406) {
+                returnMsg = context.getString(R.string.does_not_exist);
+            } else if (status == 409) {
+                returnMsg = context.getString(R.string.pepper_does_not_exist);
+            } else if (status == 410) {
+                returnMsg = context.getString(R.string.failed_to_connect_to_pepper);
+            } else if (status == 500) {
+                returnMsg = context.getString(R.string.internal_server_error);
+            } else if (status == 200) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
 
-            BufferedReader in = new BufferedReader( new InputStreamReader(conn.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine);
+                }
+                in.close();
+                returnMsg = context.getString(R.string.succeed);
             }
-            in.close();
-
-            os.flush();
-            os.close();
-
-            Log.i(TAG, "status: "+status+ "HTTP_OK: "+HttpURLConnection.HTTP_OK);
-            if (status == HttpURLConnection.HTTP_OK) {
-                returnMsg = "OK";
-            } else if(status == 409) {
-                returnMsg = "NO";
-            } else {
-                returnMsg = "NO";
-            }
+            dataOutputStream.flush();
+            dataOutputStream.close();
         } catch (Exception e) {
             returnMsg = context.getResources().getString(R.string.error_connection);
-            Log.e(TAG, "SocketException, " + e);
+            Log.e(TAG, "Exception, " + e);
         } finally {
             conn.disconnect();
         }
@@ -94,6 +96,9 @@ public class requestUserAndAuthAsyncTask extends AsyncTask<JSONObject, Void, Str
     @Override
     protected void onPostExecute(String result) {
         Log.i(TAG, "result:  " + result);
+        if(result.equals("")) {
+            result = context.getResources().getString(R.string.error_wrong_attempt);
+        }
         stringResponseCallback.onResponseReceived(result);
     }
 }

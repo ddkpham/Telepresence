@@ -1,7 +1,9 @@
 package theshakers.cmpt276.sfu.ca.robottelepresense;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -14,6 +16,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -29,7 +32,7 @@ import java.util.HashMap;
 import theshakers.cmpt276.sfu.ca.robottelepresense.Model.Author;
 import theshakers.cmpt276.sfu.ca.robottelepresense.Model.Message;
 import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.StringResponseCallback;
-import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.SendAndReceiveJsonAsyncTask;
+import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.SendAndReceiveMsgAsyncTask;
 import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.UploadPhotoAsyncTask;
 
 /**
@@ -55,6 +58,8 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         context = this;
+
+        getSupportActionBar().setTitle(context.getString(R.string.title_chat));
 
         permissionList = new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -97,8 +102,6 @@ public class ChatActivity extends AppCompatActivity {
     private void checkPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, permissionList, REQUEST_PHOTOS_FOR_SENDING_TO_SERVER);
-        } else {
-            // Permission has already been granted
         }
     }
 
@@ -143,7 +146,7 @@ public class ChatActivity extends AppCompatActivity {
         param.put("pep_id", sharedPreferences.getString("selected_pepper_id", ""));
 
         Log.i(TAG, "username: " + sharedPreferences.getString("username", ""));
-        Log.i(TAG, "ASK: " + sharedPreferences.getString("username", ""));
+        Log.i(TAG, "ASK: " + sharedPreferences.getString("ASK", ""));
         Log.i(TAG, "pep_id: " + sharedPreferences.getString("selected_pepper_id", ""));
         new UploadPhotoAsyncTask(this, param, files).execute();
     }
@@ -185,13 +188,44 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void sendAndReceiveJsonFromWebServer(String inputText) {
-        SendAndReceiveJsonAsyncTask sendAndReceiveJsonAsyncTask = new SendAndReceiveJsonAsyncTask(this, new StringResponseCallback() {
+        SendAndReceiveMsgAsyncTask sendAndReceiveMsgAsyncTask = new SendAndReceiveMsgAsyncTask(this, "message", new StringResponseCallback() {
             @Override
             public void onResponseReceived(String result) {
                 addMsgToAdapter("Pepper", result);
             }
         });
-        sendAndReceiveJsonAsyncTask.execute(inputText);
+        sendAndReceiveMsgAsyncTask.execute(inputText);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            showDialog();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void showDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ChatActivity.this);
+        dialogBuilder.setMessage(context.getString(R.string.are_you_sure_you_want_to_go_back));
+        dialogBuilder.setPositiveButton(context.getString(R.string.yes), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(ChatActivity.this, MenuActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        dialogBuilder.setNegativeButton(context.getString(R.string.no), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.show();
     }
 }
 

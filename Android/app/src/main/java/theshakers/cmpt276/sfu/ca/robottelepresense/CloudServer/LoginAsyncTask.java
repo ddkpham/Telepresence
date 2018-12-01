@@ -14,9 +14,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import theshakers.cmpt276.sfu.ca.robottelepresense.App;
-import theshakers.cmpt276.sfu.ca.robottelepresense.R;
 import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.StringResponseCallback;
 
 /**
@@ -43,7 +44,6 @@ public class LoginAsyncTask extends AsyncTask<JSONObject, Void, String> {
         }
     }
 
-    // Android socket client
     @Override
     protected String doInBackground(JSONObject... params) {
         try {
@@ -56,53 +56,55 @@ public class LoginAsyncTask extends AsyncTask<JSONObject, Void, String> {
 
             JSONObject jsonData = params[0];
             Log.i(TAG, "sent message: " + params[0]);
-            byte[] buf = jsonData.toString().getBytes();
+            //byte[] buf = jsonData.toString().getBytes();
 
-            DataOutputStream os = new DataOutputStream(conn.getOutputStream());
-            os.writeBytes(jsonData.toString());
+            DataOutputStream dataOutputStream = new DataOutputStream(conn.getOutputStream());
+            dataOutputStream.writeBytes(jsonData.toString());
 
             int status = conn.getResponseCode();
-            Log.i(TAG, "status: "+status+ "HTTP_OK: "+HttpURLConnection.HTTP_OK);
-            if(status == 409) {
-                returnMsg = "ACCOUNT_ERROR";
-                return returnMsg;
+            Log.i(TAG, "conn.getResponseCode(): "+status);
+            if (status == 400) {
+                returnMsg = "Bad_Request";
+            } else if (status == 401) {
+                returnMsg = "Unauthorized";
+            } else if (status == 409) {
+                returnMsg = "Conflict";
+            } else if (status == 500) {
+                returnMsg = "Internal_Server_Error";
+            } else if (status == 200) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+
+                while ((inputLine = in.readLine()) != null)
+                    response.append(inputLine);
+                in.close();
+
+                try {
+                    JSONObject jsonObject = new JSONObject(response.toString());
+                    JSONArray authorizedPepperJsonArr = jsonObject.getJSONArray("pepper_list");
+                    JSONArray requestedPepperJsonArr = jsonObject.getJSONArray("request_list");
+
+                    SharedPreferences sharedPreferences = context.getSharedPreferences("userdetails", context.MODE_PRIVATE);
+                    SharedPreferences.Editor edit = sharedPreferences.edit();
+                    edit.putString("username", jsonData.getString("username"));
+                    edit.putString("email", jsonObject.getString("email"));
+                    edit.putString("ASK", jsonObject.getString("ASK"));
+                    Log.i(TAG, "ASK: " + jsonObject.getString("ASK"));
+
+                    edit.putString("pepper_list", authorizedPepperJsonArr.toString());
+                    edit.putString("request_list", requestedPepperJsonArr.toString());
+                    edit.apply();
+                    returnMsg = "Succeed";
+                } catch (Throwable tx) {
+                    Log.i(TAG, "Could not parse malformed JSON: " + response.toString());
+                }
             }
-
-            BufferedReader in = new BufferedReader( new InputStreamReader(conn.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-
-            try {
-                JSONObject jsonObject = new JSONObject(response.toString());
-                JSONArray authorizedPepperJsonArr = jsonObject.getJSONArray("pepper_list");
-                Log.i(TAG,"authorizedPepperJsonArr length: " + String.valueOf(authorizedPepperJsonArr.length()));
-                JSONArray requestedPepperJsonArr = jsonObject.getJSONArray("request_list");
-                Log.i(TAG,"requestedPepperJsonArr length: " + String.valueOf(requestedPepperJsonArr.length()));
-
-                SharedPreferences sharedPreferences = context.getSharedPreferences("userdetails", context.MODE_PRIVATE);
-                SharedPreferences.Editor edit = sharedPreferences.edit();
-                edit.putString("username", jsonData.getString("username"));
-                edit.putString("email", jsonObject.getString("email"));
-                edit.putString("ASK", jsonObject.getString("ASK"));
-                edit.putString("pepper_list", authorizedPepperJsonArr.toString());
-                edit.putString("request_list", requestedPepperJsonArr.toString());
-
-                edit.apply();
-
-                returnMsg = "OK";
-            } catch (Throwable tx) {
-                Log.i(TAG, "Could not parse malformed JSON: " + response.toString());
-            }
-            os.flush();
-            os.close();
+            dataOutputStream.close();
+            return returnMsg;
         } catch (Exception e) {
-            returnMsg = context.getResources().getString(R.string.error_connection);
-            Log.e(TAG, "SocketException, " + e);
+            returnMsg = "Exception";
+            Log.e(TAG, "Exception, " + e);
         } finally {
             conn.disconnect();
         }

@@ -72,7 +72,7 @@ public class RequestAuthActivity extends AppCompatActivity implements View.OnCli
         requestUserAndAuthAsyncTask requestUserAndAuthAsyncTask = new requestUserAndAuthAsyncTask(this, "reqAuth", new StringResponseCallback() {
             @Override
             public void onResponseReceived(String result) {
-                if(result=="OK"){
+                if(result.equals(context.getString(R.string.succeed))){
                     Toast.makeText(getApplicationContext(), context.getString(R.string.request_sent), Toast.LENGTH_SHORT).show();
 
                     try {
@@ -89,7 +89,7 @@ public class RequestAuthActivity extends AppCompatActivity implements View.OnCli
 
                     startActivity();
                 } else {
-                    Toast.makeText(getApplicationContext(), context.getString(R.string.error_connection), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -127,6 +127,7 @@ public class RequestAuthActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 Intent intent = new Intent(RequestAuthActivity.this, PepperListActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
                 finish();
             }

@@ -7,20 +7,25 @@
     android:fitsSystemWindows="true">
 
     <TextView
-        android:text="@string/please_register_your_pepper"
+        android:textColor="@color/green"
+        android:textSize="18dp"
+        android:text="@string/request_pepper_authorization"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
         android:text="@string/pepper_id"
+        android:layout_marginTop="40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <EditText
         android:id="@+id/pepperEdit"
         android:layout_width="200dp"
         android:layout_height="wrap_content" />
-    <Button
+    <android.support.v7.widget.AppCompatButton
+        style="@style/Widget.AppCompat.Button.Colored"
         android:id="@+id/registerBtn"
-        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="@string/register"/>
     

@@ -10,10 +10,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,6 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.LoginAsyncTask;
 import theshakers.cmpt276.sfu.ca.robottelepresense.CloudServer.ResponseCallback.StringResponseCallback;
+import theshakers.cmpt276.sfu.ca.robottelepresense.Firebase.MyFirebaseInstanceService;
 
 // LoginActivity allows user to login or access to SignupActivity when user doesn't have account
 public class LoginActivity extends AppCompatActivity {
@@ -38,6 +43,11 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
@@ -55,7 +65,6 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                // Start the Signup activity
                 Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
                 startActivityForResult(intent, REQUEST_SIGNUP);
                 finish();
@@ -67,37 +76,46 @@ public class LoginActivity extends AppCompatActivity {
     private void sendLoginRequest(String name, String password) {
         JSONObject jsonData = new JSONObject();
         try {
-            jsonData.put("username", nameText.getText().toString());
-            jsonData.put("password", passwordText.getText().toString());
+            jsonData.put("username", name);
+            jsonData.put("password", password);
+            jsonData.put("FBToken", FirebaseInstanceId.getInstance().getToken());
         } catch (JSONException e) {
             e.printStackTrace();
         }
         LoginAsyncTask loginAsyncTask= new LoginAsyncTask(this, "login", new StringResponseCallback() {
             @Override
             public void onResponseReceived(String result) {
-                if(result.equals("OK")) {
-                    startActivity();
-                } else if(result.equals("ACCOUNT_ERROR")) {
-                    onLoginFailed(context.getString(R.string.check_your_id_or_password));
-                } else {
-                    onLoginFailed(context.getString(R.string.login_failed));
+                switch (result) {
+                    case "Succeed":
+                        onLoginSuccess();
+                        break;
+                    case "Conflict":
+                        onLoginFailed(context.getString(R.string.user_does_not_exist));
+                        break;
+                    case "Bad_Request":
+                        onLoginFailed(context.getString(R.string.could_you_check_your_input_data));
+                        break;
+                    case "Unauthorized":
+                        onLoginFailed(context.getString(R.string.username_or_password_does_not_match));
+                        break;
+                    case "Internal_Server_Error":
+                        onLoginFailed(context.getString(R.string.internal_server_error));
+                        break;
+                    case "Exception":
+                        onLoginFailed(context.getString(R.string.exception));
+                        break;
+                    default:
+                        onLoginFailed(context.getString(R.string.error_wrong_attempt));
+                        break;
                 }
             }
         });
         loginAsyncTask.execute(jsonData);
     }
 
-    private void startActivity() {
-        Intent intent = new Intent(this, PepperListActivity.class);
-        startActivity(intent);
-        progressDialog.cancel();
-        loginBtn.setEnabled(true);
-        this.finish();
-    }
-
     public void login() {
         if (!validateInput()) {
-            onLoginFailed(context.getString(R.string.login_failed));
+            onLoginFailed("");
             return;
         }
 
@@ -119,15 +137,20 @@ public class LoginActivity extends AppCompatActivity {
         moveTaskToBack(true);
     }
 
-    public void onLoginSuccess() {
+    private void onLoginSuccess() {
+        Intent intent = new Intent(this, PepperListActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(intent);
+        progressDialog.cancel();
         loginBtn.setEnabled(true);
-        finish();
+        this.finish();
     }
 
     public void onLoginFailed(String toastMsg) {
         if(progressDialog!=null)
             progressDialog.cancel();
-        Toast.makeText(getBaseContext(), toastMsg, Toast.LENGTH_LONG).show();
+        if(toastMsg!= "")
+            Toast.makeText(getBaseContext(), toastMsg, Toast.LENGTH_LONG).show();
         loginBtn.setEnabled(true);
     }
 
@@ -181,5 +204,4 @@ public class LoginActivity extends AppCompatActivity {
         AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.show();
     }
-
 }
