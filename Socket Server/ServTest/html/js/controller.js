@@ -1,5 +1,6 @@
 window.onload = function () {
 
+
     var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h',
           'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's',
           't', 'u', 'v', 'w', 'x', 'y', 'z'];
@@ -8,15 +9,15 @@ window.onload = function () {
     var word ;              // Selected word
     var guess ;             // Geuss
     var geusses = [ ];      // Stored geusses
-    var space;
-    var numOfCorrectGuesses ; // Count correct geusses               
-    var numOfIncorrectGuesses = 0; 
-    var androidHint;
-    var hint;
+    var space;              //number of spaces in word
+    numOfCorrectGuesses = 0; // Count correct geusses               
+    numOfIncorrectGuesses = 0; //Count incorrect guesses
+    var androidHint;          //preprocessed androidhint
+    var hint;                 //processed hint
     var lives = 6;
     var android_username;
     pepper_time = 0;
-    startTime = new Date();
+    startTime = new Date();   //start time - compute total time elapsed
     stillPlaying = 'true';
 
     // Get elements
@@ -60,8 +61,8 @@ window.onload = function () {
             numOfIncorrectGuesses += 1;
             lives -= 1;
             console.log("number of lives = " + lives)
-            loseCheck();
             pepper_sad_remark();
+            loseCheck();
             numOfLivesDisplay();
             drawHangman();
           }
@@ -76,13 +77,82 @@ window.onload = function () {
       }
     }
 
-
+    //pepper says sad things :(
     var pepper_sad_remark = function(){
       //make pepper say something sad
+      console.log("sad remark")
+      if(numOfIncorrectGuesses==1){
+        RobotUtils.onServices(function(ALTextToSpeech) {
+          ALTextToSpeech.say("Ouch");
+        });
+      }
+      else if (numOfIncorrectGuesses==2){
+        RobotUtils.onServices(function( ALTextToSpeech) {
+          ALTextToSpeech.say("Ouchie Ouchie Ouchie");
+        });
+      }
+      else if (numOfIncorrectGuesses==3){
+        RobotUtils.onServices(function( ALTextToSpeech) {
+          ALTextToSpeech.say("uh oh youre scaring me ");
+        });
+      }
+      else if (numOfIncorrectGuesses==4){
+        RobotUtils.onServices(function( ALTextToSpeech) {
+          ALTextToSpeech.say("im getting scared");
+        });
+      }
+      else if (numOfIncorrectGuesses==5){
+        RobotUtils.onServices(function( ALTextToSpeech) {
+          ALTextToSpeech.say("Im really scared now");
+        });
+      }
+      else{
+        RobotUtils.onServices(function( ALTextToSpeech) {
+          ALTextToSpeech.say("Goodbye Forever I guess");
+        });
+      }
+      
     }
 
+    //Pepper says something when you get a correct answer!
     var pepper_happy_remark = function(){
       //make pepper say something happy
+      console.log("happy remark")
+      if(numOfCorrectGuesses==1){
+        RobotUtils.onServices(function(ALTextToSpeech) {
+          ALTextToSpeech.say("Yay! First one! feels good doesn't it");
+        });
+      }
+      else if (numOfCorrectGuesses==2){
+        RobotUtils.onServices(function( ALTextToSpeech) {
+          ALTextToSpeech.say("WOOOOOOOOOOOOOOOOOOOO Killing it");
+        });
+      }
+      else if (numOfCorrectGuesses==3){
+        RobotUtils.onServices(function( ALTextToSpeech) {
+          ALTextToSpeech.say("Youre on a rolll");
+        });
+      }
+      else if (numOfCorrectGuesses==4){
+        RobotUtils.onServices(function( ALTextToSpeech) {
+          ALTextToSpeech.say("you are really really really good!");
+        });
+      }
+      else if (numOfCorrectGuesses==5){
+        RobotUtils.onServices(function( ALTextToSpeech) {
+          ALTextToSpeech.say("you might just be my hero");
+        });
+      }
+      else if (numOfCorrectGuesses== (word.length + space)){
+        RobotUtils.onServices(function( ALTextToSpeech) {
+          ALTextToSpeech.say("Keep going!!");
+        });
+      }
+      else {
+        RobotUtils.onServices(function( ALTextToSpeech) {
+          ALTextToSpeech.say("Youre so close!");
+        });
+      }
     }
 
     //checks android finish status via telepresence_service
@@ -111,13 +181,13 @@ window.onload = function () {
           console.log("android_lives = " + android_lives)
           console.log("android_time = " + android_time)
 
-          if((android_lives == 0) && (lives==0)){
-            console.log("both users died")
-            RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
+        if((android_lives == 0) && (lives==0)){
+          console.log("both users died")
+          RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
             ALMemory.raiseEvent("app/hangman_victory", "tie")
-            ALTextToSpeech.say("YOU BOTH DIED NOOOOOOOOOOOOO try again ")
+            ALTextToSpeech.say("YOU BOTH DIED That is a real shame. or is it...")
             document.getElementById("waiting").innerHTML = "YOU TIED"
-          });
+        });
           
         }
         //case 2: pepper wins
@@ -125,7 +195,7 @@ window.onload = function () {
           console.log("pepper wins ")
           RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
             ALMemory.raiseEvent("app/hangman_victory", "pepper")
-            ALTextToSpeech.say("YOU WON GOOD JOB")
+            //ALTextToSpeech.say("YOU WON GOOD JOB")
             document.getElementById("waiting").innerHTML = "YOU WIN"
           });
           
@@ -147,7 +217,7 @@ window.onload = function () {
             console.log("pepper_time = " + pepper_time);
             RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
               ALMemory.raiseEvent("app/hangman_victory", "pepper")
-              ALTextToSpeech.say("YOU WON GOOD JOB. That was close tho")
+              //ALTextToSpeech.say("YOU WON GOOD JOB. That was close tho")
               document.getElementById("waiting").innerHTML = "YOU WIN"
             });
           }
@@ -187,6 +257,7 @@ window.onload = function () {
         clear_display();
         check_android_finish_status();
         stopTimer();
+        displayHomeBtn();
         //check to see who has won game
         var waiting = document.getElementById("waiting")
         waiting.innerHTML = "Please wait for Android. Feel Free to Annoy Android while you wait!"
@@ -196,16 +267,29 @@ window.onload = function () {
       }
     }
 
+    //Displays home button after pepper finishes hangman game
+    var displayHomeBtn = function (){
+      console.log("creating button!")
+      var button = document.getElementById('home')
+      
+      button.classList.remove("hidden")
+      //button.setAttribute('class', 'play_again')
+    }
+
+    function changePage(){
+      window.location.href = 'home.html'
+    } 
     //checks if Pepper user has lost
     var loseCheck = function(){
       if(numOfIncorrectGuesses==6){
-        alert("YOU LOSE")
+        alert("YOU DIED")
         //add code to connect to pepper
         //check if android has finished
         stopTimer();
         pepper_time = getTime(pepper_time)
         console.log(pepper_time)
         clear_display();
+        displayHomeBtn();
         check_android_finish_status();
         //check to see who has won game
         var waiting = document.getElementById("waiting")
@@ -220,18 +304,19 @@ window.onload = function () {
     //draws hangman
     var drawHangman = function () {
       var image; 
-      if(numOfIncorrectGuesses==0){image = "images/hang1.png"}
-      else if (numOfIncorrectGuesses==1){image= "images/hang2.png"}
-      else if (numOfIncorrectGuesses==2)(image = "images/hang3.png")
-      else if (numOfIncorrectGuesses==3)(image = "images/hang4.png")
-      else if (numOfIncorrectGuesses==4)(image = "images/hang5.png")
-      else if (numOfIncorrectGuesses==5)(image = "images/hang6.png")
-      else if (numOfIncorrectGuesses==7)(image = "images/hang7.png")
+      if(numOfIncorrectGuesses==0){image = "images/pephang1.png"}
+      else if (numOfIncorrectGuesses==1){image= "images/pephang2.png"}
+      else if (numOfIncorrectGuesses==2)(image = "images/pephang3.png")
+      else if (numOfIncorrectGuesses==3)(image = "images/pephang4.png")
+      else if (numOfIncorrectGuesses==4)(image = "images/pephang5.png")
+      else if (numOfIncorrectGuesses==5)(image = "images/pephang6.png")
+      else if (numOfIncorrectGuesses==7)(image = "images/pephang7.png")
       else{image= "images/hang1.png"}
+
       document.getElementById("stickguy").src = image;
     }
 
-  
+    
   
     // Displays the placeholder for gue
     var result = function () {
@@ -296,12 +381,11 @@ window.onload = function () {
         word = word.replace(/\s/g, "-");
         word = word.toLowerCase(word)
         buttons();
-        //set initial values
+        //set game values to start
         numOfIncorrectGuesses = 0;
         numOfCorrectGuesses = 0;
         lives = 6;
         drawHangman();
-        //hard coded for now
         androidHint = hint
         showClue.innerHTML = "HINT:  " + androidHint;
         geusses = [ ];
@@ -316,21 +400,19 @@ window.onload = function () {
   
     start();  //starts the hangman game 
     
-    // // Hint
-  
-    //   hint.onclick = function() {
-    //   //alert("HINT")
-    //   showClue.innerHTML = "HINT:  " + androidHint;
-    // };
+   
   
 
-     // Reset
-    document.getElementById('reset').onclick = function(){
-      correct.parentNode.removeChild(correct);
-      letters.parentNode.removeChild(letters);
-      showClue.innerHTML = "";
-      start();
+     // takes user back to home page once game ends
+    document.getElementById('home').onclick = function(){
+      window.setTimeout(changePage, 1000)  
     };
+
+    //change to home page
+    function changePage(){
+      window.location.href = 'home.html'
+
+    }
 
     //clears discription when game is over
     var clear_display = function (){
@@ -339,7 +421,7 @@ window.onload = function () {
       showClue.innerHTML = "";
     }
 
-    //restarts game 
+    //restarts game TESTING PURPOSES 
     var restart = function(){
       correct.parentNode.removeChild(correct);
       letters.parentNode.removeChild(letters);
@@ -351,7 +433,7 @@ window.onload = function () {
   function eventMusic(){
     console.log("Play Music")
     RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
-      ALMemory.raiseEvent("app/annoy_android", "music");
+      ALMemory.raiseEvent("app/annoy_android", "song");
       ALTextToSpeech.say("Let's make android sing");
       console.log("Connected to services");
     });
@@ -360,7 +442,7 @@ window.onload = function () {
   function eventDance(){
     console.log("EVENT Dance")
     RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
-      ALMemory.raiseEvent("app/annoy_android", "dance");
+      ALMemory.raiseEvent("app/annoy_android", "vibration");
       ALTextToSpeech.say("Let's make android dance");
       console.log("Connected to services");
     });
@@ -369,7 +451,7 @@ window.onload = function () {
   function eventTool(){
     console.log("EVENT Tool")
     RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
-      ALMemory.raiseEvent("app/annoy_android", "vibrate");
+      ALMemory.raiseEvent("app/annoy_android", "vibration");
       ALTextToSpeech.say("Let's make android vibrate");
       console.log("Connected to services");
     });
@@ -377,7 +459,7 @@ window.onload = function () {
   function eventCheer(){
     console.log("EVENT Cheer")
     RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
-      ALMemory.raiseEvent("app/annoy_android", "pop_up");
+      ALMemory.raiseEvent("app/annoy_android", "song");
       ALTextToSpeech.say("Let's make android popup");
       console.log("Connected to services");
     });

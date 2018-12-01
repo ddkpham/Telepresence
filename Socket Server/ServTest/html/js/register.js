@@ -18,6 +18,7 @@ RobotUtils.onServices(function(ALLeds, ALTextToSpeech) {
         console.log("raising registration event ")
         ALMemory.raiseEvent("app/current_pepper_id", pepperid);
         ALMemory.raiseEvent("app/username", username);
+        ALTextToSpeech.say("Registering Pepper!")
         //ALTextToSpeech.say("Sign up Events have been raised");
       });  
     }

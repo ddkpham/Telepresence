@@ -17,5 +17,17 @@ function accept(){
 }
 function deny(){
     console.log("deny!")
-    //send accept http request
+    RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
+        //look into this
+        ALMemory.raiseEvent("app/deny_game_request", "1")
+        ALTextToSpeech.say("Fine I gues I didnt want to play anyways");
+        console.log("Game requet denied");
+        console.log("changing page")
+        window.setTimeout(changePage, 5000);
+      });
+}
+
+function changePage(){
+    console.log("changing page")
+    window.location.href = "home.html"
 }

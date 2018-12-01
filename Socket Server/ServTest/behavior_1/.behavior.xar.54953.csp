@@ -9,6 +9,7 @@ import hashlib
 class MyClass(GeneratedClass):
     def __init__(self):
         GeneratedClass.__init__(self)
+        #Grabs Proxies to ALModules required
         self.tts = ALProxy('ALTextToSpeech')
         self.dialog = ALProxy('ALDialog')
         self.memory = ALProxy('ALMemory')
@@ -16,27 +17,32 @@ class MyClass(GeneratedClass):
         self.last_output = ""
         self.last_valid_output = ""
 
+        #Generates a PSK for session
         def generatePSK(self):
            letters = string.ascii_lowercase
            return ''.join(random.choice(letters) for i in range(15))
 
+        #Hashes PSK
         def hashPSK(self, psk):
             salt = 'HcU8jhcPFG'
             psk = psk + salt
             hashed_psk = hashlib.sha256(psk).hexdigest()
             return hashed_psk
 
-        def check_PSK(key,id):
-            #Find Pepper Entity
-            base_key = self.memory.getData('app/peppersecuritykey')
-
-            next_base_key = hashPSK(base_key)
-
-            if next_cloud_key == key:
-                self.memory.insertData('app/peppersecuritykey',next_base_key)
-                return True
+        #Checks if PSK from cloud server is correct
+        #Returns 1 on success, 0 on failure
+        def pskCheck(self, file_content):
+            cloud_psk = file_content['psk']
+            pepper_psk = self.memory.getData("app/pepper_security_key")
+            pepper_psk = self.hashPSK(pepper_psk)
+            if(pepper_psk == cloud_psk):
+                self.memory.raiseEvent("app/pepper_security_key")
+                return 1
             else:
-                return False
+                return 0
+
+
+
 
         #get packageinfolist and get name for each package
         packagelist = self.pckman.packages2()
@@ -80,6 +86,7 @@ class MyClass(GeneratedClass):
                 file_content = s.rfile.read(content_length)
                 self.logger.info(file_content)
                 #response = urllib2.Request(answer)
+                #Handles POST request for hangman game
                 if path == '/startgame':
 
                     self.logger.info("file content = " + file_content)
@@ -93,12 +100,15 @@ class MyClass(GeneratedClass):
                     self.logger.info('hint = ' + str(hint))
                     self.logger.info('word = ' + str(word))
                     self.logger.info('username = ' + str(android_username))
+                    #PSK check
+                    # psk_check = self.pskCheck(game_info)
+                    #raise required Events to start hangman Game
                     self.memory.raiseEvent("app/incoming_game_request", "1")
                     self.memory.raiseEvent("app/game_mode", "1")
                     self.memory.raiseEvent("app/hangman_android_user", str(android_username))
                     self.memory.raiseEvent("app/hangman_hint_for_pepper", str(hint))
                     self.memory.raiseEvent("app/hangman_word_for_pepper", str(word))
-                    #PSK check
+
                     s.send_response(200)
                     s.end_headers()
                     return (file_content)
@@ -114,11 +124,16 @@ class MyClass(GeneratedClass):
                     lives = result['lives_left']
                     self.logger.info("lives = " + str(lives))
 
+                    #PSK check
+                    # psk_check = self.pskCheck(game_info)
+
+                    #Raise events to end hangman game
                     self.memory.raiseEvent("app/hangman_android_finish_status", 'finish')
                     self.memory.raiseEvent("app/hangman_android_user_time", str(time))
                     self.memory.raiseEvent("app/hangman_android_user_lives", str(lives))
                     self.logger.info("successfully raised events and grabbed android input")
                     return (file_content)
+
                 elif path =='/pepperanimation':
                     self.logger.info(file_content)
                     self.logger.info('/pepperanimation')
@@ -162,8 +177,10 @@ class MyClass(GeneratedClass):
                     username = content['username']
                     self.logger.info('username: ' + str(username))
                     self.logger.info("msg= " + str(msg))
-                    self.memory.insertData("ActualLastMessage",self.memory.getData("Dialog/LastInput"))
+                    #PSK check
+                    # psk_check = self.pskCheck(game_info)
 
+                    self.memory.insertData("ActualLastMessage",self.memory.getData("Dialog/LastInput"))
                     self.dialog.forceInput(str(msg))
                     self.logger.info("got here")
                     self.logger.info("username = " + str(username))
@@ -606,18 +623,22 @@ class MyClass(GeneratedClass):
         self.memory.raiseEvent("app/signup_username", "admin")
         self.memory.raiseEvent("app/signup_password", "admin")
         self.memory.raiseEvent("app/html_page", "index")
+
         #login events
         self.memory.raiseEvent("app/username", "admin")
         self.memory.raiseEvent("app/password", "admin")
+
         #user feedback events
         self.memory.raiseEvent("app/login_status", "bad")
         self.memory.raiseEvent("app/signup_status", "default")
+
         #path info
         self.memory.raiseEvent("app/html_path", "/home/nao/.local/share/PackageManager/apps/.lastUploadedChoregrapheBehavior/behavior_1/")
+
         #PepperSecurityKey
         self.memory.raiseEvent("app/pepper_security_key", "42")
 
-        #Deauthorize
+        #Deauthorize user request
         self.memory.raiseEvent("app/deauth_user", "none")
 
         #Currently authorized
@@ -628,15 +649,15 @@ class MyClass(GeneratedClass):
         self.memory.raiseEvent('app/photo_received', '1')
 
 
-
-
         #CurrentPepperID
         self.memory.raiseEvent("app/current_pepper_id", "salt")
 
         #To get new auth Requests from Cloud Server
         self.memory.raiseEvent("app/new_auth_requests", "default")
+
         #Tablet receives requests
         self.memory.raiseEvent("app/tablet_new_auth_request", "string")
+
         #request process
         self.memory.raiseEvent("app/auth_username_reply", "accept")
         self.memory.raiseEvent("app/auth_reply", "accept")
@@ -670,8 +691,10 @@ class MyClass(GeneratedClass):
         #Check to see whether android game status
         self.memory.raiseEvent("app/hangman_android_check_status", "none")
         self.memory.raiseEvent("app/hangman_android_finish_status", "none")
+
         #Sends final results
         self.memory.raiseEvent("app/hangman_android_final_result", "none")
+
         #Sends victory status to android
         self.memory.raiseEvent("app/hangman_victory", "none")
 

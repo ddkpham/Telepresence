@@ -9,11 +9,11 @@ console.log("Hello")
 
 var PepperID = "PepperID : Salt"  
 
-  function setPep(){
-      console.log("setting header!")
-      var header = document.getElementById("header")
-      header.innerHTML= PepperID
-  }
+function setPep(){
+    console.log("setting header!")
+    var header = document.getElementById("header")
+    header.innerHTML= PepperID
+}
 
   console.log(test.AuthReqs[1][0])
   console.log(test.AuthReqs.length)
@@ -59,6 +59,20 @@ RobotUtils.subscribeToALMemoryEvent("app/tablet_new_auth_request", function(valu
         //create buttons and define class
         var acceptBtn = document.createElement("BUTTON")
         var denyBtn = document.createElement("BUTTON")
+        
+        acceptBtn.id = test.AuthReqs[i][0]
+        acceptBtn.onclick = function(){
+            pusername = this.id 
+            console.log(pusername)
+            acceptRequest(pusername)
+        }
+
+        denyBtn.id = test.AuthReqs[i][0]
+        denyBtn.onclick  = function (){
+            pusername = this.id 
+            console.log(pusername)
+            denyRequest(pusername)
+        }
         acceptBtn.className="button"
         denyBtn.className="button2"
         //set HTML text 
@@ -66,8 +80,7 @@ RobotUtils.subscribeToALMemoryEvent("app/tablet_new_auth_request", function(valu
         denyBtn.innerHTML = "DENY"
 
         //bind methods and append to cell
-        acceptBtn.onclick = acceptRequest
-        denyBtn.onclick = denyRequest 
+
         accept.appendChild(acceptBtn)
         deny.appendChild(denyBtn)
         //set text for username // email
@@ -83,24 +96,29 @@ RobotUtils.subscribeToALMemoryEvent("app/tablet_new_auth_request", function(valu
     //parseJson();
 }
 
-function acceptRequest() {
+function acceptRequest(pusername) {
     alert("request has been granted!")
     RobotUtils.onServices(function(ALMemory, ALTextToSpeech) {
-        ALMemory.raiseEvent("app/app/auth_username_reply", "")
         ALMemory.raiseEvent("app/auth_reply", "accept")
         ALTextToSpeech.say("You made a friend! Good for you");
+        ALMemory.raiseEvent("app/auth_username_reply", pusername)        
         console.log("Connected to services");
       });
 }
 
-function denyRequest(){
+function denyRequest(pusername){
     alert("request has been denied!")
     RobotUtils.onServices(function(ALLeds, ALTextToSpeech) {
         ALLeds.randomEyes(2.0);
         ALTextToSpeech.say("Stranger Danger");
+        ALMemory.raiseEvent("app/auth_reply", "deny")
+        ALTextToSpeech.say("Stranger Danger");
+        ALMemory.raiseEvent("app/auth_username_reply", pusername)
+        
         console.log("Connected to services");
       });
 }
+
 
 function createheaders() {
     console.log("in create header")
@@ -110,7 +128,6 @@ function createheaders() {
     var email = row.insertCell(1);
     var accept = row.insertCell(2);
     var deny = row.insertCell(3);
-
     username.innerHTML= "USERNAME"
     email.innerHTML = "EMAIL"
     accept.innerHTML = "ACCEPT"
